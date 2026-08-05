@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en-ZA">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>The Technology — How Jaxtech Works | Jaxtech</title>
+<meta name="description" content="Inside the Jaxtech platform: the on-site controller, local AI engine, and the engineering capability behind South African home and business automation.">
+<link rel="canonical" href="https://jaxtech.co.za/platform.html">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Jaxtech">
+<meta property="og:title" content="The technology behind Jaxtech">
+<meta property="og:description" content="An on-site controller, a local AI engine and deep engineering capability — the machinery behind a home that thinks for itself.">
+<meta property="og:image" content="https://jaxtech.co.za/assets/og-image.jpg">
+<meta name="theme-color" content="#0a1420">
+
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=10">
+<script>document.documentElement.className += ' js';</script>
+<style>
+  .doc { max-width: 860px; }
+  .doc h2 { margin-top: 0; }
+  .doc-block { margin-bottom: 3.4rem; }
+  .doc-block > p { color: var(--muted); max-width: 68ch; margin-bottom: 1rem; }
+  .cap-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(232px,1fr)); gap:1.1rem; margin-top:1.9rem; }
+  .cap { border-radius: var(--r); padding: 1.4rem 1.5rem; }
+  .cap h4 { color: var(--teal); margin-bottom:.45rem; font-size:.98rem; }
+  .cap p  { font-size:.88rem; color: var(--muted); }
+  .flow { border-radius: var(--r-lg); padding: 1.6rem 1.7rem; margin-top: 1.9rem; }
+  .flow-step { display:flex; gap:1.1rem; padding:.9rem 0; border-bottom:1px solid var(--line); }
+  .flow-step:last-child { border-bottom:0; padding-bottom:0; }
+  .flow-step b { color: var(--teal); font-size:.78rem; letter-spacing:.12em; text-transform:uppercase; flex:0 0 82px; padding-top:3px; }
+  .flow-step p { font-size:.93rem; color: var(--muted); }
+  .backlink { display:inline-flex; align-items:center; gap:.5rem; color:var(--muted); font-size:.9rem; margin-bottom:2.2rem; }
+  .backlink:hover { color: var(--teal); }
+  .endcta { border-radius: var(--r-xl); padding: clamp(2rem,5vw,3rem); text-align:center; margin-top:1rem; }
+  .endcta h2 { max-width:none; margin-inline:auto; }
+</style>
+</head>
+<body>
+
+<div class="bg-glow one" aria-hidden="true"></div>
+<div class="bg-glow two" aria-hidden="true"></div>
+<div class="bg-grid" aria-hidden="true"></div>
+
+<nav class="nav" id="nav">
+  <a class="nav-brand" href="index.html">
+    <img src="assets/jaxtech-mark.png" alt="" width="38" height="38">
+    <span class="nav-brand-text">Jaxtech<small>AI-powered workflow · SA</small></span>
+  </a>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="index.html#hermes">What it does</a></li>
+    <li><a href="platform.html">How it works</a></li>
+    <li><a href="index.html#faq">FAQ</a></li>
+  </ul>
+  <a href="index.html#enquire" class="btn btn-primary btn-sm nav-cta">Get a free assessment</a>
+  <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+</nav>
+
+<main class="section" style="padding-top:150px">
+  <div class="wrap doc">
+
+    <a href="index.html" class="backlink">← Back to Jaxtech</a>
+
+    <p class="kicker reveal">The platform</p>
+    <h1 class="reveal" style="font-size:clamp(2.3rem,5vw,3.5rem);margin-bottom:1.2rem">What's actually<br><span class="grad">under the hood.</span></h1>
+    <p class="lede reveal" style="font-size:1.15rem;margin-bottom:3.6rem">Most of our clients never need to read this page — the system just works. But if you want to know what you're buying and why it behaves differently to anything off a shelf, here it is.</p>
+
+    <section class="doc-block reveal">
+      <h2 class="h2">The controller</h2>
+      <p>Every Jaxtech installation is built around a dedicated piece of hardware that lives on your property — not an app talking to someone else's data centre. It's the difference between a home that <em>depends</em> on the internet and one that merely <em>uses</em> it.</p>
+      <p>The controller draws very little power, sits behind your inverter or a small UPS, and holds the entire state of your home: every device, every rule, every event. When connectivity returns after an outage, it syncs. It never waits for permission to do its job.</p>
+
+      <div class="cap-grid">
+        <div class="cap glass"><h4>Perception</h4><p>Sensors, cameras, meters and device states continuously read and interpreted.</p></div>
+        <div class="cap glass"><h4>Reasoning</h4><p>A local AI engine decides what a situation means and what should happen next.</p></div>
+        <div class="cap glass"><h4>Action</h4><p>Lights, geysers, pumps, blinds, gates and notifications driven through one control layer.</p></div>
+        <div class="cap glass"><h4>Memory</h4><p>History, routines and preferences stored privately on-site — the house learns your household.</p></div>
+      </div>
+    </section>
+
+    <section class="doc-block reveal">
+      <h2 class="h2">Why local AI matters</h2>
+      <p>Cloud smart-home platforms send your camera footage and household telemetry to a third party for processing. That's convenient for them and expensive for you — in privacy, in bandwidth, and in reliability the moment either end of the connection fails.</p>
+      <p>Jaxtech runs the models that matter on the box in your house. Person and vehicle recognition, presence detection, consumption analysis and the natural-language layer you chat to all execute locally. Nothing about your family's movements needs to leave the property for the system to be intelligent.</p>
+      <p>Where cloud services genuinely add value — weather forecasts, remote access when you're away, message delivery — we use them. As inputs, never as a dependency.</p>
+    </section>
+
+    <section class="doc-block reveal">
+      <h2 class="h2">A worked example</h2>
+      <p>What "one coordinated system" actually looks like on an ordinary Tuesday evening:</p>
+      <div class="flow glass">
+        <div class="flow-step"><b>17:42</b><p>Grid drops. The controller detects the transfer to inverter and immediately holds the geyser and pool pump — protecting your battery reserve without you touching anything.</p></div>
+        <div class="flow-step"><b>17:43</b><p>Fibre router loses power. Cameras keep recording and analysing locally; the outside lights still respond to presence because none of that logic lives in the cloud.</p></div>
+        <div class="flow-step"><b>18:10</b><p>A vehicle stops at the gate. On-site recognition identifies it as unknown, so you get one clear message with a snapshot — not a generic motion alert.</p></div>
+        <div class="flow-step"><b>21:30</b><p>Power returns. Queued notifications sync, the geyser reschedules to heat in the cheapest window before your morning shower, and irrigation checks tomorrow's forecast before committing.</p></div>
+        <div class="flow-step"><b>06:00</b><p>Your morning briefing arrives on WhatsApp: what happened overnight, what the outage cost you, and what the house is planning today.</p></div>
+      </div>
+    </section>
+
+    <section class="doc-block reveal">
+      <h2 class="h2">The engineering behind it</h2>
+      <p>Jaxtech isn't only an installer. The same team builds the automation software, trains and optimises the models that run on the edge hardware, and develops the integrations that make devices from a dozen incompatible brands behave like one product.</p>
+
+      <div class="cap-grid">
+        <div class="cap glass"><h4>Machine learning &amp; edge AI</h4><p>Model fine-tuning, quantisation and deployment onto local hardware — including NVIDIA edge accelerators — so inference is fast and private.</p></div>
+        <div class="cap glass"><h4>Systems &amp; software engineering</h4><p>Full-stack development, automated testing and version-controlled deployment behind every install, so updates don't break your home.</p></div>
+        <div class="cap glass"><h4>Device &amp; protocol integration</h4><p>Deep integration work across cameras, inverters, meters, gate motors, sensors and lighting — regardless of manufacturer.</p></div>
+        <div class="cap glass"><h4>Security engineering</h4><p>Threat modelling, network segmentation and auditing applied to your home network, because a connected house is an attack surface.</p></div>
+        <div class="cap glass"><h4>Data &amp; reporting</h4><p>Consumption analysis and reporting that turns raw meter data into decisions you can act on.</p></div>
+        <div class="cap glass"><h4>Automation &amp; workflow design</h4><p>The discipline of turning "the geyser annoys me" into a reliable rule that works every day without supervision.</p></div>
+      </div>
+    </section>
+
+    <section class="doc-block reveal">
+      <h2 class="h2">Ownership and honesty</h2>
+      <p>The hardware is yours. The system runs whether or not you keep paying us. Automations are documented in plain language so you can see exactly what your house does and why, and anything consequential — gates, locks, spending — waits for a human decision by design, not as a setting you have to find.</p>
+      <p>We'd rather install a smaller system that you trust completely than a bigger one you quietly stop using.</p>
+    </section>
+
+    <div class="endcta glass reveal">
+      <h2 class="h2">Want this in your home?</h2>
+      <p class="lede" style="margin-inline:auto;margin-bottom:1.7rem">The assessment is free, takes about an hour, and ends with a straight answer about what's worth doing at your property.</p>
+      <a href="index.html#enquire" class="btn btn-primary btn-lg">Book my free assessment</a>
+    </div>
+
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-bar" style="border-top:0">
+    <p>&copy; <span id="year">2026</span> Jaxtech. All rights reserved.</p>
+    <p><a href="index.html" style="color:var(--teal)">jaxtech.co.za</a></p>
+  </div>
+</footer>
+
+<script src="script.js?v=10"></script>
+</body>
+</html>

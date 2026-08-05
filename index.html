@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en-ZA">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Meet Tiny — AI Agents and Workflow Automation | Jaxtech</title>
+<meta name="description" content="Give Tiny a real task and see what an AI agent could do for you or your business. Enter the Jaxtech AI Agent Challenge for a chance to have your own agent built free.">
+<link rel="canonical" href="https://tiny.jaxtech.workers.dev/">
+
+<!-- Social share cards -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Jaxtech">
+<meta property="og:title" content="Give Tiny a task. You could win your own AI agent.">
+<meta property="og:description" content="Show us the task you would delegate. Jaxtech will choose one useful idea and build its owner a custom AI agent at no development cost.">
+<meta property="og:url" content="https://tiny.jaxtech.workers.dev/">
+<meta property="og:image" content="https://tiny.jaxtech.workers.dev/assets/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="1200">
+<meta property="og:locale" content="en_ZA">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Give Tiny a task. You could win your own AI agent.">
+<meta name="twitter:description" content="Try Tiny, submit your best task and enter the Jaxtech AI Agent Challenge.">
+<meta name="twitter:image" content="https://tiny.jaxtech.workers.dev/assets/og-image.jpg">
+<meta name="theme-color" content="#0a1420">
+
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=10">
+<script>document.documentElement.className += ' js';</script>
+</head>
+<body>
+
+<div class="bg-glow one" aria-hidden="true"></div>
+<div class="bg-glow two" aria-hidden="true"></div>
+<div class="bg-grid" aria-hidden="true"></div>
+
+<a class="skip-link" href="#enquire">Skip to enquiry form</a>
+
+<!-- ══ NAV ══ -->
+<nav class="nav" id="nav">
+  <a class="nav-brand" href="#top">
+    <img src="assets/jaxtech-mark.png" alt="" width="38" height="38">
+    <span class="nav-brand-text">Jaxtech<small>AI-powered workflow · SA</small></span>
+  </a>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="#challenge">Agent challenge</a></li>
+    <li><a href="#hermes">What Tiny does</a></li>
+    <li><a href="platform.html">How it works</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+  <a href="#tiny-chat" class="btn btn-primary btn-sm nav-cta" data-track="nav_cta">Give Tiny a task</a>
+  <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- ══ HERO ══ -->
+<header class="hero" id="top">
+  <div class="hero-inner">
+    <p class="eyebrow reveal"><span class="dot"></span> The Jaxtech AI Agent Challenge</p>
+
+    <h1 class="reveal">Give Tiny a task.<br><span class="grad">Win an AI agent.</span></h1>
+
+    <p class="hero-sub reveal">Tell Tiny about a repetitive job, a business bottleneck or an idea you want to automate. Submit the task with your enquiry and Jaxtech could build the winning custom agent at no development cost.</p>
+    <div class="hero-actions reveal">
+      <a href="#tiny-chat" class="btn btn-primary btn-lg" data-track="hero_try_tiny">Try Tiny now</a>
+      <a href="#challenge" class="btn btn-ghost btn-lg">How the challenge works</a>
+    </div>
+  </div>
+
+  <div class="hero-visual reveal" id="tiny-chat" style="display: flex; flex-direction: column;">
+    <div class="hv-card glass" style="flex: 1; display: flex; flex-direction: column; overflow: hidden; padding: 0;">
+      <div class="hv-head" style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.2);">
+        <span class="hv-live"></span> Tiny — AI Agent
+      </div>
+      <div id="chat-history" style="flex: 1; padding: 1rem; overflow-y: auto; display: flex; flex-direction: column; gap: 0.8rem; max-height: 250px;">
+        <div class="hv-msg them">What would be the first task you'd delegate if you had a personal assistant?</div>
+      </div>
+      <div id="chat-controls" style="padding: 1rem; border-top: 1px solid rgba(255,255,255,0.1); display: flex; gap: 0.5rem; background: rgba(0,0,0,0.2);">
+        <div id="chat-input-wrapper" style="display: flex; flex: 1; gap: 0.5rem;">
+          <input type="text" id="chat-input" placeholder="Tell Tiny..." style="flex: 1; padding: 0.6rem 0.8rem; border-radius: 2rem; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.3); color: white; font-family: inherit; font-size: 0.9rem;">
+          <button id="chat-send" class="btn btn-primary" style="padding: 0.5rem 1rem; border-radius: 2rem; font-size: 0.9rem;">Send</button>
+        </div>
+      </div>
+    </div>
+    <p style="font-size: .74rem; color: var(--muted); margin-top: .6rem; text-align: center;">Tiny's replies are AI-generated. If you submit an enquiry, this conversation is included and reviewed by our team.</p>
+  </div>
+</header>
+
+<!-- ══ AI AGENT CHALLENGE ══ -->
+<section class="section challenge-section" id="challenge">
+  <div class="wrap">
+    <div class="challenge-shell glass reveal">
+      <div class="challenge-copy">
+        <p class="kicker">One useful idea wins</p>
+        <h2 class="h2">What would you delegate if you had your own AI agent?</h2>
+        <p class="lede">We are looking for a real task that costs someone time, focus or missed opportunities. Show Tiny the task, then tell us why solving it would matter.</p>
+        <div class="challenge-dates" aria-label="Challenge dates">
+          <span><strong>Entries close</strong> 31 August 2026</span>
+          <span><strong>Winner announced</strong> 7 September 2026</span>
+        </div>
+      </div>
+      <ol class="challenge-steps">
+        <li><span>1</span><div><strong>Give Tiny a task</strong><p>Use the chat above to describe the work you would hand over.</p></div></li>
+        <li><span>2</span><div><strong>Submit your idea</strong><p>Use the enquiry form and explain why the task matters to you.</p></div></li>
+        <li><span>3</span><div><strong>We choose one winner</strong><p>Jaxtech will select the most useful, feasible or interesting submission.</p></div></li>
+      </ol>
+      <div class="challenge-prize">
+        <p><strong>The prize:</strong> one custom AI agent for one clearly defined workflow, including up to 15 development hours, two external integrations and one revision round.</p>
+        <p class="challenge-small">No purchase required. Development is free for the selected scope. Paid APIs, subscriptions, hardware, ongoing hosting and support are excluded. Entry is open to adults in South Africa. The winning task must be lawful, technically feasible and safe to automate.</p>
+        <a href="#enquire" class="btn btn-primary" data-track="challenge_enter">Enter my task</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HERMES REPORT SECTION -->
+<div id="hermes">
+    <main class="report-container">
+        <!-- REMOVED: exec -->
+
+        <!-- REMOVED: metrics -->
+
+        <!-- REMOVED: domains -->
+
+        <section class="report-section glass">
+            <h2>What Tiny can actually do</h2>
+            <p style="color: var(--text-muted); margin-bottom: 1rem;">Your home is one part of it. Below are all <strong style="color: var(--accent-secondary);" id="skills-total-inline">197</strong> skills Tiny can put to work for you today, from running a household to supporting a business. Search by name &mdash; or roll the dice.</p>
+
+            <div class="skills-toolbar" id="skills-toolbar" hidden>
+                <div class="skills-search-wrap">
+                    <span class="skills-search-icon" aria-hidden="true">🔍</span>
+                    <input type="search" id="skill-search" placeholder="Try &ldquo;solana&rdquo;, &ldquo;jetson&rdquo;, &ldquo;stripe&rdquo;&hellip;" autocomplete="off" spellcheck="false" aria-label="Search skills">
+                    <kbd class="skills-kbd" aria-hidden="true">/</kbd>
+                    <button type="button" class="skills-clear" id="skill-clear" aria-label="Clear search">&times;</button>
+                </div>
+                <button type="button" class="skills-dice" id="skill-dice">
+                    <span class="dice-face" aria-hidden="true">&#127922;</span> Surprise me
+                </button>
+            </div>
+
+            <div class="skills-meter" id="skills-meter" hidden>
+                <span class="meter-num" id="skill-count">0</span>
+                <span class="meter-label">skills live across</span>
+                <span class="meter-num" id="cat-count">0</span>
+                <span class="meter-label">categories</span>
+                <span class="meter-pulse" aria-hidden="true"></span>
+            </div>
+
+            <p class="skills-empty" id="skills-empty" hidden>
+                Nothing matches <strong id="skills-empty-term"></strong> &mdash; yet.
+                <button type="button" class="skills-reset" id="skills-reset">Show everything</button>
+            </p>
+
+            <div class="skills-grid" id="skills-grid">
+                <div class="skill-category" data-modal="skill_agents">
+                    <h4>Autonomous AI Agents</h4>
+                    <div class="skill-icon">🤖</div>
+                </div>
+                <div class="skill-category" data-modal="skill_blockchain">
+                    <h4>Blockchain & Web3</h4>
+                    <div class="skill-icon">🔗</div>
+                </div>
+                <div class="skill-category" data-modal="skill_comm">
+                    <h4>Communication & Protocol</h4>
+                    <div class="skill-icon">📡</div>
+                </div>
+                <div class="skill-category" data-modal="skill_design">
+                    <h4>Creative & Design</h4>
+                    <div class="skill-icon">🎨</div>
+                </div>
+                <div class="skill-category" data-modal="skill_data">
+                    <h4>Data Science & DevOps</h4>
+                    <div class="skill-icon">📈</div>
+                </div>
+                <div class="skill-category" data-modal="skill_email">
+                    <h4>Email & Communication</h4>
+                    <div class="skill-icon">✉️</div>
+                </div>
+                <div class="skill-category" data-modal="skill_finance">
+                    <h4>Finance & Valuation</h4>
+                    <div class="skill-icon">📊</div>
+                </div>
+                <div class="skill-category" data-modal="skill_gaming">
+                    <h4>Gaming & Emulation</h4>
+                    <div class="skill-icon">🎮</div>
+                </div>
+                <div class="skill-category" data-modal="skill_git">
+                    <h4>GitHub & Version Control</h4>
+                    <div class="skill-icon">🐙</div>
+                </div>
+                <div class="skill-category" data-modal="skill_health">
+                    <h4>Health & Life Sciences</h4>
+                    <div class="skill-icon">🧬</div>
+                </div>
+                <div class="skill-category" data-modal="skill_mcp">
+                    <h4>Model Context Protocol</h4>
+                    <div class="skill-icon">🔌</div>
+                </div>
+                <div class="skill-category" data-modal="skill_media">
+                    <h4>Media & Video</h4>
+                    <div class="skill-icon">🎬</div>
+                </div>
+                <div class="skill-category" data-modal="skill_mlops">
+                    <h4>MLOps & Fine-Tuning</h4>
+                    <div class="skill-icon">⚙️</div>
+                </div>
+                <div class="skill-category" data-modal="skill_pay">
+                    <h4>Payments & E-Commerce</h4>
+                    <div class="skill-icon">💳</div>
+                </div>
+                <div class="skill-category" data-modal="skill_prod">
+                    <h4>Productivity & Docs</h4>
+                    <div class="skill-icon">📁</div>
+                </div>
+                <div class="skill-category" data-modal="skill_research">
+                    <h4>Research & Web Mining</h4>
+                    <div class="skill-icon">🔍</div>
+                </div>
+                <div class="skill-category" data-modal="skill_sec">
+                    <h4>Security & OSINT</h4>
+                    <div class="skill-icon">🛡️</div>
+                </div>
+                <div class="skill-category" data-modal="skill_iot">
+                    <h4>Smart Home & IoT</h4>
+                    <div class="skill-icon">🏠</div>
+                </div>
+                <div class="skill-category" data-modal="skill_web">
+                    <h4>Web Development</h4>
+                    <div class="skill-icon">🌐</div>
+                </div>
+                <div class="skill-category" data-modal="skill_hw">
+                    <h4>Hardware Acceleration</h4>
+                    <div class="skill-icon">⚡</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- REMOVED: workflows -->
+    </main>
+
+</div>
+
+<p class="kicker reveal" style="text-align: center; margin-top: 2rem;">Go deeper</p>
+<div class="info-buttons" style="display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; margin: 2rem 0;">
+    <button class="btn btn-ghost btn-sm" data-modal="modal_exec">📋 The short version</button>
+    <button class="btn btn-ghost btn-sm" data-modal="modal_metrics">📊 Where the skills come from</button>
+    <button class="btn btn-ghost btn-sm" data-modal="modal_domains">🌐 What this looks like in practice</button>
+    <button class="btn btn-ghost btn-sm" data-modal="modal_workflows">🔄 A few examples end to end</button>
+</div>
+
+<section class="architecture" id="architecture">
+        <h2 class="section-title">Autonomous-Agent Architecture</h2>
+        <div class="arch-container">
+            <div class="arch-node glass" id="node-perception" data-modal="arch_perception">
+                <h4>Perception Layer</h4>
+                <p>Context & Intent Parsing</p>
+            </div>
+            <div class="arch-connector"></div>
+            <div class="arch-node center-node glass" id="node-brain" data-modal="arch_brain">
+                <h4>Core Brain</h4>
+                <p>Local LLM Engine & Planning</p>
+            </div>
+            <div class="arch-connector split"></div>
+            <div class="arch-branches">
+                <div class="arch-node action-node glass" id="node-tools" data-modal="arch_tools">
+                    <h4>Tool Execution</h4>
+                    <p>API & CLI Hooks</p>
+                </div>
+                <div class="arch-node action-node glass" id="node-memory" data-modal="arch_memory">
+                    <h4>Memory Store</h4>
+                    <p>Private Local Storage</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- ══ FAQ ══ -->
+<section class="section" id="faq">
+  <div class="wrap wrap-narrow">
+    <p class="kicker reveal">Questions</p>
+    <h2 class="h2 reveal">The things everyone asks.</h2>
+
+    <div class="faq">
+      <details class="faq-item reveal">
+        <summary>Does it really keep working during load-shedding?</summary>
+        <div class="faq-body"><p>Yes — that's the design goal. The controller and essential sensors draw very little power and sit behind your inverter or a small dedicated UPS. Because the decision-making AI runs on-site rather than in a data centre, it doesn't need your fibre to be up either. During an outage the house keeps monitoring, logging and automating; anything that needs the internet queues up and syncs the moment it's back.</p></div>
+      </details>
+      <details class="faq-item reveal">
+        <summary>Do I have to replace my existing smart devices?</summary>
+        <div class="faq-body"><p>Almost never. The whole point is unification — we bring your existing cameras, lights, gate motor, inverter, alarm and sensors into one system regardless of brand. We only recommend replacing something when it's genuinely closed off or unreliable, and we'll tell you why before you spend anything.</p></div>
+      </details>
+      <details class="faq-item reveal">
+        <summary>What does it cost, honestly?</summary>
+        <div class="faq-body"><p>It depends entirely on the size of the property and what's already installed, which is why the assessment is free and the quote is fixed. You'll get a written scope and a single number before any hardware is ordered — no hourly creep, and no "we found something" invoices afterwards.</p></div>
+      </details>
+      <details class="faq-item reveal">
+        <summary>Is there a monthly fee?</summary>
+        <div class="faq-body"><p>No mandatory one. The system runs on your hardware and belongs to you. Ongoing support and remote tuning are available as an optional plan, but if you cancel it the house keeps working exactly as it did.</p></div>
+      </details>
+      <details class="faq-item reveal">
+        <summary>How private is the camera AI?</summary>
+        <div class="faq-body"><p>Video is analysed on the controller inside your home. Footage isn't uploaded to a third-party cloud for processing, and you decide what — if anything — leaves the property. That's a deliberate architectural choice, not a setting.</p></div>
+      </details>
+      <details class="faq-item reveal">
+        <summary>How disruptive is the installation?</summary>
+        <div class="faq-body"><p>Most installs take a day or two and use existing wiring and DB space. We work around your routine, keep the site clean, and won't leave until you've been walked through the system yourself.</p></div>
+      </details>
+      <details class="faq-item reveal">
+        <summary>Where do you install?</summary>
+        <div class="faq-body"><p>Gauteng and surrounding areas as standard, with estate and business installations further afield by arrangement. Tell us where you are in the form and we'll confirm straight away.</p></div>
+      </details>
+      <details class="faq-item reveal">
+        <summary>What if I only want one part of it?</summary>
+        <div class="faq-body"><p>That's completely normal, and usually the smartest way to start. Plenty of homes begin with energy monitoring and geyser control alone, then add security or water later. The system is built to grow.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ENQUIRY FORM ══ -->
+<section class="section enquire-section" id="enquire">
+  <div class="wrap wrap-narrow">
+    <div class="enquire-head">
+      <p class="kicker reveal" id="enquire-kicker">Enter the challenge</p>
+      <h2 class="h2 reveal" id="enquire-title">Tell us why your task matters.</h2>
+      <p class="lede reveal" id="enquire-lede">Your first task for Tiny will be added here automatically. Add your details and explain what solving it would change for you or your business.</p>
+    </div>
+
+    <form class="enquire-form glass reveal" id="enquiry-form" novalidate>
+      <!-- honeypot: hidden from humans, tempting to bots -->
+      <div class="hp" aria-hidden="true"><label>Leave this empty<input type="text" name="company_website" tabindex="-1" autocomplete="off"></label></div>
+
+      <div class="field">
+        <label id="domains-label">Which domains do you want Tiny working in? <small>Pick any</small></label>
+        <div class="chips" role="group" aria-labelledby="domains-label" id="domains-group">
+          <label class="chip"><input type="checkbox" name="interests" value="Smart home &amp; property" id="domain-home"><span>🏠 Smart home &amp; property</span></label>
+          <label class="chip"><input type="checkbox" name="interests" value="Business &amp; operations"><span>💼 Business &amp; operations</span></label>
+          <label class="chip"><input type="checkbox" name="interests" value="Software &amp; automation"><span>🛠️ Software &amp; automation</span></label>
+          <label class="chip"><input type="checkbox" name="interests" value="Research &amp; analysis"><span>🔍 Research &amp; analysis</span></label>
+          <label class="chip"><input type="checkbox" name="interests" value="Finance &amp; reporting"><span>📊 Finance &amp; reporting</span></label>
+          <label class="chip"><input type="checkbox" name="interests" value="Creative &amp; content"><span>🎨 Creative &amp; content</span></label>
+          <label class="chip"><input type="checkbox" name="interests" value="Personal admin"><span>📅 Personal admin</span></label>
+          <label class="chip"><input type="checkbox" name="interests" value="Not sure yet"><span>🤔 Not sure yet</span></label>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="f-name">Your name <span class="req">*</span></label>
+          <input type="text" id="f-name" name="name" autocomplete="name" required placeholder="Jakes Nagel">
+          <p class="err" data-err-for="f-name"></p>
+        </div>
+        <div class="field">
+          <label for="f-phone">Phone / WhatsApp <span class="req">*</span></label>
+          <input type="tel" id="f-phone" name="phone" autocomplete="tel" required placeholder="082 123 4567" inputmode="tel">
+          <p class="err" data-err-for="f-phone"></p>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="f-email">Email <span class="req">*</span></label>
+          <input type="email" id="f-email" name="email" autocomplete="email" required placeholder="you@example.co.za" inputmode="email">
+          <p class="err" data-err-for="f-email"></p>
+        </div>
+        <div class="field">
+          <label for="f-area">Suburb / town <span class="req">*</span></label>
+          <input type="text" id="f-area" name="area" autocomplete="address-level2" required placeholder="Centurion">
+          <p class="err" data-err-for="f-area"></p>
+        </div>
+      </div>
+
+      <fieldset id="fields-property" hidden disabled style="border: 0; margin: 0; padding: 0;">
+        <div class="field">
+          <label for="f-property">Property type</label>
+          <div class="seg" role="radiogroup" aria-label="Property type">
+            <label class="seg-opt"><input type="radio" name="property" value="House" checked><span>House</span></label>
+            <label class="seg-opt"><input type="radio" name="property" value="Estate home"><span>Estate home</span></label>
+            <label class="seg-opt"><input type="radio" name="property" value="Smallholding / farm"><span>Smallholding</span></label>
+            <label class="seg-opt"><input type="radio" name="property" value="Business premises"><span>Business</span></label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label id="int-label">What matters most in your home? <small>Pick any</small></label>
+          <div class="chips" role="group" aria-labelledby="int-label">
+            <label class="chip"><input type="checkbox" name="interests" value="Energy &amp; load-shedding"><span>⚡ Energy &amp; load-shedding</span></label>
+            <label class="chip"><input type="checkbox" name="interests" value="Security &amp; cameras"><span>🛡️ Security &amp; cameras</span></label>
+            <label class="chip"><input type="checkbox" name="interests" value="Water &amp; irrigation"><span>💧 Water &amp; irrigation</span></label>
+            <label class="chip"><input type="checkbox" name="interests" value="Geyser &amp; heating"><span>♨️ Geyser &amp; heating</span></label>
+            <label class="chip"><input type="checkbox" name="interests" value="Lighting &amp; comfort"><span>💡 Lighting &amp; comfort</span></label>
+            <label class="chip"><input type="checkbox" name="interests" value="One app for everything"><span>📱 One app for everything</span></label>
+          </div>
+        </div>
+      </fieldset>
+
+      <div class="field">
+        <label for="f-message">Anything else you'd like to add?</label>
+        <textarea id="f-message" name="message" rows="5" placeholder="Optional — your Tiny conversation is already included below."></textarea>
+        <p class="field-help" id="task-captured" hidden role="status" aria-live="polite">Your task from the Tiny chat has been added. You can edit it before submitting.</p>
+        <p class="err" data-err-for="f-message"></p>
+      </div>
+
+      <div class="field field-inline">
+        <label class="check"><input type="checkbox" name="consent" id="f-consent" required><span>It's fine to contact me about this enquiry. <span class="req">*</span></span></label>
+        <p class="err" data-err-for="f-consent"></p>
+      </div>
+
+      <p style="font-size: .78rem; color: var(--muted); line-height: 1.6; margin-top: -.6rem; margin-bottom: 1.2rem;">Your details and this conversation are stored securely, processed by AI to generate Tiny's replies, and reviewed by a person on our team to follow up with you. We don't sell your data. Email <a href="mailto:nageljakes@gmail.com" style="color: var(--teal)">nageljakes@gmail.com</a> any time to have it removed.</p>
+
+      <input type="hidden" name="tier" id="f-tier" value="">
+      <input type="hidden" name="source" id="f-source" value="">
+      <input type="hidden" name="page" id="f-page" value="">
+      <input type="hidden" name="transcript" id="f-transcript" value="">
+
+      <div class="cf-turnstile" data-sitekey="0x4AAAAAAEGZmvnas4ETw1AW" data-theme="dark" style="margin-bottom: 1rem;"></div>
+
+      <button type="submit" class="btn btn-primary btn-lg btn-block" id="submit-btn" data-track="form_submit">
+        <span class="btn-label">Submit my challenge entry</span>
+        <span class="spinner" aria-hidden="true"></span>
+      </button>
+
+      <p class="form-foot">Or reach us directly — <a href="#" class="js-mail">email</a> · <a href="#" class="js-whatsapp">WhatsApp</a> · <a href="#" class="js-tel">call</a></p>
+      <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+    </form>
+
+    <!-- success state -->
+    <div class="success glass" id="form-success" hidden tabindex="-1">
+      <div class="success-ico">✓</div>
+      <h3 id="success-title">Got it — thank you.</h3>
+      <p id="success-body">Your enquiry is in. We'll come back to you personally, usually within one business day.</p>
+      <p class="success-sub">If it's urgent, message us directly and we'll pick it up right away.</p>
+      <div class="success-actions">
+        <a href="#" class="btn btn-primary js-whatsapp">WhatsApp us now</a>
+        <a href="#" class="btn btn-ghost js-mail">Email us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer class="footer">
+  <div class="wrap footer-grid">
+    <div class="footer-brand">
+      <img src="assets/jaxtech-mark.png" alt="Jaxtech" width="52" height="52">
+      <p class="footer-tag">AI-powered workflow.<br>South African ingenuity.</p>
+      <p class="footer-desc">Jaxtech builds intelligent, locally controlled home and business systems — energy, water, security, comfort and admin, working as one.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Explore</h4>
+      <ul>
+        <li><a href="#hermes">What it does</a></li>
+        <li><a href="platform.html">How it works</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="platform.html">The technology</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Get in touch</h4>
+      <ul>
+        <li><a href="#" class="js-tel">061 511 7494</a></li>
+        <li><a href="#" class="js-whatsapp">WhatsApp us</a></li>
+        <li><a href="#" class="js-mail">nageljakes@gmail.com</a></li>
+        <li><a href="#enquire">Free assessment</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Service areas</h4>
+      <ul class="plain">
+        <li>Pretoria &amp; Centurion</li>
+        <li>Johannesburg &amp; Midrand</li>
+        <li>Gauteng-wide</li>
+        <li>Estates &amp; business elsewhere by arrangement</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bar wrap">
+    <p>&copy; <span id="year">2026</span> Jaxtech. All rights reserved.</p>
+    <p>Built in South Africa.</p>
+  </div>
+</footer>
+
+<!-- ══ STICKY MOBILE ACTION BAR ══ -->
+<div class="mobile-bar" id="mobile-bar">
+  <a href="#" class="mb-btn js-whatsapp" data-track="mobile_whatsapp"><span>💬</span>WhatsApp</a>
+  <a href="#" class="mb-btn js-tel" data-track="mobile_call"><span>📞</span>Call</a>
+  <a href="#enquire" class="mb-btn mb-primary" data-track="mobile_enquire"><span>✦</span>Free assessment</a>
+</div>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": ["LocalBusiness", "HomeAndConstructionBusiness"],
+      "@id": "https://jaxtech.co.za/#business",
+      "name": "Jaxtech",
+      "description": "Intelligent home and business automation in South Africa — energy, water, security, comfort and household administration unified into one locally controlled system that keeps working during load-shedding.",
+      "url": "https://jaxtech.co.za/",
+      "logo": "https://jaxtech.co.za/assets/jaxtech-mark.png",
+      "image": "https://jaxtech.co.za/assets/og-image.jpg",
+      "email": "nageljakes@gmail.com",
+      "telephone": "+27615117494",
+      "slogan": "Your home, thinking locally.",
+      "address": { "@type": "PostalAddress", "addressCountry": "ZA", "addressRegion": "Gauteng" },
+      "areaServed": [
+        { "@type": "AdministrativeArea", "name": "Gauteng" },
+        { "@type": "City", "name": "Pretoria" },
+        { "@type": "City", "name": "Centurion" },
+        { "@type": "City", "name": "Johannesburg" },
+        { "@type": "City", "name": "Midrand" }
+      ],
+      "knowsAbout": ["Smart home automation", "Load-shedding automation", "Energy monitoring", "AI security cameras", "Irrigation automation", "Local AI"]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://jaxtech.co.za/#website",
+      "url": "https://jaxtech.co.za/",
+      "name": "Jaxtech",
+      "publisher": { "@id": "https://jaxtech.co.za/#business" },
+      "inLanguage": "en-ZA"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "Does it really keep working during load-shedding?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. The controller and essential sensors run behind your inverter or a small UPS, and the decision-making AI runs on-site rather than in a data centre, so it does not need fibre either. During an outage the house keeps monitoring, logging and automating, and anything needing the internet syncs once it returns." } },
+        { "@type": "Question", "name": "Do I have to replace my existing smart devices?", "acceptedAnswer": { "@type": "Answer", "text": "Almost never. Jaxtech unifies your existing cameras, lights, gate motor, inverter, alarm and sensors regardless of brand, and only recommends replacement when a device is genuinely closed off or unreliable." } },
+        { "@type": "Question", "name": "Is there a monthly fee?", "acceptedAnswer": { "@type": "Answer", "text": "No mandatory subscription. The system runs on your own hardware and belongs to you. Support and remote tuning are optional, and the house keeps working if you cancel." } },
+        { "@type": "Question", "name": "How private is the camera AI?", "acceptedAnswer": { "@type": "Answer", "text": "Video is analysed on the controller inside your home. Footage is not uploaded to a third-party cloud for processing, and you decide what leaves the property." } },
+        { "@type": "Question", "name": "Where does Jaxtech install?", "acceptedAnswer": { "@type": "Answer", "text": "Gauteng and surrounding areas as standard, including Pretoria, Centurion, Johannesburg and Midrand, with estate and business installations further afield by arrangement." } }
+      ]
+    }
+  ]
+}
+</script>
+
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<script src="script.js?v=10"></script>
+<div class="modal-overlay" id="detail-modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <div class="modal-header">
+                <div class="modal-icon" id="modal-icon">🎛️</div>
+                <h3 class="modal-title" id="modal-title">Unified Control</h3>
+            </div>
+            <div class="modal-body" id="modal-body">
+            </div>
+        </div>
+    </div>
+
+    
+</body>
+</html>
