@@ -1477,6 +1477,44 @@ function appendMessage(text, sender) {
     }
 }
 
+// Rotating status lines shown while Tiny is working on a reply — same idea
+// as the CLI-style "thinking" spinners in tools like Claude Code, tuned to
+// Tiny's own voice.
+const TINY_THINKING_LINES = [
+    'Thinking…', 'Noodling on it…', 'Crunching the details…',
+    'Consulting the manual…', 'Weighing the options…', 'Connecting the dots…',
+    'Reticulating splines…', 'Warming up the circuits…', 'Untangling the wiring…',
+    'Checking the load-shedding schedule…', 'Percolating…', 'Assembling a reply…',
+    'Doing the sums…', 'Fetching a good answer…', 'Reading between the lines…',
+];
+
+function startThinking() {
+    const msg = document.createElement('div');
+    msg.className = 'hv-msg them thinking';
+    const textEl = document.createElement('span');
+    textEl.className = 'thinking-text';
+    const dotsEl = document.createElement('span');
+    dotsEl.className = 'thinking-dots';
+    dotsEl.innerHTML = '<i></i><i></i><i></i>';
+    msg.append(textEl, dotsEl);
+
+    if (chatHistory) {
+        chatHistory.appendChild(msg);
+        chatHistory.scrollTop = chatHistory.scrollHeight;
+    }
+
+    let last = Math.floor(Math.random() * TINY_THINKING_LINES.length);
+    textEl.textContent = TINY_THINKING_LINES[last];
+    const cycle = setInterval(() => {
+        let next = last;
+        while (next === last) next = Math.floor(Math.random() * TINY_THINKING_LINES.length);
+        last = next;
+        textEl.textContent = TINY_THINKING_LINES[next];
+    }, 1700);
+
+    return { remove() { clearInterval(cycle); msg.remove(); } };
+}
+
 // Keeps the enquiry form's hidden transcript field current so whoever reads
 // the lead email sees the actual Tiny conversation, not just whatever the
 // visitor typed into the message box.
@@ -1542,6 +1580,7 @@ async function sendChatMessage() {
     chatInput.value = '';
     chatInput.disabled = true;
     if (chatSend) chatSend.disabled = true;
+    const thinking = startThinking();
 
     // Tiny needs the actual conversation to hold a thread across turns —
     // e.g. remembering its own clarifying question and the task it was
@@ -1563,6 +1602,7 @@ async function sendChatMessage() {
                 // The worker already has an answer (AI or fallback) — show it now.
                 // pending_id may still be set alongside it so a human can later
                 // override via the admin panel, but there's nothing to poll for yet.
+                thinking.remove();
                 appendMessage(data.reply, 'them');
                 window.tinyConvo.push({ role: 'user', content: text }, { role: 'assistant', content: data.reply });
                 syncTranscriptField();
@@ -1573,6 +1613,7 @@ async function sendChatMessage() {
                     attempts++;
                     if (attempts > 30) {
                         clearInterval(pollInterval);
+                        thinking.remove();
                         appendMessage("Sorry, I took too long to think. Please try again.", 'them');
                         return;
                     }
@@ -1582,6 +1623,7 @@ async function sendChatMessage() {
                             const pollData = await pollRes.json();
                             if (pollData.reply) {
                                 clearInterval(pollInterval);
+                                thinking.remove();
                                 appendMessage(pollData.reply, 'them');
                                 window.tinyConvo.push({ role: 'user', content: text }, { role: 'assistant', content: pollData.reply });
                                 syncTranscriptField();
@@ -1592,12 +1634,15 @@ async function sendChatMessage() {
                     }
                 }, 1000); // check every second
             } else {
+                thinking.remove();
                 appendMessage("Message received by Tiny test agent.", 'them');
             }
         } else {
+            thinking.remove();
             appendMessage("Sorry, I'm having trouble connecting right now.", 'them');
         }
     } catch (e) {
+        thinking.remove();
         appendMessage("Network error. Please try again later.", 'them');
     } finally {
         if (!window.hasSubmittedForm && window.chatMessagesSent >= 5) {
