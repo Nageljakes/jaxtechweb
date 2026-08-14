@@ -1591,7 +1591,7 @@ async function sendChatMessage() {
     const history = window.tinyConvo.slice(-8);
 
     try {
-        const response = await fetch(GOOGLE_STACK_ORIGIN + '/api/chat', {
+        const response = await fetch(API_ORIGIN + '/api/chat', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ message: text, opener: isOpener, history })
