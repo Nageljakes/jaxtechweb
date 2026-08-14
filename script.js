@@ -10,7 +10,6 @@
 // — cross-origin is fine, the Worker already sends
 // Access-Control-Allow-Origin: *.
 const API_ORIGIN = /\.workers\.dev$/.test(location.hostname) ? '' : 'https://tiny.jaxtech.workers.dev';
-const GOOGLE_STACK_ORIGIN = 'https://jaxtech-tiny-phase1-360338025767.us-central1.run.app';
 
 (function () {
   'use strict';
@@ -1662,32 +1661,6 @@ if (chatSend) {
 if (chatInput) {
     chatInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') sendChatMessage();
-    });
-}
-
-// Phase 1 hackathon proof: user-triggered so normal page loads do not spend
-// model tokens. Existing challenge chat remains available during migration.
-const stackProof = document.getElementById('tiny-stack-proof');
-const stackStatus = document.getElementById('tiny-stack-status');
-if (stackProof && stackStatus) {
-    stackProof.addEventListener('click', async () => {
-        stackProof.disabled = true;
-        stackStatus.textContent = 'Checking…';
-        try {
-            const response = await fetch(GOOGLE_STACK_ORIGIN + '/api/agent/prove', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ message: 'Prove the Google stack in one sentence.' })
-            });
-            if (!response.ok) throw new Error(`HTTP ${response.status}`);
-            const data = await response.json();
-            stackStatus.textContent = data.reply || 'Google stack live.';
-        } catch (error) {
-            console.error('[Tiny] Google stack proof failed:', error);
-            stackStatus.textContent = 'Proof unavailable.';
-        } finally {
-            stackProof.disabled = false;
-        }
     });
 }
 
