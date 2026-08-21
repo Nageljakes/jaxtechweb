@@ -1293,6 +1293,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (inlineTotal && String(totalSkills) !== inlineTotal.textContent.trim()) {
         inlineTotal.textContent = totalSkills;
     }
+    const inlineTotalAbout = document.getElementById('skills-total-inline-about');
+    if (inlineTotalAbout && String(totalSkills) !== inlineTotalAbout.textContent.trim()) {
+        inlineTotalAbout.textContent = totalSkills;
+    }
 
     // ---- Staggered reveal + count-up on first scroll into view ----------
     let counted = false;

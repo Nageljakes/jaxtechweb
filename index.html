@@ -51,6 +51,7 @@
     <li><a href="#challenge">Agent challenge</a></li>
     <li><a href="#hermes">What Tiny does</a></li>
     <li><a href="platform.html">How it works</a></li>
+    <li><a href="#about">About Jakes</a></li>
     <li><a href="#faq">FAQ</a></li>
   </ul>
   <a href="#tiny-chat" class="btn btn-primary btn-sm nav-cta" data-track="nav_cta">Give Tiny a task</a>
@@ -278,6 +279,35 @@
         </div>
     </section>
 
+<!-- ══ ABOUT THE CREATOR ══ -->
+<section class="section" id="about">
+  <div class="wrap">
+    <div class="split">
+      <div class="split-text">
+        <p class="kicker reveal">The person behind Tiny</p>
+        <h2 class="h2 reveal">Two years, one obsession: <span class="grad">teach a machine to actually get things done.</span></h2>
+        <p class="lede reveal">Jaxtech is built and run by Jakes Nagel, based in Gauteng, South Africa.</p>
+        <p class="reveal">By day, Jakes works in vehicle finance and dealership operations — the kind of world with no shortage of forms, compliance checks and repetitive admin. That's a good vantage point for spotting exactly what software should be doing instead of a person.</p>
+        <p class="reveal">Tiny is the result of two years spent building toward that, mostly nights and weekends. When AI first started making headlines, well before "agentic AI" was a term anyone used, Jakes was already convinced it would end up doing real work, not just answering questions. Rather than wait for the tools to mature, he went down to the foundations — how models actually work, what they can and can't do — and used that to track the AI transformation as it happened, month by month.</p>
+        <p class="reveal">That groundwork became Chappie, the first project: getting large AI models to run locally, on hardware never really built for the job. It was slow, unforgiving, and taught every hard lesson about inference, memory and reliability the hard way. Tiny is what came after — the same idea, rebuilt as an agentic harness that plans, uses tools and finishes a task, running on online-based inferencing instead of a struggling local GPU. It's the assistant you're talking to above.</p>
+        <a href="#enquire" class="btn btn-primary reveal">Work with Jakes — give Tiny a task</a>
+      </div>
+      <div class="split-visual reveal">
+        <div class="glass" style="border-radius: var(--r-lg); padding: clamp(1.5rem, 3vw, 2.4rem);">
+          <p class="kicker" style="margin-bottom: 1.4rem;">The build, in short</p>
+          <ol class="challenge-steps">
+            <li><span>1</span><div><strong>High expectations, early</strong><p>Convinced AI would act, not just chat — years before agentic AI was a category.</p></div></li>
+            <li><span>2</span><div><strong>Learned the foundations</strong><p>Studied how models actually work to keep pace with AI as it moved, rather than catching up after the fact.</p></div></li>
+            <li><span>3</span><div><strong>Chappie — the hard way</strong><p>First project: large AI models running locally. Slow, unforgiving, and where every real lesson got learned.</p></div></li>
+            <li><span>4</span><div><strong>Tiny — today</strong><p>An agentic harness on online-based inferencing. Plans, uses tools, finishes the task.</p></div></li>
+          </ol>
+          <p style="font-size: .82rem; color: var(--muted-dim); margin-top: 1.4rem; border-top: 1px solid var(--line); padding-top: 1.1rem;">Chappie &rarr; Tiny · 2 years in the making · <span id="skills-total-inline-about">197</span> skills live today</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ══ FAQ ══ -->
 <section class="section" id="faq">
   <div class="wrap wrap-narrow">
@@ -455,6 +485,7 @@
       <ul>
         <li><a href="#hermes">What it does</a></li>
         <li><a href="platform.html">How it works</a></li>
+        <li><a href="#about">About Jakes</a></li>
         <li><a href="#faq">FAQ</a></li>
         <li><a href="platform.html">The technology</a></li>
       </ul>
@@ -514,7 +545,18 @@
         { "@type": "City", "name": "Johannesburg" },
         { "@type": "City", "name": "Midrand" }
       ],
-      "knowsAbout": ["Smart home automation", "Load-shedding automation", "Energy monitoring", "AI security cameras", "Irrigation automation", "Local AI"]
+      "knowsAbout": ["Smart home automation", "Load-shedding automation", "Energy monitoring", "AI security cameras", "Irrigation automation", "Local AI"],
+      "founder": { "@id": "https://jaxtech.co.za/#founder" }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://jaxtech.co.za/#founder",
+      "name": "Jakes Nagel",
+      "email": "nageljakes@gmail.com",
+      "jobTitle": "Founder",
+      "worksFor": { "@id": "https://jaxtech.co.za/#business" },
+      "knowsAbout": ["Agentic AI", "Local LLM inference", "AI agent architecture", "Automation"],
+      "description": "Founder of Jaxtech, based in Gauteng, South Africa. Spent two years building toward Tiny, starting with Chappie, a locally-run AI model, before rebuilding it as an agentic harness on online-based inferencing."
     },
     {
       "@type": "WebSite",
@@ -539,7 +581,7 @@
 </script>
 
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-<script src="script.js?v=10"></script>
+<script src="script.js?v=11"></script>
 <div class="modal-overlay" id="detail-modal">
         <div class="modal-content">
             <button class="modal-close" onclick="closeModal()">&times;</button>
