@@ -52,13 +52,13 @@ const API_ORIGIN = /\.workers\.dev$/.test(location.hostname) ? '' : 'https://tin
 
   /* ── Contact links ──────────────────────────────────────── */
   function wireContactLinks() {
-    const waHref = 'https://wa.me/' + CONFIG.whatsapp.replace(/\D/g, '') +
-                   '?text=' + encodeURIComponent(CONFIG.waGreeting);
+    const waNumber = CONFIG.whatsapp.replace(/\D/g, '');
+    const waText = encodeURIComponent(CONFIG.waGreeting);
+    const waHref = 'https://wa.me/' + waNumber + '?text=' + waText;
 
     // On phones, wa.me needs a top-level navigation for the OS to hand off
     // to the WhatsApp app — opening it in a new tab (target=_blank) leaves
-    // it stranded on the wa.me redirect page instead. Desktop has no app to
-    // hand off to, so a new tab for WhatsApp Web is the better behaviour there.
+    // it stranded on the wa.me redirect page instead.
     const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
     $$('.js-whatsapp').forEach(a => {
@@ -66,8 +66,39 @@ const API_ORIGIN = /\.workers\.dev$/.test(location.hostname) ? '' : 'https://tin
       if (isMobile) {
         a.removeAttribute('target');
       } else {
+        // wa.me never attempts a desktop-app handoff by itself — it always
+        // lands on the web page, even with WhatsApp Desktop installed. Try
+        // the app's own whatsapp:// link first (that's what makes the
+        // browser prompt to open the app); if nothing takes focus within
+        // 1.5s, assume the app isn't installed and fall back to wa.me.
+        // Reads a.href fresh at click time (rather than closing over the
+        // number/text above) so this still works after the success screen
+        // re-points this same button at the composed enquiry message.
         a.target = '_blank';
         a.rel = 'noopener';
+        a.addEventListener('click', (e) => {
+          const match = /^https:\/\/wa\.me\/(\d+)(?:\?text=(.*))?$/.exec(a.href);
+          if (!match) return; // unrecognised href — let the browser handle it normally
+          e.preventDefault();
+          const protoUrl = 'whatsapp://send?phone=' + match[1] + (match[2] ? '&text=' + match[2] : '');
+          const fallbackHref = a.href;
+
+          // Open the fallback tab now, synchronously in the click handler —
+          // browsers block window.open() called later from a setTimeout.
+          // We just leave it blank and either redirect or close it below.
+          const fallbackTab = window.open('', '_blank');
+
+          let handedOff = false;
+          const onBlur = () => { handedOff = true; };
+          window.addEventListener('blur', onBlur, { once: true });
+          window.location.href = protoUrl;
+          setTimeout(() => {
+            window.removeEventListener('blur', onBlur);
+            if (!fallbackTab) return; // popup blocked outright — nothing more we can do
+            if (handedOff) fallbackTab.close();
+            else fallbackTab.location.href = fallbackHref;
+          }, 1500);
+        });
       }
     });
 
