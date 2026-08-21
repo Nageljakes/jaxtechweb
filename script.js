@@ -55,10 +55,20 @@ const API_ORIGIN = /\.workers\.dev$/.test(location.hostname) ? '' : 'https://tin
     const waHref = 'https://wa.me/' + CONFIG.whatsapp.replace(/\D/g, '') +
                    '?text=' + encodeURIComponent(CONFIG.waGreeting);
 
+    // On phones, wa.me needs a top-level navigation for the OS to hand off
+    // to the WhatsApp app — opening it in a new tab (target=_blank) leaves
+    // it stranded on the wa.me redirect page instead. Desktop has no app to
+    // hand off to, so a new tab for WhatsApp Web is the better behaviour there.
+    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
     $$('.js-whatsapp').forEach(a => {
       a.href = waHref;
-      a.target = '_blank';
-      a.rel = 'noopener';
+      if (isMobile) {
+        a.removeAttribute('target');
+      } else {
+        a.target = '_blank';
+        a.rel = 'noopener';
+      }
     });
 
     $$('.js-tel').forEach(a => { a.href = 'tel:' + CONFIG.phone.replace(/[^\d+]/g, ''); });
