@@ -23,10 +23,10 @@ const API_ORIGIN = /\.workers\.dev$/.test(location.hostname) ? '' : 'https://tin
 
     // WhatsApp number in FULL international format, digits only.
     // South Africa: drop the leading 0, prefix 27.  082 123 4567 → '27821234567'
-    whatsapp: '27615117494',
+    whatsapp: '27793950395',
 
     // Number for the "Call" button, as you want it dialled.
-    phone: '+27 61 511 7494',
+    phone: '+27 79 395 0395',
 
     // Backend endpoint. Leave as-is; falls back to email automatically if not deployed.
     endpoint: API_ORIGIN + '/api/enquiry',
