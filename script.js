@@ -25,6 +25,9 @@ const API_ORIGIN = /\.workers\.dev$/.test(location.hostname) ? '' : 'https://tin
     // South Africa: drop the leading 0, prefix 27.  082 123 4567 → '27821234567'
     whatsapp: '27793950395',
 
+    // Telegram bot username, no @.
+    telegram: 'jaxchatbot',
+
     // Number for the "Call" button, as you want it dialled.
     phone: '+27 79 395 0395',
 
@@ -100,6 +103,12 @@ const API_ORIGIN = /\.workers\.dev$/.test(location.hostname) ? '' : 'https://tin
           }, 1500);
         });
       }
+    });
+
+    $$('.js-telegram').forEach(a => {
+      a.href = 'https://t.me/' + CONFIG.telegram;
+      a.target = '_blank';
+      a.rel = 'noopener';
     });
 
     $$('.js-tel').forEach(a => { a.href = 'tel:' + CONFIG.phone.replace(/[^\d+]/g, ''); });
