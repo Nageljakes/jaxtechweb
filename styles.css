@@ -2039,3 +2039,40 @@ h4 { font-size: 1rem; font-weight: 600; }
    the image above the disc explicitly. */
 .ac-avatar::after { z-index: 0; }
 .ac-avatar img { z-index: 1; }
+
+/* ── Receipts: verifiable evidence, not a logo wall ──── */
+.receipts {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: .9rem; margin-top: 2.4rem;
+}
+.receipt {
+  border: 2px solid var(--line); border-radius: var(--r-lg);
+  padding: 1.3rem 1.25rem; background: var(--surface);
+  display: grid; gap: .45rem; align-content: start; min-width: 0;
+}
+.receipt-tag {
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: .66rem; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--teal); display: flex; align-items: center; gap: .45rem;
+}
+.receipt-tag::before {
+  content: ''; width: 7px; height: 7px; flex: none;
+  background: var(--teal); transform: rotate(45deg);
+}
+.receipt b { font-size: 1rem; font-weight: 600; letter-spacing: -.01em; line-height: 1.3; }
+.receipt p { font-size: .87rem; color: var(--muted); line-height: 1.6; }
+.receipt code {
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: .82em; color: var(--text); background: rgba(255,255,255,.06);
+  border-radius: 4px; padding: .05em .35em;
+}
+.receipt a { color: var(--teal); font-weight: 600; }
+.receipt a:hover { text-decoration: underline; }
+
+/* The honest note about what is not here yet. */
+.receipt-note {
+  margin-top: 1.4rem; border-left: 3px solid var(--coral);
+  padding: .9rem 0 .9rem 1.1rem; max-width: 74ch;
+}
+.receipt-note p { font-size: .92rem; color: var(--muted); line-height: 1.65; }
+.receipt-note strong { color: var(--text); }
