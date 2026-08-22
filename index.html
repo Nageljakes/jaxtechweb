@@ -30,7 +30,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=21">
+<link rel="stylesheet" href="styles.css?v=22">
 <script>document.documentElement.className += ' js';</script>
 </head>
 <body>
@@ -142,6 +142,52 @@
     </div>
   </div>
 </section>
+<!-- ══ RECEIPTS ══ -->
+<section class="section" id="receipts">
+  <div class="wrap">
+    <p class="kicker reveal">Receipts</p>
+    <h2 class="h2 reveal">Don&rsquo;t take my word for it.</h2>
+    <p class="lede reveal">Most of this industry asks you to trust a wall of logos. Here is what is actually running behind this page, and how you can check it.</p>
+
+    <div class="receipts">
+      <div class="receipt reveal">
+        <span class="receipt-tag">In production</span>
+        <b>The chat you just used is live infrastructure</b>
+        <p>It runs on Cloudflare Workers AI with a vector index for retrieval, <code>D1</code> and <code>KV</code> behind the enquiry form, Turnstile on submissions and per-IP rate limiting. Not a prototype behind a demo button.</p>
+      </div>
+      <div class="receipt reveal">
+        <span class="receipt-tag">Shipped through a gate</span>
+        <b>Nothing reaches production unreviewed</b>
+        <p>Every change deploys to a separate <code>tiny-test</code> worker first. Only a reviewed merge to <code>main</code> goes live. This page went out that way, and so would your agent.</p>
+      </div>
+      <div class="receipt reveal">
+        <span class="receipt-tag">Cost is bounded</span>
+        <b>A bad day has a ceiling</b>
+        <p>Inference spend is metered against a daily budget in the worker itself. When it is reached, Tiny falls back gracefully instead of quietly running up a bill.</p>
+      </div>
+      <div class="receipt reveal">
+        <span class="receipt-tag">Counted, not claimed</span>
+        <b>198 skills across 20 domains</b>
+        <p>That figure is read from the live catalogue on this site every time the page loads &mdash; it cannot drift from what is actually there. <a href="skills.html">Search it yourself</a>.</p>
+      </div>
+      <div class="receipt reveal">
+        <span class="receipt-tag">Two stacks, deliberately</span>
+        <b>Not locked to one vendor</b>
+        <p>This site runs on Cloudflare. A separate build on Google&rsquo;s Agent Development Kit with Gemini on Cloud Run handles agent work, and that code is <a href="https://github.com/Nageljakes/jaxtech-tiny-agent" rel="noopener">public on GitHub</a>.</p>
+      </div>
+      <div class="receipt reveal">
+        <span class="receipt-tag">Runs on itself</span>
+        <b>It reports in every morning</b>
+        <p>A scheduled job summarises the day&rsquo;s enquiries and chats at 06:00 and sends the digest out. The automation Jaxtech sells is the automation Jaxtech uses.</p>
+      </div>
+    </div>
+
+    <div class="receipt-note reveal">
+      <p><strong>What is not here:</strong> client logos. The systems above are my own, and I would rather show you something you can inspect than a badge you cannot. The challenge above is partly how that changes &mdash; the winning task gets built, and if it works, written up properly with real numbers.</p>
+    </div>
+  </div>
+</section>
+
 <!-- ══ AI AGENT CHALLENGE ══ -->
 <section class="section challenge-section" id="challenge">
   <div class="wrap">
