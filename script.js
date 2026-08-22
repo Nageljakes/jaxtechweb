@@ -35,7 +35,7 @@ const API_ORIGIN = /\.workers\.dev$/.test(location.hostname) ? '' : 'https://tin
     endpoint: API_ORIGIN + '/api/enquiry',
 
     // Prefilled WhatsApp opener
-    waGreeting: "Hi Jaxtech, I'd like to find out more about a smart home system."
+    waGreeting: "Hi Jaxtech, I've got a task I'd like to hand over to an AI agent."
   };
   /* ════════════════════════════════════════════════════════ */
 
