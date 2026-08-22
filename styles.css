@@ -842,71 +842,6 @@ h4 { font-size: 1rem; font-weight: 600; }
     width: 100%;
 }
 
-.arch-node {
-    padding: 1.5rem 2rem;
-    border-radius: var(--r);
-    border-width: 2px;
-    text-align: center;
-    width: 250px;
-    position: relative;
-    cursor: pointer;
-    transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease), border-color 0.2s var(--ease);
-}
-
-.arch-node:hover {
-    transform: translate(-3px, -3px);
-    box-shadow: var(--hard-teal);
-    border-color: var(--accent-secondary);
-}
-
-.arch-node h4 {
-    margin-bottom: 0.5rem;
-    color: var(--accent-secondary);
-}
-
-.arch-node p {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-}
-
-.center-node h4 {
-    color: var(--accent-primary);
-}
-
-.arch-connector {
-    width: 2px;
-    height: 40px;
-    background: linear-gradient(to bottom, var(--accent-secondary), var(--accent-primary));
-    margin: 0 auto;
-    opacity: 0.5;
-}
-
-.arch-connector.split {
-    height: 40px;
-    background: transparent;
-    border-left: 2px solid var(--accent-primary);
-    border-right: 2px solid var(--accent-primary);
-    border-top: 2px solid var(--accent-primary);
-    width: 300px;
-    opacity: 0.5;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    margin-top: 20px;
-    margin-bottom: -2px;
-    border-bottom: none;
-}
-
-.arch-branches {
-    display: flex;
-    justify-content: space-between;
-    width: 340px;
-    margin: 0 auto;
-}
-
-@media (max-width: 768px) {
-    .arch-branches { flex-direction: column; gap: 20px; align-items: center; width: 100%;}
-    .arch-connector.split { border: none; width: 2px; background: var(--accent-primary); height: 40px; border-radius: 0; margin-top: 0; margin-bottom: 0;}
-}
 
 /* Report Styles */
 .report-container {
@@ -1078,10 +1013,6 @@ h4 { font-size: 1rem; font-weight: 600; }
 .glass-card[data-modal]:hover {
     box-shadow: 0 15px 35px rgba(138, 43, 226, 0.3);
     border-color: var(--accent-primary);
-}
-
-.arch-node[data-modal] {
-    cursor: pointer;
 }
 
 .skill-icon {
@@ -1885,3 +1816,119 @@ h4 { font-size: 1rem; font-weight: 600; }
   .ac-state i { animation: none; }
   .ac-ready-tool { animation: none; }
 }
+
+/* ============================================================
+   AGENT LOOP — replaces the top-down architecture tree.
+   An agent is a cycle, not a pipeline: it perceives, plans,
+   acts, then looks at what happened and goes round again until
+   the job is done. Drawing it as a tree contradicted the one
+   claim the whole page rests on.
+   ============================================================ */
+
+.loop-wrap { max-width: 760px; margin-inline: auto; width: 100%; }
+
+.loop-stage {
+  position: relative; width: 100%; aspect-ratio: 1 / 1;
+  max-width: 620px; margin-inline: auto;
+}
+
+/* The ring itself — dashes drift clockwise to show direction. */
+.loop-ring { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.loop-ring circle {
+  fill: none; stroke: var(--line-strong); stroke-width: 2;
+  stroke-dasharray: 10 8; stroke-linecap: round;
+  animation: loop-drift 3.5s linear infinite;
+}
+@keyframes loop-drift { to { stroke-dashoffset: -36; } }
+
+/* A pulse riding the ring. Rotating the orbit is more robust than
+   offset-path and behaves identically. */
+.loop-orbit { position: absolute; inset: 0; animation: loop-spin 7s linear infinite; }
+.loop-pulse {
+  position: absolute; left: 50%; top: 8%; width: 13px; height: 13px;
+  margin: -6.5px 0 0 -6.5px; border-radius: 50%;
+  background: var(--teal); box-shadow: 0 0 14px 3px rgba(53,198,216,.65);
+}
+@keyframes loop-spin { to { transform: rotate(360deg); } }
+
+/* Nodes sit on the ring at 0°, 120°, 240°. */
+.loop-node {
+  position: absolute; transform: translate(-50%, -50%);
+  width: min(40%, 210px);
+  background: linear-gradient(180deg, rgba(12,19,28,.98), rgba(4,7,10,.99));
+  border: 2px solid var(--line-strong); border-radius: var(--r);
+  padding: .95rem 1rem; text-align: center; cursor: pointer;
+  transition: border-color .25s var(--ease), transform .25s var(--ease),
+              box-shadow .25s var(--ease);
+}
+.loop-node:hover, .loop-node:focus-visible {
+  border-color: var(--teal); box-shadow: var(--hard-teal);
+  transform: translate(calc(-50% - 3px), calc(-50% - 3px));
+  outline: none;
+}
+.loop-node .loop-step {
+  display: block; font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: .62rem; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--coral); margin-bottom: .3rem;
+}
+.loop-node h4 { font-size: .98rem; margin-bottom: .2rem; letter-spacing: -.01em; }
+.loop-node p { font-size: .78rem; color: var(--muted); line-height: 1.45; }
+
+.loop-node.at-perceive { left: 50%; top: 8%; }
+.loop-node.at-plan     { left: 79.4%; top: 67%; }
+.loop-node.at-act      { left: 20.6%; top: 67%; }
+
+/* Memory sits inside the loop — everything reads from it. */
+.loop-core {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  width: min(38%, 200px); text-align: center; cursor: pointer;
+  background: radial-gradient(circle at 50% 40%, rgba(53,198,216,.14), rgba(4,7,10,.96) 72%);
+  border: 2px dashed rgba(53,198,216,.5); border-radius: 50%;
+  aspect-ratio: 1 / 1; display: grid; place-content: center; gap: .15rem;
+  padding: 1rem .8rem;
+  transition: border-color .25s var(--ease), box-shadow .25s var(--ease);
+}
+.loop-core:hover, .loop-core:focus-visible {
+  border-color: var(--teal); box-shadow: 0 0 26px rgba(53,198,216,.28); outline: none;
+}
+.loop-core h4 { font-size: .9rem; }
+.loop-core p { font-size: .72rem; color: var(--muted-dim); line-height: 1.4; }
+
+.loop-caption {
+  text-align: center; color: var(--muted); font-size: .92rem;
+  max-width: 56ch; margin: 1.6rem auto 0; line-height: 1.65;
+}
+.loop-caption strong { color: var(--teal); }
+
+/* ── Stacked fallback for narrow screens ───────────────
+   A ring at 380px is unreadable; below this it becomes a list
+   that still reads as a cycle thanks to the closing note.   */
+@media (max-width: 700px) {
+  .loop-stage {
+    aspect-ratio: auto; max-width: none;
+    display: grid; gap: .75rem; justify-items: stretch;
+  }
+  .loop-ring, .loop-orbit { display: none; }
+  .loop-node, .loop-core {
+    position: static; transform: none; width: 100%;
+    border-radius: var(--r); aspect-ratio: auto;
+    display: block; padding: .95rem 1rem;
+  }
+  .loop-node:hover, .loop-core:hover { transform: none; }
+  .loop-core { border-style: solid; }
+  /* Arrow between stacked steps, and one closing the cycle. */
+  .loop-node::after {
+    content: '↓'; display: block; text-align: center;
+    color: var(--coral); font-size: 1.1rem; margin: .55rem 0 -.35rem;
+  }
+  .loop-node.at-act::after { content: '↻ back round until it is done'; font-size: .74rem; letter-spacing: .04em; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loop-ring circle, .loop-orbit { animation: none; }
+}
+/* These nodes are <button>s, which default to the UA's ButtonText — dark
+   on a dark card. Only the elements given an explicit colour survived,
+   so the headings were rendering nearly invisible. */
+.loop-node, .loop-core { color: var(--text); font-family: inherit; }
+.loop-node h4, .loop-core h4 { color: var(--text); }

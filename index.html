@@ -30,7 +30,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=16">
+<link rel="stylesheet" href="styles.css?v=17">
 <script>document.documentElement.className += ' js';</script>
 </head>
 <body>
@@ -395,28 +395,39 @@
 </div>
 
 <section class="architecture" id="architecture">
-        <h2 class="section-title">Autonomous-Agent Architecture</h2>
-        <div class="arch-container">
-            <div class="arch-node glass" id="node-perception" data-modal="arch_perception">
-                <h4>Perception Layer</h4>
-                <p>Context & Intent Parsing</p>
+        <h2 class="section-title">The loop that finishes the job</h2>
+        <div class="arch-container loop-wrap">
+            <div class="loop-stage">
+                <svg class="loop-ring" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+                    <circle cx="50" cy="50" r="34"></circle>
+                </svg>
+                <div class="loop-orbit" aria-hidden="true"><span class="loop-pulse"></span></div>
+
+                <button type="button" class="loop-node at-perceive" id="node-perception" data-modal="arch_perception">
+                    <span class="loop-step">Step 01</span>
+                    <h4>Perception</h4>
+                    <p>Reads the request, the data, and whatever came back from the last action.</p>
+                </button>
+
+                <button type="button" class="loop-node at-plan" id="node-brain" data-modal="arch_brain">
+                    <span class="loop-step">Step 02</span>
+                    <h4>Reasoning</h4>
+                    <p>Works out what that means and picks the next move.</p>
+                </button>
+
+                <button type="button" class="loop-node at-act" id="node-tools" data-modal="arch_tools">
+                    <span class="loop-step">Step 03</span>
+                    <h4>Action</h4>
+                    <p>Calls a real tool — an API, a file, a device — then looks at the result.</p>
+                </button>
+
+                <button type="button" class="loop-core" id="node-memory" data-modal="arch_memory">
+                    <h4>Memory</h4>
+                    <p>What it knows, and what it already tried</p>
+                </button>
             </div>
-            <div class="arch-connector"></div>
-            <div class="arch-node center-node glass" id="node-brain" data-modal="arch_brain">
-                <h4>Core Brain</h4>
-                <p>LLM Reasoning & Planning</p>
-            </div>
-            <div class="arch-connector split"></div>
-            <div class="arch-branches">
-                <div class="arch-node action-node glass" id="node-tools" data-modal="arch_tools">
-                    <h4>Tool Execution</h4>
-                    <p>API & CLI Hooks</p>
-                </div>
-                <div class="arch-node action-node glass" id="node-memory" data-modal="arch_memory">
-                    <h4>Memory Store</h4>
-                    <p>Context &amp; History</p>
-                </div>
-            </div>
+
+            <p class="loop-caption">A chatbot stops after one reply. An agent goes round again — acting, looking at what happened, adjusting — <strong>until the job is actually done</strong>. Memory sits in the middle so it never repeats a step that already failed.</p>
         </div>
     </section>
 
