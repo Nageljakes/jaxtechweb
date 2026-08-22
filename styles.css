@@ -1667,3 +1667,43 @@ h4 { font-size: 1rem; font-weight: 600; }
   .run-step-mark, .run-tool.running .run-tool-state::before { animation: none !important; }
   .run-task .run-caret { animation: none; opacity: 0; }
 }
+
+/* ── Skills grid: show the goods at rest ───────────────
+   Cards used to sit empty until you searched, so the total
+   was a claim rather than something you could see. The idle
+   state now previews real skill names on every card.        */
+.skill-hit.preview {
+    color: var(--muted);
+    background: rgba(255, 255, 255, .04);
+    border-color: var(--line);
+    animation: none;
+}
+.skill-category:hover .skill-hit.preview {
+    color: var(--text);
+    border-color: var(--line-strong);
+}
+
+/* The per-card count is the proof — stop hiding it behind hover. */
+.skill-count-badge {
+    opacity: 1;
+    font-weight: 600;
+    color: var(--teal);
+    background: rgba(53, 198, 216, .1);
+    border: 1px solid rgba(53, 198, 216, .28);
+    border-radius: 999px;
+    padding: .1rem .5rem;
+    top: .7rem; right: .8rem;
+}
+.skill-category:hover .skill-count-badge { opacity: 1; }
+
+/* Reclaim room for the chips — the emoji was doing too much work. */
+.skill-icon {
+    font-size: 1.9rem;
+    width: 50px; height: 50px;
+    margin: .85rem auto .2rem;
+}
+.skill-category { padding: 1.35rem 1.2rem 1.25rem; }
+.skill-category h4 { font-size: 1.02rem; padding-right: 2.6rem; }
+/* Smart Home & IoT currently has no badges behind it, so its count is
+   an empty string — don't paint an empty pill for it. */
+.skill-count-badge:empty { display: none; }
