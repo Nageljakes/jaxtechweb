@@ -361,6 +361,10 @@ h4 { font-size: 1rem; font-weight: 600; }
   color: var(--muted-dim); margin-bottom: 1.05rem;
   padding-bottom: .85rem; border-bottom: 1px solid var(--line);
 }
+.hv-avatar {
+  width: 28px; height: 28px; border-radius: 50%; object-fit: cover;
+  border: 1.5px solid var(--teal); flex: none;
+}
 .hv-live {
   width: 7px; height: 7px; border-radius: 50%; background: #3ddc84;
   animation: pulse-g 2s infinite;
