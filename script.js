@@ -691,8 +691,8 @@ const modalData = {
         content: `
             <h4>Human-in-the-Loop Control</h4>
             <p>When the plumber arrives, the AI asks you on WhatsApp: "The plumber is at the gate. Shall I open it?" The gate remains securely closed until you explicitly tap approve.</p>
-            <h4>Absolute Privacy</h4>
-            <p>A visual privacy map confirms your personal information, camera footage, emails, and household records are processed entirely on your private local AI server, never travelling to overseas cloud servers.</p>
+            <h4>Privacy you can actually check</h4>
+            <p>On an on-premises install, personal information, camera footage, emails and household records are processed on a local AI server on the property and don't travel to an overseas cloud. Where a project does use hosted inference — which is often the sensible trade-off — you're told exactly which data leaves and where it goes, before anything is built. No vague assurances either way.</p>
         `
     },
     'arch_perception': {
@@ -708,9 +708,9 @@ const modalData = {
         icon: '🧠',
         title: 'Core Brain',
         content: `
-            <h4>Local LLM Engine & Planning</h4>
-            <p>At the center of your Jaxtech home sits an enterprise-grade local Large Language Model (the Hermes Agent). It performs complex multi-step reasoning, decision-making, and scheduling.</p>
-            <p>Because it operates entirely on dedicated local hardware, it guarantees absolute privacy and continues functioning perfectly even during internet outages.</p>
+            <h4>LLM Reasoning &amp; Planning</h4>
+            <p>At the centre of every Tiny agent sits a Large Language Model doing the actual thinking: breaking a request into steps, deciding which tool to reach for next, and adapting when a step doesn't go to plan.</p>
+            <p>Where that model runs is a deployment choice, and it's worth being straight about it. The chat on this site runs on <strong>hosted cloud inference</strong>. For an agent built for you, the same brain can run on hardware on your own premises instead — slower and more expensive to set up, but nothing leaves the building. Sensitive work gets the local option; most business automation doesn't need it.</p>
         `
     },
     'arch_tools': {
@@ -726,9 +726,9 @@ const modalData = {
         icon: '🗄️',
         title: 'Memory Store',
         content: `
-            <h4>Private Local Storage</h4>
-            <p>Your home's memory is stored in a secure, local vector database. It securely remembers your household routines, family preferences, past utility bills, and grocery lists.</p>
-            <p>All historical data is processed on bare-metal hardware inside the home, guaranteeing that your personal data and camera footage never travel to overseas cloud servers.</p>
+            <h4>Context &amp; History</h4>
+            <p>An agent that forgets everything between runs isn't much use. The memory store keeps the context an agent needs to do its job well: your routines and preferences, what it did last time, and the reference material it should answer from rather than guessing.</p>
+            <p>For an on-premises deployment this sits in a database on your own hardware, so records and camera footage stay on the property. For a cloud deployment it lives in managed storage under your account. Either way it's your data, and you decide what the agent is allowed to retain.</p>
         `
     },
         'skill_agents': {
@@ -1137,7 +1137,7 @@ const modalData = {
         title: 'Where the skills come from',
         content: `
             <h2>Where the skills come from</h2>
-            <p style="color: var(--text-muted); line-height: 1.8; margin-bottom: 1.2rem;">Tiny's 197 skills come from four places, each checked before it's trusted with anything:</p>
+            <p style="color: var(--text-muted); line-height: 1.8; margin-bottom: 1.2rem;">Tiny's skills come from four places, each checked before it's trusted with anything:</p>
             <ul style="color: var(--text-muted); line-height: 1.8;">
                 <li style="margin-bottom: .8rem;"><strong>Built in from day one</strong> — the core abilities every Tiny has: running code, managing files, reasoning through a problem, talking to you.</li>
                 <li style="margin-bottom: .8rem;"><strong>Official platform connections</strong> — verified integrations with the cloud services, finance tools and business systems Tiny might need to plug into.</li>

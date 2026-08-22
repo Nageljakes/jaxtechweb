@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /api/
 
-Sitemap: https://jaxtech.co.za/sitemap.xml
+Sitemap: https://tiny.jaxtech.workers.dev/sitemap.xml

@@ -595,7 +595,8 @@ h4 { font-size: 1rem; font-weight: 600; }
 }
 .faq-item[open] summary::after { transform: rotate(-135deg); margin-top: -2px; }
 .faq-body { padding: 0 1.45rem 1.35rem; }
-.faq-body p { font-size: .95rem; color: var(--muted); max-width: 68ch; }
+.faq-body p { font-size: .97rem; line-height: 1.72; color: #b8c6d1; max-width: 68ch; }
+.faq-body strong { color: var(--text); }
 
 /* ── Enquiry form ─────────────────────────────────── */
 .enquire-section { padding-bottom: 130px; position: relative; }
@@ -965,10 +966,15 @@ h4 { font-size: 1rem; font-weight: 600; }
     margin-bottom: 2rem;
 }
 .report-section h2 {
-    color: var(--accent-secondary);
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 3.2vw, 2.3rem);
+    line-height: 1.02;
+    letter-spacing: -.01em;
+    text-transform: uppercase;
+    color: var(--text);
     margin-bottom: 1.5rem;
-    border-bottom: 1px solid var(--glass-border);
-    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--line-strong);
+    padding-bottom: 0.7rem;
 }
 .badge {
     padding: 0.3rem 0.6rem;
