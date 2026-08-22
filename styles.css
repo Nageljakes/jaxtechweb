@@ -345,47 +345,6 @@ h4 { font-size: 1rem; font-weight: 600; }
 
 /* Hero visual */
 .hero-visual { position: relative; display: grid; gap: 1rem; }
-.hv-card {
-  border-radius: var(--r-lg); padding: 1.35rem 1.5rem;
-  border: 2px solid var(--teal);
-  box-shadow: var(--hard-teal);
-}
-.hv-main { animation: float 7s ease-in-out infinite; }
-@keyframes float {
-  0%,100% { transform: translateY(0); }
-  50%     { transform: translateY(-11px); }
-}
-.hv-head {
-  display: flex; align-items: center; gap: .5rem;
-  font-size: .74rem; letter-spacing: .12em; text-transform: uppercase;
-  color: var(--muted-dim); margin-bottom: 1.05rem;
-  padding-bottom: .85rem; border-bottom: 1px solid var(--line);
-}
-.hv-avatar {
-  width: 28px; height: 28px; border-radius: 50%; object-fit: cover;
-  border: 1.5px solid var(--teal); flex: none;
-}
-.hv-live {
-  width: 7px; height: 7px; border-radius: 50%; background: #3ddc84;
-  animation: pulse-g 2s infinite;
-}
-@keyframes pulse-g {
-  0%,100% { opacity: 1; } 50% { opacity: .35; }
-}
-.hv-rows { display: grid; gap: .72rem; }
-.hv-row {
-  display: flex; justify-content: space-between; align-items: center; gap: 1rem;
-  font-size: .89rem;
-}
-.hv-row span { color: var(--muted-dim); }
-.hv-row b { font-weight: 500; color: var(--text); text-align: right; }
-.hv-row b.ok   { color: #3ddc84; }
-.hv-row b.warn { color: var(--amber); }
-
-.hv-chat {
-  border-radius: var(--r-lg); padding: 1.1rem 1.2rem; display: grid; gap: .6rem;
-  animation: float 7s ease-in-out infinite .8s;
-}
 .hv-msg {
   font-size: .86rem; line-height: 1.5; padding: .7rem .95rem;
   border-radius: 14px; max-width: 88%;
@@ -393,11 +352,6 @@ h4 { font-size: 1rem; font-weight: 600; }
 .hv-msg.them {
   background: rgba(53,198,216,.12); border: 1px solid rgba(53,198,216,.2);
   border-bottom-left-radius: 4px; color: var(--text);
-}
-#hey-tiny-btn { animation: hv-btn-pulse 2.2s infinite; }
-@keyframes hv-btn-pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(53,198,216,.55); }
-  60%      { box-shadow: 0 0 0 11px rgba(53,198,216,0); }
 }
 .hv-msg.me {
   background: var(--surface-2); border: 1px solid var(--line);
@@ -1739,3 +1693,195 @@ h4 { font-size: 1rem; font-weight: 600; }
    these two panes need it stated explicitly or toggling .hidden in JS
    silently does nothing. */
 .run-idle[hidden], .run-body[hidden] { display: none; }
+
+/* ============================================================
+   AGENT CONSOLE — the hero visual.
+   Replaces the chat-bubble widget, which read as a chatbot and
+   argued against everything the rest of the page claims. This
+   is meant to read as operating equipment: telemetry, live
+   capability, and a thing that is plainly *doing* something.
+   ============================================================ */
+
+.agent-console {
+  position: relative;
+  display: flex; flex-direction: column;
+  border: 2px solid var(--line-strong);
+  border-radius: var(--r-lg);
+  background:
+    linear-gradient(180deg, rgba(11,18,27,.97), rgba(3,5,7,.99));
+  box-shadow: var(--hard), 0 0 0 1px rgba(53,198,216,.08);
+  overflow: hidden;
+}
+/* Faint horizontal rules — reads as an instrument face, not a chat app. */
+.agent-console::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  background-image: repeating-linear-gradient(
+    180deg, rgba(255,255,255,.022) 0 1px, transparent 1px 4px);
+  opacity: .5;
+}
+.agent-console > * { position: relative; z-index: 1; }
+
+/* ── Head: identity + live state ───────────────────── */
+.ac-head {
+  display: flex; align-items: center; gap: .8rem;
+  padding: .95rem 1.1rem;
+  border-bottom: 2px solid var(--line);
+  background: rgba(0,0,0,.4);
+}
+.ac-avatar { position: relative; width: 46px; height: 46px; flex: none; }
+.ac-avatar img {
+  position: absolute; inset: 5px; width: 36px; height: 36px;
+  border-radius: 50%; object-fit: cover;
+}
+/* Processing halo. Always turning — the agent is never merely waiting. */
+.ac-avatar::before {
+  content: ''; position: absolute; inset: 0; border-radius: 50%;
+  background: conic-gradient(from 0deg,
+    transparent 0deg, var(--teal) 60deg, transparent 130deg,
+    transparent 180deg, var(--coral) 240deg, transparent 310deg);
+  animation: ac-orbit 4.5s linear infinite;
+}
+.ac-avatar::after {
+  content: ''; position: absolute; inset: 3px; border-radius: 50%;
+  background: #05090e;
+}
+@keyframes ac-orbit { to { transform: rotate(360deg); } }
+
+.ac-id { display: grid; gap: .12rem; margin-right: auto; min-width: 0; }
+.ac-id b {
+  font-family: var(--font-display); text-transform: uppercase;
+  font-size: 1.02rem; letter-spacing: .01em; line-height: 1;
+}
+.ac-id span {
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: .68rem; color: var(--muted-dim); letter-spacing: .04em;
+}
+
+.ac-state {
+  display: inline-flex; align-items: center; gap: .45rem; flex: none;
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: .66rem; font-weight: 700; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--teal);
+  border: 1px solid rgba(53,198,216,.4); border-radius: 999px;
+  padding: .3rem .6rem; background: rgba(53,198,216,.08);
+  transition: color .3s var(--ease), border-color .3s var(--ease), background .3s var(--ease);
+}
+.ac-state i {
+  width: 6px; height: 6px; border-radius: 50%; background: currentColor;
+  animation: ac-beat 2s ease-in-out infinite;
+}
+@keyframes ac-beat { 0%,100% { opacity: 1; } 50% { opacity: .25; } }
+/* Flips while a reply is being generated — wired up in script.js. */
+.agent-console.working .ac-state {
+  color: var(--amber); border-color: rgba(245,166,35,.45); background: rgba(245,166,35,.1);
+}
+.agent-console.working .ac-avatar::before { animation-duration: 1.1s; }
+
+/* ── Telemetry strip ───────────────────────────────── */
+.ac-stats {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  border-bottom: 2px solid var(--line);
+  background: rgba(0,0,0,.22);
+}
+.ac-stat {
+  padding: .6rem .5rem; text-align: center;
+  border-right: 1px solid var(--line);
+}
+.ac-stat:last-child { border-right: 0; }
+.ac-stat b {
+  display: block; font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: 1.02rem; font-weight: 700; color: var(--teal);
+  font-variant-numeric: tabular-nums; line-height: 1.2;
+}
+.ac-stat span {
+  font-size: .6rem; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--muted-dim);
+}
+
+/* ── Transcript ────────────────────────────────────── */
+.ac-feed {
+  flex: 1; min-height: 168px; max-height: 236px; overflow-y: auto;
+  padding: 1rem 1.1rem; display: flex; flex-direction: column; gap: .75rem;
+  scrollbar-width: thin; scrollbar-color: var(--line-strong) transparent;
+}
+.ac-feed::-webkit-scrollbar { width: 6px; }
+.ac-feed::-webkit-scrollbar-thumb { background: var(--line-strong); border-radius: 3px; }
+
+/* Agent output reads as emitted, not as a speech bubble. */
+.ac-feed .hv-msg {
+  max-width: 100%; font-size: .9rem; line-height: 1.55;
+  border-radius: 0; padding: 0; background: none; border: 0;
+}
+.ac-feed .hv-msg.them {
+  color: var(--text); padding-left: 1.05rem; position: relative;
+}
+.ac-feed .hv-msg.them::before {
+  content: '▸'; position: absolute; left: 0; top: -.05em;
+  color: var(--coral); font-size: .85rem;
+}
+.ac-feed .hv-msg.me {
+  color: var(--muted); margin-left: 0; padding: .5rem .75rem;
+  background: rgba(255,255,255,.045); border-left: 2px solid var(--line-strong);
+  border-radius: 0 var(--r-sm) var(--r-sm) 0;
+}
+.ac-feed .hv-msg.thinking { color: var(--amber); padding-left: 1.05rem; }
+.ac-feed .hv-msg.thinking::before { color: var(--amber); }
+
+/* ── Capability readout ────────────────────────────── */
+.ac-ready {
+  display: flex; align-items: center; gap: .55rem;
+  padding: .5rem 1.1rem;
+  border-top: 1px solid var(--line);
+  background: rgba(0,0,0,.3);
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: .68rem; color: var(--muted-dim); overflow: hidden;
+}
+.ac-ready-dot {
+  width: 6px; height: 6px; border-radius: 50%; flex: none;
+  background: #3ddc84; box-shadow: 0 0 8px rgba(61,220,132,.7);
+}
+.ac-ready-label { flex: none; letter-spacing: .1em; text-transform: uppercase; }
+.ac-ready-tool {
+  color: var(--teal); white-space: nowrap; overflow: hidden;
+  text-overflow: ellipsis; min-width: 0;
+  animation: ac-swap .45s var(--ease);
+}
+@keyframes ac-swap { from { opacity: 0; transform: translateY(4px); } }
+
+/* ── Input ─────────────────────────────────────────── */
+.ac-input {
+  display: flex; gap: .55rem; padding: .85rem 1.1rem;
+  border-top: 2px solid var(--line); background: rgba(0,0,0,.42);
+}
+.ac-input input {
+  flex: 1; min-width: 0; font-family: inherit; font-size: .92rem;
+  color: var(--text); background: rgba(0,0,0,.5);
+  border: 1px solid var(--line-strong); border-radius: var(--r-sm);
+  padding: .65rem .85rem;
+  transition: border-color .2s var(--ease), box-shadow .2s var(--ease);
+}
+.ac-input input::placeholder { color: #55697a; }
+.ac-input input:focus {
+  outline: none; border-color: var(--teal);
+  box-shadow: 0 0 0 3px rgba(53,198,216,.16);
+}
+
+.ac-note {
+  font-size: .73rem; color: var(--muted-dim); text-align: center;
+  margin-top: .7rem; line-height: 1.5;
+}
+.ac-alt { font-size: .82rem; color: var(--muted); text-align: center; margin-top: .5rem; }
+.ac-alt a { color: var(--teal); font-weight: 600; }
+.ac-alt a:hover { text-decoration: underline; }
+
+@media (max-width: 560px) {
+  .ac-stat b { font-size: .92rem; }
+  .ac-stat span { font-size: .55rem; letter-spacing: .1em; }
+  .ac-feed { max-height: 200px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ac-avatar::before { animation: none; }
+  .ac-state i { animation: none; }
+  .ac-ready-tool { animation: none; }
+}

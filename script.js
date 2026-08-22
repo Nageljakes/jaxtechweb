@@ -1211,6 +1211,24 @@ const modalData = {
     }
 };
 
+/* modalData is scoped to this IIFE, so anything outside it — the hero
+   console, for one — cannot read the catalogue. Publish the flattened
+   tool names once, here, so those readouts stay tied to this object
+   instead of drifting against a second hardcoded list. */
+try {
+    const _probe = document.createElement('div');
+    const _skillKeys = Object.keys(modalData).filter(k => k.indexOf('skill_') === 0);
+    const _tools = [];
+    _skillKeys.forEach(k => {
+        _probe.innerHTML = (modalData[k] && modalData[k].content) || '';
+        Array.from(_probe.querySelectorAll('.badge'))
+            .map(b => b.textContent.trim())
+            .filter(Boolean)
+            .forEach(n => _tools.push(n));
+    });
+    window.JAXTECH_CATALOGUE = { tools: _tools, domains: _skillKeys.length };
+} catch (e) { /* readouts fall back to the numbers authored in the HTML */ }
+
 function openModal(id) {
     const data = modalData[id];
     if (!data) return;
@@ -2107,5 +2125,67 @@ if (chatInput) {
       token++;                      // cancel the in-flight timeline
       clearInterval(clockTimer);
     }, { threshold: 0.05 }).observe(panel);
+  }
+})();
+
+/* ============================================================
+   AGENT CONSOLE — hero telemetry.
+   Keeps the console's readouts honest: the counters come from
+   the same modalData the skills index is built from, and the
+   status pill reflects what the chat is actually doing.
+   ============================================================ */
+(function () {
+  'use strict';
+
+  const console_ = document.getElementById('agent-console');
+  if (!console_) return;
+
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---- Real tool names + counts, published by the catalogue IIFE ----
+     modalData itself is out of reach from here; see the export beside it. */
+  const catalogue = window.JAXTECH_CATALOGUE || { tools: [], domains: 0 };
+  const tools = catalogue.tools;
+  const domains = catalogue.domains;
+
+  const setNum = (id, n) => {
+    const el = document.getElementById(id);
+    if (el && n > 0) el.textContent = n;
+  };
+  setNum('ac-skills', tools.length);
+  setNum('ac-domains', domains);
+
+  /* ---- Cycle the armed-tool readout --------------------------------
+     Shows that the breadth below is on hand right now, not a brochure. */
+  const toolEl = document.getElementById('ac-tool');
+  if (toolEl && tools.length && !reduce) {
+    // Start somewhere arbitrary so two visitors don't see the same order.
+    let i = Math.floor(Math.random() * tools.length);
+    toolEl.textContent = tools[i];
+    setInterval(() => {
+      i = (i + 1) % tools.length;
+      toolEl.textContent = tools[i];
+      // Re-trigger the swap animation.
+      toolEl.style.animation = 'none';
+      void toolEl.offsetWidth;
+      toolEl.style.animation = '';
+    }, 2200);
+  }
+
+  /* ---- Reflect real work in the status pill ------------------------
+     The chat code owns the thinking indicator, so rather than reaching
+     into it we just watch the transcript for one appearing. */
+  const feed = document.getElementById('chat-history');
+  const stateEl = document.getElementById('ac-state');
+  if (feed && stateEl && 'MutationObserver' in window) {
+    const label = () => {
+      const busy = !!feed.querySelector('.thinking');
+      console_.classList.toggle('working', busy);
+      const text = busy ? 'Working' : 'Operational';
+      if (stateEl.lastChild && stateEl.lastChild.nodeType === 3) {
+        stateEl.lastChild.nodeValue = text;
+      }
+    };
+    new MutationObserver(label).observe(feed, { childList: true, subtree: true });
   }
 })();
