@@ -705,7 +705,7 @@ h4 { font-size: 1rem; font-weight: 600; }
 .footer-brand img { border-radius: 12px; margin-bottom: 1.1rem; }
 .footer-tag { font-weight: 600; font-size: 1rem; line-height: 1.4; margin-bottom: .8rem; }
 .footer-desc { font-size: .88rem; color: var(--muted-dim); max-width: 34ch; }
-.footer-col h4 {
+.footer-col h3, .footer-col h4 {
   font-size: .76rem; letter-spacing: .14em; text-transform: uppercase;
   color: var(--muted-dim); margin-bottom: 1.05rem;
 }
@@ -910,7 +910,7 @@ h4 { font-size: 1rem; font-weight: 600; }
     padding: 1.5rem;
     border-radius: var(--r);
 }
-.skill-category h4 {
+.skill-category h3, .skill-category h4 {
     color: var(--accent-secondary);
     margin-bottom: 0.5rem;
     font-size: 1.1rem;
@@ -1615,7 +1615,7 @@ h4 { font-size: 1rem; font-weight: 600; }
     margin: .85rem auto .2rem;
 }
 .skill-category { padding: 1.35rem 1.2rem 1.25rem; }
-.skill-category h4 { font-size: 1.02rem; padding-right: 2.6rem; }
+.skill-category h3, .skill-category h4 { font-size: 1.02rem; padding-right: 2.6rem; }
 /* Smart Home & IoT currently has no badges behind it, so its count is
    an empty string — don't paint an empty pill for it. */
 .skill-count-badge:empty { display: none; }
@@ -1871,7 +1871,7 @@ h4 { font-size: 1rem; font-weight: 600; }
   font-size: .62rem; letter-spacing: .16em; text-transform: uppercase;
   color: var(--coral); margin-bottom: .3rem;
 }
-.loop-node h4 { font-size: .98rem; margin-bottom: .2rem; letter-spacing: -.01em; }
+.loop-node h3, .loop-node h4 { font-size: .98rem; margin-bottom: .2rem; letter-spacing: -.01em; }
 .loop-node p { font-size: .78rem; color: var(--muted); line-height: 1.45; }
 
 .loop-node.at-perceive { left: 50%; top: 8%; }
@@ -1891,7 +1891,7 @@ h4 { font-size: 1rem; font-weight: 600; }
 .loop-core:hover, .loop-core:focus-visible {
   border-color: var(--teal); box-shadow: 0 0 26px rgba(53,198,216,.28); outline: none;
 }
-.loop-core h4 { font-size: .9rem; }
+.loop-core h3, .loop-core h4 { font-size: .9rem; }
 .loop-core p { font-size: .72rem; color: var(--muted-dim); line-height: 1.4; }
 
 .loop-caption {
@@ -1931,7 +1931,7 @@ h4 { font-size: 1rem; font-weight: 600; }
    on a dark card. Only the elements given an explicit colour survived,
    so the headings were rendering nearly invisible. */
 .loop-node, .loop-core { color: var(--text); font-family: inherit; }
-.loop-node h4, .loop-core h4 { color: var(--text); }
+.loop-node h3, .loop-core h3, .loop-node h4, .loop-core h4 { color: var(--text); }
 
 /* The challenge card fills the wrap edge to edge and carries a
    backdrop-filter, so the section numeral was straddling its right edge —
@@ -2076,3 +2076,80 @@ h4 { font-size: 1rem; font-weight: 600; }
 }
 .receipt-note p { font-size: .92rem; color: var(--muted); line-height: 1.65; }
 .receipt-note strong { color: var(--text); }
+
+/* ============================================================
+   FOCUS VISIBILITY (WCAG 2.4.7)
+   Several component rules set outline:none and leaned on a border
+   colour or box-shadow instead. Two problems with that: it reads as
+   hover styling rather than focus, and forced-colours mode drops
+   box-shadow entirely, leaving keyboard users with no indicator at
+   all. Automated checkers do not catch this — it was found by
+   tabbing the pages and reading computed styles.
+   These come last in the file so they win on source order.
+   ============================================================ */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+summary:focus-visible,
+[tabindex]:focus-visible,
+.signpost:focus-visible,
+.run-card:focus-visible,
+.skill-category:focus-visible,
+.ac-input input:focus-visible,
+#skill-search:focus-visible,
+.chip input:focus-visible + span,
+.seg-opt input:focus-visible + span {
+  outline: 3px solid var(--teal);
+  outline-offset: 3px;
+}
+
+/* Keep the decorative treatment on the card-style controls, but never
+   in place of the outline. */
+.signpost:focus-visible,
+.run-card:focus-visible { border-color: var(--teal); }
+
+/* Forced-colours mode ignores our palette; ask the OS for its own ring. */
+@media (forced-colors: active) {
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  textarea:focus-visible, summary:focus-visible, [tabindex]:focus-visible {
+    outline: 3px solid Highlight;
+  }
+}
+
+/* .field input:focus (0,2,1) outranked the generic input:focus-visible
+   rule above, so form fields kept losing their ring. Match its
+   specificity and come later. */
+.field input:focus-visible,
+.field textarea:focus-visible,
+.enquire-form input:focus-visible,
+.enquire-form textarea:focus-visible {
+  outline: 3px solid var(--teal);
+  outline-offset: 3px;
+}
+/* Chip and segmented controls hide the real input, so the ring has to
+   land on the visible label beside it. */
+.chip input:focus-visible + span,
+.seg-opt input:focus-visible + span,
+.check input:focus-visible + span {
+  outline: 3px solid var(--teal);
+  outline-offset: 3px;
+  border-radius: var(--r-sm);
+}
+
+/* The loop diagram's nodes are buttons whose hover/focus rule set
+   outline:none, leaving keyboard users nothing on the one interactive
+   diagram on the site. */
+.loop-node:focus-visible,
+.loop-core:focus-visible {
+  outline: 3px solid var(--teal);
+  outline-offset: 4px;
+}
+
+/* The 20 skill cards are keyboard-focusable (tabindex=0) but were the last
+   controls with no ring. Drawn inset so no ancestor's overflow can clip it. */
+.skills-grid .skill-category:focus-visible {
+  outline: 3px solid var(--teal);
+  outline-offset: -3px;
+}
