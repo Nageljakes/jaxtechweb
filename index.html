@@ -30,7 +30,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=14">
+<link rel="stylesheet" href="styles.css?v=16">
 <script>document.documentElement.className += ' js';</script>
 </head>
 <body>
@@ -73,24 +73,42 @@
     </div>
   </div>
 
-  <div class="hero-visual reveal" id="tiny-chat" style="display: flex; flex-direction: column;">
-    <div class="hv-card glass" style="flex: 1; display: flex; flex-direction: column; overflow: hidden; padding: 0;">
-      <div class="hv-head" style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.2);">
-        <img src="assets/Tiny.jpg" alt="" width="28" height="28" class="hv-avatar">
-        <span class="hv-live"></span> Tiny — AI Agent
+  <div class="hero-visual reveal" id="tiny-chat">
+    <div class="agent-console" id="agent-console">
+      <div class="ac-head">
+        <span class="ac-avatar" aria-hidden="true"><img src="assets/Tiny.jpg" alt="" width="36" height="36"></span>
+        <span class="ac-id">
+          <b>Tiny</b>
+          <span>agentic harness · gauteng</span>
+        </span>
+        <span class="ac-state" id="ac-state" role="status" aria-live="polite"><i aria-hidden="true"></i>Operational</span>
       </div>
-      <div id="chat-history" style="flex: 1; padding: 1rem; overflow-y: auto; display: flex; flex-direction: column; gap: 0.8rem; max-height: 250px;">
+
+      <div class="ac-stats" aria-label="Current capability">
+        <div class="ac-stat"><b id="ac-skills">198</b><span>Skills</span></div>
+        <div class="ac-stat"><b id="ac-domains">20</b><span>Domains</span></div>
+        <div class="ac-stat"><b>24/7</b><span>On call</span></div>
+      </div>
+
+      <div class="ac-feed" id="chat-history">
         <div class="hv-msg them">What would be the first task you'd delegate if you had a personal assistant?</div>
       </div>
-      <div id="chat-controls" style="padding: 1rem; border-top: 1px solid rgba(255,255,255,0.1); display: flex; gap: 0.5rem; background: rgba(0,0,0,0.2);">
-        <div id="chat-input-wrapper" style="display: flex; flex: 1; gap: 0.5rem;">
-          <input type="text" id="chat-input" placeholder="Tell Tiny..." style="flex: 1; padding: 0.6rem 0.8rem; border-radius: 2rem; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.3); color: white; font-family: inherit; font-size: 0.9rem;">
-          <button id="chat-send" class="btn btn-primary" style="padding: 0.5rem 1rem; border-radius: 2rem; font-size: 0.9rem;">Send</button>
+
+      <div class="ac-ready" aria-hidden="true">
+        <span class="ac-ready-dot"></span>
+        <span class="ac-ready-label">Tools armed</span>
+        <span class="ac-ready-tool" id="ac-tool">home-assistant-api</span>
+      </div>
+
+      <div class="ac-input" id="chat-controls">
+        <div id="chat-input-wrapper" style="display: flex; flex: 1; gap: .55rem;">
+          <input type="text" id="chat-input" placeholder="Give Tiny a task…" autocomplete="off" aria-label="Give Tiny a task">
+          <button id="chat-send" class="btn btn-primary btn-sm">Send</button>
         </div>
       </div>
     </div>
-    <p style="font-size: .74rem; color: var(--muted); margin-top: .6rem; text-align: center;">Tiny's replies are AI-generated using hosted cloud inference. If you submit an enquiry, this conversation is included and read by Jakes personally.</p>
-    <p style="font-size: .82rem; color: var(--muted); margin-top: .9rem; text-align: center;">Prefer messaging apps? Talk to Tiny on <a href="#" class="js-whatsapp" style="color: var(--teal); font-weight: 600;">WhatsApp</a> or <a href="#" class="js-telegram" style="color: var(--teal); font-weight: 600;">Telegram</a> instead.</p>
+    <p class="ac-note">Tiny's replies are AI-generated using hosted cloud inference. If you submit an enquiry, this conversation is included and read by Jakes personally.</p>
+    <p class="ac-alt">Prefer messaging apps? Talk to Tiny on <a href="#" class="js-whatsapp">WhatsApp</a> or <a href="#" class="js-telegram">Telegram</a> instead.</p>
   </div>
 </header>
 
@@ -709,7 +727,7 @@
 </script>
 
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-<script src="script.js?v=18"></script>
+<script src="script.js?v=19"></script>
 <div class="modal-overlay" id="detail-modal">
         <div class="modal-content">
             <button class="modal-close" onclick="closeModal()">&times;</button>
