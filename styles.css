@@ -2153,3 +2153,22 @@ summary:focus-visible,
   outline: 3px solid var(--teal);
   outline-offset: -3px;
 }
+
+/* Challenge status — set from the closing date, hidden until it is known. */
+.challenge-status {
+  display: inline-flex; align-items: center; gap: .5rem;
+  margin-top: 1.2rem; padding: .45rem .85rem;
+  border: 2px solid var(--teal); border-radius: var(--r-sm);
+  background: rgba(53,198,216,.1);
+  font-size: .82rem; font-weight: 700; letter-spacing: .04em;
+  text-transform: uppercase; color: var(--teal);
+}
+.challenge-status::before {
+  content: ''; width: 7px; height: 7px; border-radius: 50%;
+  background: currentColor; flex: none;
+}
+.challenge-status.is-closed {
+  border-color: var(--line-strong); background: rgba(255,255,255,.04);
+  color: var(--muted); text-transform: none; letter-spacing: 0;
+  font-weight: 400; font-size: .86rem;
+}

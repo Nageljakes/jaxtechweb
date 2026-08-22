@@ -30,7 +30,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=26">
+<link rel="stylesheet" href="styles.css?v=27">
 <script>document.documentElement.className += ' js';</script>
 </head>
 <body>
@@ -59,11 +59,11 @@
 <!-- ══ HERO ══ -->
 <header class="hero" id="top">
   <div class="hero-inner">
-    <p class="eyebrow reveal"><span class="dot"></span> The Jaxtech AI Agent Challenge</p>
+    <p class="eyebrow reveal"><span class="dot"></span> AI agents, built in South Africa</p>
 
-    <h1 class="reveal">Give Tiny a task.<br><span class="grad">Win an AI agent.</span></h1>
+    <h1 class="reveal">Give Tiny a task.<br><span class="grad">Watch it finish the job.</span></h1>
 
-    <p class="hero-sub reveal">Tell Tiny about a repetitive job, a business bottleneck or an idea you want to automate. Submit the task with your enquiry and Jaxtech could build the winning custom agent at no development cost.</p>
+    <p class="hero-sub reveal">Not a chatbot that answers questions &mdash; an agent that plans the work, calls the tools it needs and sees it through. Describe a job you would rather never do again, and find out what handing it over would actually take.</p>
     <div class="hero-actions reveal">
       <a href="#tiny-chat" class="btn btn-primary btn-lg" data-track="hero_try_tiny">Try Tiny now</a>
       <a href="#challenge" class="btn btn-ghost btn-lg">How the challenge works</a>
@@ -111,8 +111,8 @@
 <!-- ══ TICKER ══ -->
 <div class="marquee" aria-hidden="true">
   <div class="marquee-track">
-    <span>AI Agent Challenge</span><span>Entries close 31 August 2026</span><span>Give Tiny a task</span><span>Win a custom AI agent</span><span>Built in South Africa</span>
-    <span>AI Agent Challenge</span><span>Entries close 31 August 2026</span><span>Give Tiny a task</span><span>Win a custom AI agent</span><span>Built in South Africa</span>
+    <span>Give Tiny a task</span><span>198 skills, 20 domains</span><span>Plans · calls tools · finishes</span><span>Built in South Africa</span>
+    <span>Give Tiny a task</span><span>198 skills, 20 domains</span><span>Plans · calls tools · finishes</span><span>Built in South Africa</span>
   </div>
 </div>
 
@@ -196,6 +196,7 @@
         <p class="kicker">One useful idea wins</p>
         <h2 class="h2">What would you delegate if you had your own AI agent?</h2>
         <p class="lede">We are looking for a real task that costs someone time, focus or missed opportunities. Show Tiny the task, then tell us why solving it would matter.</p>
+        <p class="challenge-status" id="challenge-status" hidden></p>
         <div class="challenge-dates" aria-label="Challenge dates">
           <span><strong>Entries close</strong> 31 August 2026</span>
           <span><strong>Winner announced</strong> 7 September 2026</span>
@@ -474,7 +475,7 @@
 }
 </script>
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-<script src="script.js?v=19"></script>
+<script src="script.js?v=20"></script>
 <div class="modal-overlay" id="detail-modal">
         <div class="modal-content">
             <button class="modal-close" onclick="closeModal()">&times;</button>
