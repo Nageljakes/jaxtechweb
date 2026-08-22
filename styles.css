@@ -1485,49 +1485,77 @@ h4 { font-size: 1rem; font-weight: 600; }
 .runshow-head .h2 { margin-inline: auto; max-width: 22ch; }
 .runshow-head .lede { margin-inline: auto; text-align: center; }
 
-.runshow-grid {
-  display: grid; grid-template-columns: 1fr 1.35fr;
-  gap: clamp(1.5rem, 3.5vw, 3rem); align-items: start;
+/* ── Use-case menu ─────────────────────────────────────
+   A menu, not a carousel. Nothing renders until a card is
+   clicked, so the section costs nothing until it's wanted. */
+.run-menu {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(232px, 1fr));
+  gap: .8rem; margin-bottom: 1.6rem;
 }
-
-/* ── Scenario switcher ─────────────────────────────── */
-.run-tabs { display: grid; gap: .7rem; position: sticky; top: 108px; }
-.run-tab {
-  --tab-accent: var(--teal);
-  text-align: left; cursor: pointer; position: relative;
+.run-card {
+  --card-accent: var(--teal);
+  position: relative; overflow: hidden;
+  text-align: left; cursor: pointer; font-family: inherit;
   background: var(--surface); color: var(--text);
   border: 2px solid var(--line); border-radius: var(--r);
-  padding: 1rem 1.15rem; font-family: inherit;
-  display: grid; gap: .3rem;
-  transition: border-color .25s var(--ease), transform .25s var(--ease),
-              box-shadow .25s var(--ease), background .25s var(--ease);
+  padding: .95rem 1.05rem 2.2rem;
+  display: grid; gap: .3rem; align-content: start;
+  transition: border-color .22s var(--ease), transform .22s var(--ease),
+              box-shadow .22s var(--ease), background .22s var(--ease);
 }
-.run-tab:hover { border-color: var(--line-strong); transform: translate(-2px, -2px); }
-.run-tab b {
-  font-size: .95rem; font-weight: 600; letter-spacing: -.01em;
-  display: flex; align-items: center; gap: .5rem;
+.run-card:hover {
+  border-color: var(--card-accent); transform: translate(-3px, -3px);
+  box-shadow: 6px 6px 0 color-mix(in srgb, var(--card-accent) 45%, transparent);
 }
-.run-tab b::before {
-  content: ''; width: 8px; height: 8px; flex: none;
-  background: var(--muted-dim); transform: rotate(45deg);
-  transition: background .25s var(--ease), box-shadow .25s var(--ease);
+.run-card:active { transform: translate(0, 0); box-shadow: none; }
+.run-card-tag {
+  font-size: .66rem; letter-spacing: .13em; text-transform: uppercase;
+  font-weight: 700; color: var(--card-accent);
 }
-.run-tab span { font-size: .83rem; color: var(--muted); line-height: 1.5; }
-.run-tab[aria-selected="true"] {
-  border-color: var(--tab-accent); background: var(--surface-2);
+.run-card b { font-size: .98rem; font-weight: 600; letter-spacing: -.012em; line-height: 1.25; }
+.run-card-pain { font-size: .82rem; color: var(--muted); line-height: 1.5; }
+.run-card-go {
+  position: absolute; left: 1.05rem; bottom: .85rem;
+  font-size: .74rem; font-weight: 700; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--muted-dim);
+  display: inline-flex; align-items: center; gap: .35rem;
+  transition: color .22s var(--ease);
+}
+.run-card-go::after { content: '▸'; transition: transform .22s var(--ease); }
+.run-card:hover .run-card-go { color: var(--card-accent); }
+.run-card:hover .run-card-go::after { transform: translateX(3px); }
+
+.run-card.playing {
+  border-color: var(--card-accent); background: var(--surface-2);
+  box-shadow: 6px 6px 0 color-mix(in srgb, var(--card-accent) 45%, transparent);
   transform: translate(-3px, -3px);
-  box-shadow: 6px 6px 0 color-mix(in srgb, var(--tab-accent) 55%, transparent);
 }
-.run-tab[aria-selected="true"] b::before {
-  background: var(--tab-accent);
-  box-shadow: 0 0 12px var(--tab-accent);
+.run-card.playing .run-card-go { color: var(--card-accent); }
+.run-card.done .run-card-go::before { content: '✓ '; color: var(--teal); }
+
+/* Progress hairline showing how far this run has played */
+.run-card::after {
+  content: ''; position: absolute; left: 0; bottom: 0; height: 3px;
+  width: var(--run-progress, 0%); background: var(--card-accent);
+  transition: width .25s var(--ease);
 }
-/* Progress hairline showing how far the current run has played */
-.run-tab-bar {
-  position: absolute; left: 0; bottom: 0; height: 2px; width: 0;
-  background: var(--tab-accent); border-radius: 0 2px 2px 0;
+
+/* ── Idle poster shown before the first click ──────── */
+.run-idle {
+  flex: 1; display: grid; place-content: center; justify-items: center;
+  text-align: center; padding: clamp(2.5rem, 7vw, 4.5rem) 1.5rem; gap: .5rem;
 }
-.run-tab[aria-selected="true"] .run-tab-bar { width: var(--run-progress, 0%); }
+.run-idle-mark {
+  font-size: 1.6rem; color: var(--coral); line-height: 1;
+  width: 58px; height: 58px; display: grid; place-items: center;
+  border: 2px solid var(--line-strong); border-radius: 50%;
+  margin-bottom: .5rem;
+}
+.run-idle-title {
+  font-family: var(--font-display); text-transform: uppercase;
+  font-size: clamp(1.15rem, 2.4vw, 1.5rem); letter-spacing: -.01em;
+}
+.run-idle-sub { font-size: .9rem; color: var(--muted); max-width: 46ch; line-height: 1.6; }
 
 /* ── The console panel ─────────────────────────────── */
 .run-panel {
@@ -1652,9 +1680,8 @@ h4 { font-size: 1rem; font-weight: 600; }
 .run-foot p { font-size: .88rem; color: var(--muted-dim); max-width: 54ch; }
 
 @media (max-width: 900px) {
-  .runshow-grid { grid-template-columns: 1fr; }
-  .run-tabs { position: static; grid-template-columns: 1fr; }
   .run-panel { min-height: 0; }
+  .run-menu { grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: .65rem; }
 }
 @media (max-width: 560px) {
   .run-tool { grid-template-columns: 1fr auto; }
@@ -1707,3 +1734,8 @@ h4 { font-size: 1rem; font-weight: 600; }
 /* Smart Home & IoT currently has no badges behind it, so its count is
    an empty string — don't paint an empty pill for it. */
 .skill-count-badge:empty { display: none; }
+
+/* An author-set `display` beats the UA stylesheet's [hidden] rule, so
+   these two panes need it stated explicitly or toggling .hidden in JS
+   silently does nothing. */
+.run-idle[hidden], .run-body[hidden] { display: none; }

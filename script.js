@@ -1796,6 +1796,114 @@ if (chatInput) {
       ],
       result: { title: 'Battery held at 61% — outage survived',
                 body: 'Geyser reheated after tariff dropped instead of on the battery. You got one WhatsApp when it was over, not five alerts during it.' }
+    },
+    {
+      task: 'I’m meeting a prospective client on Thursday. Tell me what I should already know before I walk in.',
+      steps: [
+        { text: 'Map the company — registration, footprint, who owns it',
+          tools: [{ name: 'domain-intel', arg: 'company.co.za', ms: 420 },
+                  { name: 'duckduckgo-search', arg: 'company + directors', ms: 280 }] },
+        { text: 'Pull recent news and anything public that changed',
+          tools: [{ name: 'blogwatcher', arg: 'mentions, 90 days', ms: 350 },
+                  { name: 'parallel-cli', arg: 'fan-out × 12 sources', ms: 610 }] },
+        { text: 'Check the people who’ll be in the room',
+          tools: [{ name: 'osint-investigation', arg: 'attendees × 3', ms: 540 }] },
+        { text: 'Write it into something readable on the drive there',
+          tools: [{ name: 'docx', arg: 'brief_thursday', ms: 300 }] }
+      ],
+      result: { title: 'Two-page brief, 14 sources cited',
+                body: 'Includes the three things that changed at the company this quarter, and which person to ask about each one. Every claim links back to where it came from.' }
+    },
+    {
+      task: 'Take this product idea and put a real landing page live today so I can start sending people to it.',
+      steps: [
+        { text: 'Turn the brief into a layout and a visual direction',
+          tools: [{ name: 'frontend-design', arg: 'brief → layout', ms: 880 }] },
+        { text: 'Build the page properly, not a template',
+          tools: [{ name: 'web-artifacts-builder', arg: 'landing/index', ms: 1240 }] },
+        { text: 'Check it on the widths people actually use',
+          tools: [{ name: 'webapp-testing', arg: '390px, 1440px', ms: 760 }] },
+        { text: 'Put it on a URL you can share',
+          tools: [{ name: 'cloudflare-temporary-deploy', arg: 'preview', ms: 410 }] }
+      ],
+      result: { title: 'Live on a URL — 3.4s of agent time',
+                body: 'Checked at phone and desktop widths before it went up. Change a line of copy and it redeploys itself; you never open a dashboard.' }
+    },
+    {
+      task: 'We go live next month. Find what an attacker would find first, and tell me what to fix in what order.',
+      steps: [
+        { text: 'Model what someone would actually try against us',
+          tools: [{ name: 'security-threat-model', arg: 'surface map', ms: 520 }] },
+        { text: 'Probe the public surface the way they would',
+          tools: [{ name: 'web-pentest', arg: 'authenticated + anon', ms: 1680 }] },
+        { text: 'Check the dependencies for known trouble',
+          tools: [{ name: 'oss-forensics', arg: 'lockfile × 214 pkgs', ms: 740 }] },
+        { text: 'Rank it by what gets reached first',
+          tools: [{ name: 'security-best-practices', arg: 'report', ms: 390 }] }
+      ],
+      result: { title: '2 findings worth acting on today',
+                body: 'Ranked by what an attacker reaches first, not by scanner severity — which is why the list is short. Written in plain language, not a raw scan log.' }
+    },
+    {
+      task: 'Build me a valuation pack for this acquisition — comparables, a DCF, and something I can actually present.',
+      steps: [
+        { text: 'Pull comparable companies and their trading multiples',
+          tools: [{ name: 'comps-analysis', arg: 'peer set × 9', ms: 640 }] },
+        { text: 'Build the three statements from the financials',
+          tools: [{ name: '3-statement-model', arg: 'FY22–FY26', ms: 920 },
+                  { name: 'excel-author', arg: 'model.xlsx', ms: 380 }] },
+        { text: 'Run the DCF and stress the assumptions',
+          tools: [{ name: 'dcf-model', arg: 'wacc ± 150bps', ms: 780 }] },
+        { text: 'Assemble it into a deck for the meeting',
+          tools: [{ name: 'pptx-author', arg: 'valuation_pack', ms: 450 }] }
+      ],
+      result: { title: 'Valuation range, assumptions visible',
+                body: 'Every number traces back to a source you can open. The sensitivity table shows exactly where the range stops holding — which is the part people argue about.' }
+    },
+    {
+      task: 'I want it answering from our own documents and procedures, not from whatever it read on the internet.',
+      steps: [
+        { text: 'Index your documents so they can be retrieved properly',
+          tools: [{ name: 'chroma', arg: 'embed × 4,180 chunks', ms: 1120 }] },
+        { text: 'Fine-tune on the examples that represent the job',
+          tools: [{ name: 'fine-tuning-with-trl', arg: 'lora, 3 epochs', ms: 2400 }] },
+        { text: 'Score it against questions it has not seen',
+          tools: [{ name: 'evaluating-llms-harness', arg: 'held-out × 120', ms: 890 }] },
+        { text: 'Deploy it where you want it to run',
+          tools: [{ name: 'huggingface-accelerate', arg: 'quantise + serve', ms: 530 }] }
+      ],
+      result: { title: 'Grounded in your material, and measured',
+                body: 'Scored before and after, so the improvement is a number rather than a feeling. Can run on hardware you own if the documents are sensitive.' }
+    },
+    {
+      task: 'We’re launching this product. I need the visuals, the explainer and something for the video — in one style.',
+      steps: [
+        { text: 'Settle the campaign line and the key messages',
+          tools: [{ name: 'claude-design', arg: 'direction × 3', ms: 480 }] },
+        { text: 'Generate the product imagery in that direction',
+          tools: [{ name: 'comfyui', arg: 'hero + 6 variants', ms: 1850 }] },
+        { text: 'Build the graphic that explains how it works',
+          tools: [{ name: 'baoyu-infographic', arg: 'how_it_works', ms: 720 }] },
+        { text: 'Cut an audio bed for the launch video',
+          tools: [{ name: 'audiocraft-audio-generation', arg: '30s bed', ms: 960 }] }
+      ],
+      result: { title: 'Full asset set in one visual language',
+                body: 'Imagery, an explainer graphic and audio that look and sound like they belong together — ready to hand to whoever runs your channels.' }
+    },
+    {
+      task: 'Review this repository like a senior engineer would, and get the build passing again.',
+      steps: [
+        { text: 'Read the repository and map how it fits together',
+          tools: [{ name: 'codebase-inspection', arg: '412 files', ms: 1340 }] },
+        { text: 'Review the open pull request properly',
+          tools: [{ name: 'github-code-review', arg: 'PR #128', ms: 880 }] },
+        { text: 'Work out why the build is actually failing',
+          tools: [{ name: 'gh-fix-ci', arg: 'reproduce locally', ms: 620 }] },
+        { text: 'Push the fix and answer the review threads',
+          tools: [{ name: 'github-pr-workflow', arg: 'push + reply × 6', ms: 410 }] }
+      ],
+      result: { title: 'CI green, 6 comments addressed',
+                body: 'Each comment answered on its own thread with the reasoning, so the author can disagree with something specific instead of a wall of changes.' }
     }
   ];
 
@@ -1807,24 +1915,25 @@ if (chatInput) {
         elResult = $id('run-result'), elRTitle = $id('run-result-title'),
         elRBody = $id('run-result-body'), elClock = $id('run-clock'),
         elCount = $id('run-stepcount');
-  const tabs = Array.from(document.querySelectorAll('.run-tab'));
+  const elIdle = $id('run-idle'), elBody = $id('run-body'), elBarTitle = $id('run-bar-title');
+  const cards = Array.from(document.querySelectorAll('.run-card'));
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   let token = 0;           // cancels an in-flight run when we switch
-  let current = 0;
-  let started = false;
+  let current = -1;
   let clockTimer = null;
 
   const sleep = (ms, my) => new Promise(res => setTimeout(() => res(my === token), ms));
 
-  function selectTab(i) {
-    tabs.forEach((t, n) => t.setAttribute('aria-selected', String(n === i)));
-    if (tabs[i]) panel.setAttribute('aria-labelledby', tabs[i].id);
+  function selectCard(i) {
+    cards.forEach((c, n) => c.classList.toggle('playing', n === i));
+    const label = cards[i] && cards[i].querySelector('b');
+    if (elBarTitle) elBarTitle.textContent = label ? 'tiny — ' + label.textContent.toLowerCase() : 'tiny — idle';
   }
 
   function progress(pct) {
-    const t = tabs[current];
-    if (t) t.style.setProperty('--run-progress', pct + '%');
+    const c = cards[current];
+    if (c) c.style.setProperty('--run-progress', pct + '%');
   }
 
   function startClock(my) {
@@ -1895,8 +2004,12 @@ if (chatInput) {
 
   async function play(i) {
     const my = ++token;
+    if (current !== -1 && cards[current]) cards[current].style.removeProperty('--run-progress');
     current = i;
-    selectTab(i);
+    selectCard(i);
+    // First click swaps the idle poster out for the console proper.
+    if (elIdle) elIdle.hidden = true;
+    if (elBody) elBody.hidden = false;
     const run = RUNS[i];
 
     if (reduce) { renderStatic(run); return; }
@@ -1962,31 +2075,29 @@ if (chatInput) {
     elResult.classList.add('in');
     progress(100);
     clearInterval(clockTimer);
-
-    // 5 — hand over to the next scenario
-    if (!(await sleep(5200, my))) return;
-    play((i + 1) % RUNS.length);
+    // Stops here on purpose. Nothing auto-advances — the next run is the
+    // visitor's decision, same as the first one was.
+    if (cards[i]) cards[i].classList.add('done');
   }
 
-  tabs.forEach((tab, i) => {
-    tab.addEventListener('click', () => { started = true; play(i); });
-    tab.addEventListener('keydown', (e) => {
-      if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return;
-      e.preventDefault();
-      const next = (i + (e.key === 'ArrowDown' ? 1 : tabs.length - 1)) % tabs.length;
-      tabs[next].focus(); started = true; play(next);
+  cards.forEach((card, i) => {
+    card.addEventListener('click', () => {
+      play(i);
+      // On narrow screens the panel sits below ten cards, so bring it to them.
+      const r = panel.getBoundingClientRect();
+      if (r.top < 0 || r.bottom > window.innerHeight) {
+        panel.scrollIntoView({ block: 'center', behavior: reduce ? 'auto' : 'smooth' });
+      }
     });
   });
 
-  // Only start once it's actually on screen; stop when it isn't.
+  // Never auto-starts — a run is always something the visitor asked for.
+  // We only listen in order to stop a run that has scrolled out of sight.
   if ('IntersectionObserver' in window) {
     new IntersectionObserver((entries) => {
-      const vis = entries[0].isIntersecting;
-      if (vis && !started) { started = true; play(0); }
-      else if (!vis && started) { token++; clearInterval(clockTimer); }
-      else if (vis && started && !reduce) { play(current); }
-    }, { threshold: 0.25 }).observe(panel);
-  } else {
-    renderStatic(RUNS[0]);
+      if (entries[0].isIntersecting || current === -1) return;
+      token++;                      // cancel the in-flight timeline
+      clearInterval(clockTimer);
+    }, { threshold: 0.05 }).observe(panel);
   }
 })();
