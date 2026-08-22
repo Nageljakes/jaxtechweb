@@ -30,7 +30,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=13">
+<link rel="stylesheet" href="styles.css?v=14">
 <script>document.documentElement.className += ' js';</script>
 </head>
 <body>
@@ -111,54 +111,104 @@
       <p class="lede reveal">Not a chatbot answering a question. A real run: the task comes in, Tiny plans it, calls the tools it needs, and finishes the job. Pick one and watch it work.</p>
     </div>
 
-    <div class="runshow-grid">
-      <div class="run-tabs" role="tablist" aria-label="Example agent runs">
-        <button class="run-tab" role="tab" id="rt-0" aria-selected="true" aria-controls="run-panel" data-run="0" style="--tab-accent: var(--teal)">
-          <b>Monday sales report</b>
-          <span>A weekly report that takes someone two hours every Monday morning.</span>
-          <i class="run-tab-bar" aria-hidden="true"></i>
-        </button>
-        <button class="run-tab" role="tab" id="rt-1" aria-selected="false" aria-controls="run-panel" data-run="1" style="--tab-accent: var(--coral)">
-          <b>Supplier invoices</b>
-          <span>Twenty PDFs a week, re-typed by hand into the accounting system.</span>
-          <i class="run-tab-bar" aria-hidden="true"></i>
-        </button>
-        <button class="run-tab" role="tab" id="rt-2" aria-selected="false" aria-controls="run-panel" data-run="2" style="--tab-accent: var(--amber)">
-          <b>Load-shedding response</b>
-          <span>The grid drops. The property has to protect itself, without you.</span>
-          <i class="run-tab-bar" aria-hidden="true"></i>
-        </button>
+    <div class="run-menu" id="run-menu">
+      <button class="run-card" data-run="0" style="--card-accent: var(--teal)">
+        <span class="run-card-tag">Finance &amp; reporting</span>
+        <b>Monday sales report</b>
+        <span class="run-card-pain">Two hours of someone's Monday, every Monday.</span>
+        <span class="run-card-go">Watch the run</span>
+      </button>
+      <button class="run-card" data-run="1" style="--card-accent: var(--coral)">
+        <span class="run-card-tag">Productivity &amp; docs</span>
+        <b>Supplier invoices</b>
+        <span class="run-card-pain">Twenty PDFs a week, re-typed by hand.</span>
+        <span class="run-card-go">Watch the run</span>
+      </button>
+      <button class="run-card" data-run="2" style="--card-accent: var(--amber)">
+        <span class="run-card-tag">Smart home &amp; IoT</span>
+        <b>Load-shedding response</b>
+        <span class="run-card-pain">The property protects itself, unattended.</span>
+        <span class="run-card-go">Watch the run</span>
+      </button>
+      <button class="run-card" data-run="3" style="--card-accent: var(--teal)">
+        <span class="run-card-tag">Research &amp; web mining</span>
+        <b>Client dossier before a meeting</b>
+        <span class="run-card-pain">Walking in knowing more than they expect.</span>
+        <span class="run-card-go">Watch the run</span>
+      </button>
+      <button class="run-card" data-run="4" style="--card-accent: var(--coral)">
+        <span class="run-card-tag">Web development</span>
+        <b>Ship a landing page</b>
+        <span class="run-card-pain">Idea on Monday, live URL the same day.</span>
+        <span class="run-card-go">Watch the run</span>
+      </button>
+      <button class="run-card" data-run="5" style="--card-accent: var(--amber)">
+        <span class="run-card-tag">Security &amp; OSINT</span>
+        <b>Security review before go-live</b>
+        <span class="run-card-pain">Finding it before somebody else does.</span>
+        <span class="run-card-go">Watch the run</span>
+      </button>
+      <button class="run-card" data-run="6" style="--card-accent: var(--teal)">
+        <span class="run-card-tag">Finance &amp; valuation</span>
+        <b>Valuation pack for a deal</b>
+        <span class="run-card-pain">A week of analyst work, done overnight.</span>
+        <span class="run-card-go">Watch the run</span>
+      </button>
+      <button class="run-card" data-run="7" style="--card-accent: var(--coral)">
+        <span class="run-card-tag">MLOps &amp; fine-tuning</span>
+        <b>Train a model on your own data</b>
+        <span class="run-card-pain">Answers from your documents, not the internet.</span>
+        <span class="run-card-go">Watch the run</span>
+      </button>
+      <button class="run-card" data-run="8" style="--card-accent: var(--amber)">
+        <span class="run-card-tag">Creative &amp; design</span>
+        <b>Launch campaign assets</b>
+        <span class="run-card-pain">One product, a full set of collateral.</span>
+        <span class="run-card-go">Watch the run</span>
+      </button>
+      <button class="run-card" data-run="9" style="--card-accent: var(--teal)">
+        <span class="run-card-tag">GitHub &amp; version control</span>
+        <b>Review a codebase and fix CI</b>
+        <span class="run-card-pain">The review nobody has time to do properly.</span>
+        <span class="run-card-go">Watch the run</span>
+      </button>
+    </div>
+
+    <div class="run-panel" id="run-panel" aria-live="polite">
+      <div class="run-bar">
+        <span class="run-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="run-bar-title" id="run-bar-title">tiny — idle</span>
+        <span class="run-clock" id="run-clock">0.0s</span>
       </div>
 
-      <div class="run-panel" id="run-panel" role="tabpanel" aria-labelledby="rt-0" aria-live="polite">
-        <div class="run-bar">
-          <span class="run-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-          <span class="run-bar-title">tiny — agent run</span>
-          <span class="run-clock" id="run-clock">0.0s</span>
+      <div class="run-idle" id="run-idle">
+        <div class="run-idle-mark" aria-hidden="true">▸</div>
+        <p class="run-idle-title">Pick a task above</p>
+        <p class="run-idle-sub">Nothing runs until you ask it to. Choose a use case and Tiny will plan it, call the tools it needs, and show you the result.</p>
+      </div>
+
+      <div class="run-body" id="run-body" hidden>
+        <div class="run-block">
+          <p class="run-label">Task</p>
+          <p class="run-task" id="run-task"></p>
         </div>
-        <div class="run-body">
-          <div class="run-block">
-            <p class="run-label">Task</p>
-            <p class="run-task" id="run-task"></p>
-          </div>
-          <div class="run-block">
-            <p class="run-label">Plan <span class="run-count" id="run-stepcount"></span></p>
-            <ol class="run-steps" id="run-steps"></ol>
-          </div>
-          <div class="run-block">
-            <p class="run-label">Tool calls</p>
-            <div class="run-tools" id="run-tools"></div>
-          </div>
-          <div class="run-result" id="run-result">
-            <b id="run-result-title"></b>
-            <span id="run-result-body"></span>
-          </div>
+        <div class="run-block">
+          <p class="run-label">Plan <span class="run-count" id="run-stepcount"></span></p>
+          <ol class="run-steps" id="run-steps"></ol>
+        </div>
+        <div class="run-block">
+          <p class="run-label">Tool calls</p>
+          <div class="run-tools" id="run-tools"></div>
+        </div>
+        <div class="run-result" id="run-result">
+          <b id="run-result-title"></b>
+          <span id="run-result-body"></span>
         </div>
       </div>
     </div>
 
     <div class="run-foot">
-      <p>These are real workflow shapes, played back at speed. Timings are illustrative — an actual run takes as long as the systems it talks to.</p>
+      <p>Ten shapes of work, drawn from the skills below. Tool names are the real ones Tiny uses; timings are illustrative, since an actual run takes as long as the systems it talks to.</p>
       <a href="#tiny-chat" class="btn btn-primary" data-track="runshow_cta">Give Tiny your task</a>
     </div>
   </div>
@@ -659,7 +709,7 @@
 </script>
 
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-<script src="script.js?v=16"></script>
+<script src="script.js?v=17"></script>
 <div class="modal-overlay" id="detail-modal">
         <div class="modal-content">
             <button class="modal-close" onclick="closeModal()">&times;</button>
