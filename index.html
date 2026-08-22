@@ -22,7 +22,7 @@
 <meta name="twitter:title" content="Give Tiny a task. You could win your own AI agent.">
 <meta name="twitter:description" content="Try Tiny, submit your best task and enter the Jaxtech AI Agent Challenge.">
 <meta name="twitter:image" content="https://tiny.jaxtech.workers.dev/assets/og-image.jpg">
-<meta name="theme-color" content="#0a1420">
+<meta name="theme-color" content="#030507">
 
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
@@ -89,7 +89,7 @@
         </div>
       </div>
     </div>
-    <p style="font-size: .74rem; color: var(--muted); margin-top: .6rem; text-align: center;">Tiny's replies are AI-generated. If you submit an enquiry, this conversation is included and reviewed by our team.</p>
+    <p style="font-size: .74rem; color: var(--muted); margin-top: .6rem; text-align: center;">Tiny's replies are AI-generated using hosted cloud inference. If you submit an enquiry, this conversation is included and read by Jakes personally.</p>
     <p style="font-size: .82rem; color: var(--muted); margin-top: .9rem; text-align: center;">Prefer messaging apps? Talk to Tiny on <a href="#" class="js-whatsapp" style="color: var(--teal); font-weight: 600;">WhatsApp</a> or <a href="#" class="js-telegram" style="color: var(--teal); font-weight: 600;">Telegram</a> instead.</p>
   </div>
 </header>
@@ -140,7 +140,7 @@
 
         <section class="report-section glass">
             <h2>What Tiny can actually do</h2>
-            <p style="color: var(--text-muted); margin-bottom: 1rem;">Your home is one part of it. Below are all <strong style="color: var(--accent-secondary);" id="skills-total-inline">197</strong> skills Tiny can put to work for you today, from running a household to supporting a business. Search by name &mdash; or roll the dice.</p>
+            <p style="color: var(--text-muted); margin-bottom: 1rem;">Your home is one part of it. Below are all <strong style="color: var(--accent-secondary);" id="skills-total-inline">196</strong> skills Tiny can put to work for you today, from running a household to supporting a business. Search by name &mdash; or roll the dice.</p>
 
             <div class="skills-toolbar" id="skills-toolbar" hidden>
                 <div class="skills-search-wrap">
@@ -274,7 +274,7 @@
             <div class="arch-connector"></div>
             <div class="arch-node center-node glass" id="node-brain" data-modal="arch_brain">
                 <h4>Core Brain</h4>
-                <p>Local LLM Engine & Planning</p>
+                <p>LLM Reasoning & Planning</p>
             </div>
             <div class="arch-connector split"></div>
             <div class="arch-branches">
@@ -284,7 +284,7 @@
                 </div>
                 <div class="arch-node action-node glass" id="node-memory" data-modal="arch_memory">
                     <h4>Memory Store</h4>
-                    <p>Private Local Storage</p>
+                    <p>Context &amp; History</p>
                 </div>
             </div>
         </div>
@@ -312,7 +312,7 @@
             <li><span>3</span><div><strong>Chappie — the hard way</strong><p>First project: large AI models running locally. Slow, unforgiving, and where every real lesson got learned.</p></div></li>
             <li><span>4</span><div><strong>Tiny — today</strong><p>An agentic harness on online-based inferencing. Plans, uses tools, finishes the task.</p></div></li>
           </ol>
-          <p style="font-size: .82rem; color: var(--muted-dim); margin-top: 1.4rem; border-top: 1px solid var(--line); padding-top: 1.1rem;">Chappie &rarr; Tiny · 2 years in the making · <span id="skills-total-inline-about">197</span> skills live today</p>
+          <p style="font-size: .82rem; color: var(--muted-dim); margin-top: 1.4rem; border-top: 1px solid var(--line); padding-top: 1.1rem;">Chappie &rarr; Tiny · 2 years in the making · <span id="skills-total-inline-about">196</span> skills live today</p>
         </div>
       </div>
     </div>
@@ -327,36 +327,36 @@
 
     <div class="faq">
       <details class="faq-item reveal">
-        <summary>Does it really keep working during load-shedding?</summary>
-        <div class="faq-body"><p>Yes — that's the design goal. The controller and essential sensors draw very little power and sit behind your inverter or a small dedicated UPS. Because the decision-making AI runs on-site rather than in a data centre, it doesn't need your fibre to be up either. During an outage the house keeps monitoring, logging and automating; anything that needs the internet queues up and syncs the moment it's back.</p></div>
+        <summary>What actually is Tiny?</summary>
+        <div class="faq-body"><p>Tiny is an AI agent, not a chatbot. The difference matters: a chatbot answers you, an agent does the work. Tiny plans a task out into steps, uses real tools to carry them out — reading files, running code, calling other systems — and keeps going until the job is finished. The chat on this page is a small demo of it. A custom agent built for your workflow does considerably more.</p></div>
       </details>
       <details class="faq-item reveal">
-        <summary>Do I have to replace my existing smart devices?</summary>
-        <div class="faq-body"><p>Almost never. The whole point is unification — we bring your existing cameras, lights, gate motor, inverter, alarm and sensors into one system regardless of brand. We only recommend replacing something when it's genuinely closed off or unreliable, and we'll tell you why before you spend anything.</p></div>
+        <summary>What kind of task is actually worth handing over?</summary>
+        <div class="faq-body"><p>The best candidates are repetitive, rule-shaped and eat time every week: pulling numbers into the same report, chasing the same follow-ups, re-typing information from one system into another, checking documents against a checklist. If you can explain the job to a new hire in ten minutes, it's usually a good fit. One-off creative judgement calls are usually not.</p></div>
       </details>
       <details class="faq-item reveal">
-        <summary>What does it cost, honestly?</summary>
-        <div class="faq-body"><p>It depends entirely on the size of the property and what's already installed, which is why the assessment is free and the quote is fixed. You'll get a written scope and a single number before any hardware is ordered — no hourly creep, and no "we found something" invoices afterwards.</p></div>
+        <summary>Where does the AI run, and who can see my data?</summary>
+        <div class="faq-body"><p>Two different answers, so it's worth being precise. <strong>The chat on this page</strong> runs on hosted cloud inference — your message is sent to an AI provider to generate Tiny's reply, and if you submit an enquiry I read that conversation myself to follow up. <strong>An agent built for you</strong> can be deployed either way: on cloud inference, or on hardware on your own premises where the data never leaves the building. Which one is right depends on how sensitive the work is, and it's one of the first things we'd decide together.</p></div>
       </details>
       <details class="faq-item reveal">
-        <summary>Is there a monthly fee?</summary>
-        <div class="faq-body"><p>No mandatory one. The system runs on your hardware and belongs to you. Ongoing support and remote tuning are available as an optional plan, but if you cancel it the house keeps working exactly as it did.</p></div>
+        <summary>What does a custom agent cost?</summary>
+        <div class="faq-body"><p>It depends on how many systems the agent has to touch and how much judgement the task needs, so I scope each one before quoting. You get a written scope and a fixed number before any work starts — no hourly creep. Running costs are separate and stay yours: AI model usage, any paid APIs, and hosting if it runs in the cloud. I'll estimate those honestly upfront, including where they might grow.</p></div>
       </details>
       <details class="faq-item reveal">
-        <summary>How private is the camera AI?</summary>
-        <div class="faq-body"><p>Video is analysed on the controller inside your home. Footage isn't uploaded to a third-party cloud for processing, and you decide what — if anything — leaves the property. That's a deliberate architectural choice, not a setting.</p></div>
+        <summary>How long does it take to build?</summary>
+        <div class="faq-body"><p>A tightly-scoped single-workflow agent is usually a couple of weeks from agreed scope to something you're using. Anything touching several systems, or needing access approvals from a third party, takes longer — mostly waiting on the access, not the building. I'd rather quote a realistic date than a hopeful one.</p></div>
       </details>
       <details class="faq-item reveal">
-        <summary>How disruptive is the installation?</summary>
-        <div class="faq-body"><p>Most installs take a day or two and use existing wiring and DB space. We work around your routine, keep the site clean, and won't leave until you've been walked through the system yourself.</p></div>
+        <summary>What if my task turns out not to be automatable?</summary>
+        <div class="faq-body"><p>Then I'll tell you that, before you spend money. Some tasks look automatable but depend on judgement, messy exceptions or a system that simply won't let anything in. Finding that out during scoping costs you a conversation. Finding it out halfway through a build costs a great deal more, so I'd rather be blunt early.</p></div>
       </details>
       <details class="faq-item reveal">
-        <summary>Where do you install?</summary>
-        <div class="faq-body"><p>Gauteng and surrounding areas as standard, with estate and business installations further afield by arrangement. Tell us where you are in the form and we'll confirm straight away.</p></div>
+        <summary>Who am I actually dealing with?</summary>
+        <div class="faq-body"><p>Me — Jakes Nagel, in Gauteng. Jaxtech is a one-person operation, which I think is worth being upfront about. It means you deal directly with the person building the thing, with nothing lost in translation between a salesperson and a developer. It also means I'm honest about capacity: if a project is bigger than I can do properly, I'll say so rather than take it on and disappoint you.</p></div>
       </details>
       <details class="faq-item reveal">
-        <summary>What if I only want one part of it?</summary>
-        <div class="faq-body"><p>That's completely normal, and usually the smartest way to start. Plenty of homes begin with energy monitoring and geyser control alone, then add security or water later. The system is built to grow.</p></div>
+        <summary>Do you still do smart-home and property automation?</summary>
+        <div class="faq-body"><p>Yes — it's one of the things an agent can be pointed at, and it's where a lot of the early work happened. Energy monitoring, geyser scheduling, irrigation and camera automation are all real projects, usually running on a controller on the property so they keep working when the power and the fibre don't. It's one kind of project rather than a separate business.</p></div>
       </details>
     </div>
   </div>
@@ -451,7 +451,7 @@
         <p class="err" data-err-for="f-consent"></p>
       </div>
 
-      <p style="font-size: .78rem; color: var(--muted); line-height: 1.6; margin-top: -.6rem; margin-bottom: 1.2rem;">Your details and this conversation are stored securely, processed by AI to generate Tiny's replies, and reviewed by a person on our team to follow up with you. We don't sell your data. Email <a href="mailto:nageljakes@gmail.com" style="color: var(--teal)">nageljakes@gmail.com</a> any time to have it removed.</p>
+      <p style="font-size: .78rem; color: var(--muted); line-height: 1.6; margin-top: -.6rem; margin-bottom: 1.2rem;">Your details and this conversation are stored securely, sent to a hosted AI provider to generate Tiny's replies, and read by Jakes personally to follow up with you. Your data is never sold. Email <a href="mailto:nageljakes@gmail.com" style="color: var(--teal)">nageljakes@gmail.com</a> any time to have it removed.</p>
 
       <input type="hidden" name="tier" id="f-tier" value="">
       <input type="hidden" name="source" id="f-source" value="">
@@ -473,8 +473,8 @@
     <div class="success glass" id="form-success" hidden tabindex="-1">
       <div class="success-ico">✓</div>
       <h3 id="success-title">Got it — thank you.</h3>
-      <p id="success-body">Your enquiry is in. We'll come back to you personally, usually within one business day.</p>
-      <p class="success-sub">If it's urgent, message us directly and we'll pick it up right away.</p>
+      <p id="success-body">Your enquiry is in. Jakes will come back to you personally, usually within one business day.</p>
+      <p class="success-sub">If it's urgent, message directly and it'll get picked up right away.</p>
       <div class="success-actions">
         <a href="#" class="btn btn-primary js-whatsapp">WhatsApp us now</a>
         <a href="#" class="btn btn-ghost js-telegram">Chat on Telegram</a>
@@ -490,7 +490,7 @@
     <div class="footer-brand">
       <img src="assets/jaxtech-mark.png" alt="Jaxtech" width="52" height="52">
       <p class="footer-tag">AI-powered workflow.<br>South African ingenuity.</p>
-      <p class="footer-desc">Jaxtech builds intelligent, locally controlled home and business systems — energy, water, security, comfort and admin, working as one.</p>
+      <p class="footer-desc">Jaxtech builds custom AI agents that take a real task off your hands — business admin, reporting, research, and property automation.</p>
     </div>
     <div class="footer-col">
       <h4>Explore</h4>
@@ -509,16 +509,16 @@
         <li><a href="#" class="js-whatsapp">WhatsApp us</a></li>
         <li><a href="#" class="js-telegram">Talk to Tiny on Telegram</a></li>
         <li><a href="#" class="js-mail">nageljakes@gmail.com</a></li>
-        <li><a href="#enquire">Free assessment</a></li>
+        <li><a href="#enquire">Enter the challenge</a></li>
       </ul>
     </div>
     <div class="footer-col">
-      <h4>Service areas</h4>
+      <h4>Where I work</h4>
       <ul class="plain">
-        <li>Pretoria &amp; Centurion</li>
+        <li>Agent projects — remote, South Africa-wide</li>
+        <li>On-site work — Pretoria &amp; Centurion</li>
         <li>Johannesburg &amp; Midrand</li>
-        <li>Gauteng-wide</li>
-        <li>Estates &amp; business elsewhere by arrangement</li>
+        <li>Further afield by arrangement</li>
       </ul>
     </div>
   </div>
@@ -533,7 +533,7 @@
   <a href="#" class="mb-btn js-whatsapp" data-track="mobile_whatsapp"><span>💬</span>WhatsApp</a>
   <a href="#" class="mb-btn js-telegram" data-track="mobile_telegram"><span>✈️</span>Telegram</a>
   <a href="#" class="mb-btn js-tel" data-track="mobile_call"><span>📞</span>Call</a>
-  <a href="#enquire" class="mb-btn mb-primary" data-track="mobile_enquire"><span>✦</span>Free assessment</a>
+  <a href="#enquire" class="mb-btn mb-primary" data-track="mobile_enquire"><span>✦</span>Enter task</a>
 </div>
 
 <script type="application/ld+json">
@@ -541,16 +541,16 @@
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": ["LocalBusiness", "HomeAndConstructionBusiness"],
-      "@id": "https://jaxtech.co.za/#business",
+      "@type": ["LocalBusiness", "ProfessionalService"],
+      "@id": "https://tiny.jaxtech.workers.dev/#business",
       "name": "Jaxtech",
-      "description": "Intelligent home and business automation in South Africa — energy, water, security, comfort and household administration unified into one locally controlled system that keeps working during load-shedding.",
-      "url": "https://jaxtech.co.za/",
-      "logo": "https://jaxtech.co.za/assets/jaxtech-mark.png",
-      "image": "https://jaxtech.co.za/assets/og-image.jpg",
+      "description": "Custom AI agents and workflow automation, built in Gauteng, South Africa. Jaxtech builds agents that plan a task, use real tools and finish the job — from business admin and reporting to property and energy automation.",
+      "url": "https://tiny.jaxtech.workers.dev/",
+      "logo": "https://tiny.jaxtech.workers.dev/assets/jaxtech-mark.png",
+      "image": "https://tiny.jaxtech.workers.dev/assets/og-image.jpg",
       "email": "nageljakes@gmail.com",
       "telephone": "+27793950395",
-      "slogan": "Your home, thinking locally.",
+      "slogan": "Give Tiny a task.",
       "address": { "@type": "PostalAddress", "addressCountry": "ZA", "addressRegion": "Gauteng" },
       "areaServed": [
         { "@type": "AdministrativeArea", "name": "Gauteng" },
@@ -559,35 +559,37 @@
         { "@type": "City", "name": "Johannesburg" },
         { "@type": "City", "name": "Midrand" }
       ],
-      "knowsAbout": ["Smart home automation", "Load-shedding automation", "Energy monitoring", "AI security cameras", "Irrigation automation", "Local AI"],
-      "founder": { "@id": "https://jaxtech.co.za/#founder" }
+      "knowsAbout": ["AI agents", "Agentic AI", "Workflow automation", "Business process automation", "AI integration", "Smart home automation", "Energy monitoring"],
+      "founder": { "@id": "https://tiny.jaxtech.workers.dev/#founder" }
     },
     {
       "@type": "Person",
-      "@id": "https://jaxtech.co.za/#founder",
+      "@id": "https://tiny.jaxtech.workers.dev/#founder",
       "name": "Jakes Nagel",
       "email": "nageljakes@gmail.com",
       "jobTitle": "Founder",
-      "worksFor": { "@id": "https://jaxtech.co.za/#business" },
-      "knowsAbout": ["Agentic AI", "Local LLM inference", "AI agent architecture", "Automation"],
-      "description": "Founder of Jaxtech, based in Gauteng, South Africa. Spent two years building toward Tiny, starting with Chappie, a locally-run AI model, before rebuilding it as an agentic harness on online-based inferencing."
+      "worksFor": { "@id": "https://tiny.jaxtech.workers.dev/#business" },
+      "knowsAbout": ["Agentic AI", "LLM inference", "AI agent architecture", "Workflow automation"],
+      "description": "Founder of Jaxtech, based in Gauteng, South Africa. Spent two years building toward Tiny, starting with Chappie, a locally-run AI model, before rebuilding it as an agentic harness running on hosted inference."
     },
     {
       "@type": "WebSite",
-      "@id": "https://jaxtech.co.za/#website",
-      "url": "https://jaxtech.co.za/",
+      "@id": "https://tiny.jaxtech.workers.dev/#website",
+      "url": "https://tiny.jaxtech.workers.dev/",
       "name": "Jaxtech",
-      "publisher": { "@id": "https://jaxtech.co.za/#business" },
+      "publisher": { "@id": "https://tiny.jaxtech.workers.dev/#business" },
       "inLanguage": "en-ZA"
     },
     {
       "@type": "FAQPage",
       "mainEntity": [
-        { "@type": "Question", "name": "Does it really keep working during load-shedding?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. The controller and essential sensors run behind your inverter or a small UPS, and the decision-making AI runs on-site rather than in a data centre, so it does not need fibre either. During an outage the house keeps monitoring, logging and automating, and anything needing the internet syncs once it returns." } },
-        { "@type": "Question", "name": "Do I have to replace my existing smart devices?", "acceptedAnswer": { "@type": "Answer", "text": "Almost never. Jaxtech unifies your existing cameras, lights, gate motor, inverter, alarm and sensors regardless of brand, and only recommends replacement when a device is genuinely closed off or unreliable." } },
-        { "@type": "Question", "name": "Is there a monthly fee?", "acceptedAnswer": { "@type": "Answer", "text": "No mandatory subscription. The system runs on your own hardware and belongs to you. Support and remote tuning are optional, and the house keeps working if you cancel." } },
-        { "@type": "Question", "name": "How private is the camera AI?", "acceptedAnswer": { "@type": "Answer", "text": "Video is analysed on the controller inside your home. Footage is not uploaded to a third-party cloud for processing, and you decide what leaves the property." } },
-        { "@type": "Question", "name": "Where does Jaxtech install?", "acceptedAnswer": { "@type": "Answer", "text": "Gauteng and surrounding areas as standard, including Pretoria, Centurion, Johannesburg and Midrand, with estate and business installations further afield by arrangement." } }
+        { "@type": "Question", "name": "What actually is Tiny?", "acceptedAnswer": { "@type": "Answer", "text": "Tiny is an AI agent, not a chatbot. A chatbot answers you; an agent does the work. Tiny plans a task into steps, uses real tools to carry them out — reading files, running code, calling other systems — and keeps going until the job is finished. The chat on the Jaxtech site is a small demo of it." } },
+        { "@type": "Question", "name": "What kind of task is actually worth handing over?", "acceptedAnswer": { "@type": "Answer", "text": "The best candidates are repetitive, rule-shaped and cost time every week: pulling numbers into the same report, chasing the same follow-ups, re-typing information between systems, checking documents against a checklist. If you can explain the job to a new hire in ten minutes, it is usually a good fit." } },
+        { "@type": "Question", "name": "Where does the AI run, and who can see my data?", "acceptedAnswer": { "@type": "Answer", "text": "The chat on the Jaxtech site runs on hosted cloud inference: your message is sent to an AI provider to generate Tiny's reply, and if you submit an enquiry Jakes reads that conversation to follow up. An agent built for you can be deployed either on cloud inference or on hardware on your own premises, where the data never leaves the building." } },
+        { "@type": "Question", "name": "What does a custom agent cost?", "acceptedAnswer": { "@type": "Answer", "text": "It depends on how many systems the agent must touch and how much judgement the task needs, so each one is scoped before quoting. You get a written scope and a fixed number before work starts. Running costs are separate and remain yours: AI model usage, any paid APIs, and hosting if it runs in the cloud." } },
+        { "@type": "Question", "name": "How long does it take to build?", "acceptedAnswer": { "@type": "Answer", "text": "A tightly-scoped single-workflow agent is usually a couple of weeks from agreed scope to something you are using. Anything touching several systems, or needing access approvals from a third party, takes longer — mostly waiting on the access rather than the building." } },
+        { "@type": "Question", "name": "Who am I actually dealing with?", "acceptedAnswer": { "@type": "Answer", "text": "Jakes Nagel, in Gauteng. Jaxtech is a one-person operation, so you deal directly with the person building the thing, with nothing lost between a salesperson and a developer." } },
+        { "@type": "Question", "name": "Do you still do smart-home and property automation?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. It is one of the things an agent can be pointed at. Energy monitoring, geyser scheduling, irrigation and camera automation are all real projects, usually running on a controller on the property so they keep working when the power and the fibre do not." } }
       ]
     }
   ]
