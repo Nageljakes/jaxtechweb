@@ -954,6 +954,12 @@ const modalData = {
                 </article>
             </div>
 
+            <h4 style="margin-bottom: .8rem;">Installed Capabilities</h4>
+            <p style="color: var(--text-muted); font-size: .9rem; line-height: 1.6; margin-bottom: 1rem;">Built on Home Assistant, so the thousands of devices it already speaks to are available from day one — and the automations stay yours if you ever part ways with us.</p>
+            <div style="margin-bottom: 1.6rem;">
+                <span class='badge' style='background: rgba(255,255,255,0.1); margin: 0.2rem; display: inline-block; font-family: monospace; text-transform: none; color: #a0a0a0;'>home-assistant-api</span><span class='badge' style='background: rgba(255,255,255,0.1); margin: 0.2rem; display: inline-block; font-family: monospace; text-transform: none; color: #a0a0a0;'>home-assistant-voice-pipelines</span>
+            </div>
+
             <h4 style="margin-bottom: .8rem;">Go deeper</h4>
             <div style="display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: 1.6rem;">
                 <button class="btn btn-ghost btn-sm" onclick="openModal('modal_problem')">🤔 The Problem</button>
@@ -964,7 +970,7 @@ const modalData = {
                 <button class="btn btn-ghost btn-sm" onclick="openModal('modal_architecture')">🏗️ System Architecture</button>
             </div>
 
-            <a href="#enquire" class="btn btn-primary" onclick="closeModal()">Get my free home assessment</a>
+            <a href="#enquire" class="btn btn-primary" onclick="closeModal()">Enter my task</a>
         `
     },
     'skill_web': {
@@ -1784,15 +1790,17 @@ if (chatInput) {
       task: 'When the grid drops, protect the battery and tell me what it cost me — without waiting for me to do anything.',
       steps: [
         { text: 'Detect the transfer from grid to inverter',
-          tools: [{ name: 'inverter.state', arg: 'source=battery', ms: 40 }] },
+          tools: [{ name: 'home-assistant-api', arg: 'states/binary_sensor.grid', ms: 40 }] },
         { text: 'Shed the heavy loads before the battery drains',
-          tools: [{ name: 'relay.off', arg: 'geyser', ms: 60 },
-                  { name: 'relay.off', arg: 'pool_pump', ms: 55 }] },
+          tools: [{ name: 'home-assistant-api', arg: 'switch.turn_off · geyser', ms: 60 },
+                  { name: 'home-assistant-api', arg: 'switch.turn_off · pool_pump', ms: 55 }] },
         { text: 'Keep watching cameras and gates locally',
-          tools: [{ name: 'vision.watch', arg: 'perimeter × 4', ms: 120 }] },
+          tools: [{ name: 'home-assistant-api', arg: 'states/binary_sensor.perimeter × 4', ms: 120 }] },
         { text: 'When power returns, reschedule and report',
-          tools: [{ name: 'geyser.schedule', arg: 'cheapest_window', ms: 80 },
-                  { name: 'whatsapp.send', arg: 'outage_summary', ms: 290 }] }
+          tools: [{ name: 'home-assistant-api', arg: 'automation.trigger · geyser_cheap', ms: 80 },
+                  { name: 'home-assistant-api', arg: 'notify.whatsapp', ms: 290 }] },
+        { text: 'Answer out loud when you ask what happened',
+          tools: [{ name: 'home-assistant-voice-pipelines', arg: 'intent · outage_report', ms: 210 }] }
       ],
       result: { title: 'Battery held at 61% — outage survived',
                 body: 'Geyser reheated after tariff dropped instead of on the battery. You got one WhatsApp when it was over, not five alerts during it.' }
