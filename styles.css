@@ -1932,3 +1932,12 @@ h4 { font-size: 1rem; font-weight: 600; }
    so the headings were rendering nearly invisible. */
 .loop-node, .loop-core { color: var(--text); font-family: inherit; }
 .loop-node h4, .loop-core h4 { color: var(--text); }
+
+/* The challenge card fills the wrap edge to edge and carries a
+   backdrop-filter, so the section numeral was straddling its right edge —
+   half of it smeared behind the glass, half crisp outside. Give the
+   numeral clear air above the card instead, and trim the preceding
+   section's bottom padding so the page rhythm does not change. */
+.runshow { padding-bottom: 44px; }
+.challenge-section { padding-top: 132px; }
+.challenge-section::before { font-size: clamp(3.2rem, 7.5vw, 6rem); }
