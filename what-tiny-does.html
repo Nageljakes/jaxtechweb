@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en-ZA">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>What Tiny Does — Watch an AI Agent Work | Jaxtech</title>
+<meta name="description" content="Watch a real agent run end to end: the task arrives, Tiny plans it, calls the tools it needs and finishes the job. Ten worked examples, from sales reports to load-shedding.">
+<link rel="canonical" href="https://tiny.jaxtech.workers.dev/what-tiny-does.html">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Jaxtech">
+<meta property="og:title" content="What Tiny Does — Watch an AI Agent Work | Jaxtech">
+<meta property="og:description" content="Watch a real agent run end to end: the task arrives, Tiny plans it, calls the tools it needs and finishes the job. Ten worked examples, from sales reports to load-shedding.">
+<meta property="og:url" content="https://tiny.jaxtech.workers.dev/what-tiny-does.html">
+<meta property="og:image" content="https://tiny.jaxtech.workers.dev/assets/og-image.jpg">
+<meta property="og:locale" content="en_ZA">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="What Tiny Does — Watch an AI Agent Work | Jaxtech">
+<meta name="twitter:description" content="Watch a real agent run end to end: the task arrives, Tiny plans it, calls the tools it needs and finishes the job. Ten worked examples, from sales reports to load-shedding.">
+<meta name="twitter:image" content="https://tiny.jaxtech.workers.dev/assets/og-image.jpg">
+<meta name="theme-color" content="#030507">
+
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=20">
+<script>document.documentElement.className += ' js';</script>
+</head>
+<body>
+
+<div class="bg-glow one" aria-hidden="true"></div>
+<div class="bg-glow two" aria-hidden="true"></div>
+<div class="bg-grid" aria-hidden="true"></div>
+<div class="bg-noise" aria-hidden="true"></div>
+
+<a class="skip-link" href="index.html#enquire">Skip to enquiry form</a>
+<!-- ══ NAV ══ -->
+<nav class="nav" id="nav">
+  <a class="nav-brand" href="index.html">
+    <img src="assets/jaxtech-mark.png" alt="" width="38" height="38">
+    <span class="nav-brand-text">Jaxtech<small>AI-powered workflow · SA</small></span>
+  </a>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="what-tiny-does.html" aria-current="page">What Tiny does</a></li>
+    <li><a href="skills.html">Skills</a></li>
+    <li><a href="platform.html">How it works</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+  <a href="index.html#tiny-chat" class="btn btn-primary btn-sm nav-cta" data-track="nav_cta">Give Tiny a task</a>
+  <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+</nav>
+
+<header class="page-head">
+  <div class="wrap">
+    <p class="kicker reveal">Show, don’t tell</p>
+    <h1 class="reveal">Watch an agent<br><span class="grad">actually work.</span></h1>
+    <p class="lede reveal">A chatbot answers you. An agent does the job. Pick a task below and watch the whole run — plan, tool calls, result.</p>
+  </div>
+</header>
+<!-- ══ AGENT RUN SHOWCASE ══ -->
+<section class="runshow" id="watch">
+  <div class="wrap">
+    <div class="runshow-head">
+      <p class="kicker reveal">Show, don't tell</p>
+      <h2 class="h2 reveal">This is what an agent actually does.</h2>
+      <p class="lede reveal">Not a chatbot answering a question. A real run: the task comes in, Tiny plans it, calls the tools it needs, and finishes the job. Pick one and watch it work.</p>
+    </div>
+
+    <div class="run-menu" id="run-menu">
+      <button class="run-card" data-run="0" style="--card-accent: var(--teal)">
+        <span class="run-card-tag">Finance &amp; reporting</span>
+        <b>Monday sales report</b>
+        <span class="run-card-pain">Two hours of someone's Monday, every Monday.</span>
+        <span class="run-card-go">Watch the run</span>
+      </button>
+      <button class="run-card" data-run="1" style="--card-accent: var(--coral)">
+        <span class="run-card-tag">Productivity &amp; docs</span>
+        <b>Supplier invoices</b>
+        <span class="run-card-pain">Twenty PDFs a week, re-typed by hand.</span>
+        <span class="run-card-go">Watch the run</span>
+      </button>
+      <button class="run-card" data-run="2" style="--card-accent: var(--amber)">
+        <span class="run-card-tag">Smart home &amp; IoT</span>
+        <b>Load-shedding response</b>
+        <span class="run-card-pain">The property protects itself, unattended.</span>
+        <span class="run-card-go">Watch the run</span>
+      </button>
+      <button class="run-card" data-run="3" style="--card-accent: var(--teal)">
+        <span class="run-card-tag">Research &amp; web mining</span>
+        <b>Client dossier before a meeting</b>
+        <span class="run-card-pain">Walking in knowing more than they expect.</span>
+        <span class="run-card-go">Watch the run</span>
+      </button>
+      <button class="run-card" data-run="4" style="--card-accent: var(--coral)">
+        <span class="run-card-tag">Web development</span>
+        <b>Ship a landing page</b>
+        <span class="run-card-pain">Idea on Monday, live URL the same day.</span>
+        <span class="run-card-go">Watch the run</span>
+      </button>
+      <button class="run-card" data-run="5" style="--card-accent: var(--amber)">
+        <span class="run-card-tag">Security &amp; OSINT</span>
+        <b>Security review before go-live</b>
+        <span class="run-card-pain">Finding it before somebody else does.</span>
+        <span class="run-card-go">Watch the run</span>
+      </button>
+      <button class="run-card" data-run="6" style="--card-accent: var(--teal)">
+        <span class="run-card-tag">Finance &amp; valuation</span>
+        <b>Valuation pack for a deal</b>
+        <span class="run-card-pain">A week of analyst work, done overnight.</span>
+        <span class="run-card-go">Watch the run</span>
+      </button>
+      <button class="run-card" data-run="7" style="--card-accent: var(--coral)">
+        <span class="run-card-tag">MLOps &amp; fine-tuning</span>
+        <b>Train a model on your own data</b>
+        <span class="run-card-pain">Answers from your documents, not the internet.</span>
+        <span class="run-card-go">Watch the run</span>
+      </button>
+      <button class="run-card" data-run="8" style="--card-accent: var(--amber)">
+        <span class="run-card-tag">Creative &amp; design</span>
+        <b>Launch campaign assets</b>
+        <span class="run-card-pain">One product, a full set of collateral.</span>
+        <span class="run-card-go">Watch the run</span>
+      </button>
+      <button class="run-card" data-run="9" style="--card-accent: var(--teal)">
+        <span class="run-card-tag">GitHub &amp; version control</span>
+        <b>Review a codebase and fix CI</b>
+        <span class="run-card-pain">The review nobody has time to do properly.</span>
+        <span class="run-card-go">Watch the run</span>
+      </button>
+    </div>
+
+    <div class="run-panel" id="run-panel" aria-live="polite">
+      <div class="run-bar">
+        <span class="run-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="run-bar-title" id="run-bar-title">tiny — idle</span>
+        <span class="run-clock" id="run-clock">0.0s</span>
+      </div>
+
+      <div class="run-idle" id="run-idle">
+        <div class="run-idle-mark" aria-hidden="true">▸</div>
+        <p class="run-idle-title">Pick a task above</p>
+        <p class="run-idle-sub">Nothing runs until you ask it to. Choose a use case and Tiny will plan it, call the tools it needs, and show you the result.</p>
+      </div>
+
+      <div class="run-body" id="run-body" hidden>
+        <div class="run-block">
+          <p class="run-label">Task</p>
+          <p class="run-task" id="run-task"></p>
+        </div>
+        <div class="run-block">
+          <p class="run-label">Plan <span class="run-count" id="run-stepcount"></span></p>
+          <ol class="run-steps" id="run-steps"></ol>
+        </div>
+        <div class="run-block">
+          <p class="run-label">Tool calls</p>
+          <div class="run-tools" id="run-tools"></div>
+        </div>
+        <div class="run-result" id="run-result">
+          <b id="run-result-title"></b>
+          <span id="run-result-body"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="run-foot">
+      <p>Ten shapes of work, drawn from the skills below. Tool names are the real ones Tiny uses; timings are illustrative, since an actual run takes as long as the systems it talks to.</p>
+      <a href="index.html#tiny-chat" class="btn btn-primary" data-track="runshow_cta">Give Tiny your task</a>
+    </div>
+  </div>
+</section>
+<section class="architecture" id="architecture">
+        <h2 class="section-title">The loop that finishes the job</h2>
+        <div class="arch-container loop-wrap">
+            <div class="loop-stage">
+                <svg class="loop-ring" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+                    <circle cx="50" cy="50" r="34"></circle>
+                </svg>
+                <div class="loop-orbit" aria-hidden="true"><span class="loop-pulse"></span></div>
+
+                <button type="button" class="loop-node at-perceive" id="node-perception" data-modal="arch_perception">
+                    <span class="loop-step">Step 01</span>
+                    <h4>Perception</h4>
+                    <p>Reads the request, the data, and whatever came back from the last action.</p>
+                </button>
+
+                <button type="button" class="loop-node at-plan" id="node-brain" data-modal="arch_brain">
+                    <span class="loop-step">Step 02</span>
+                    <h4>Reasoning</h4>
+                    <p>Works out what that means and picks the next move.</p>
+                </button>
+
+                <button type="button" class="loop-node at-act" id="node-tools" data-modal="arch_tools">
+                    <span class="loop-step">Step 03</span>
+                    <h4>Action</h4>
+                    <p>Calls a real tool — an API, a file, a device — then looks at the result.</p>
+                </button>
+
+                <button type="button" class="loop-core" id="node-memory" data-modal="arch_memory">
+                    <h4>Memory</h4>
+                    <p>What it knows, and what it already tried</p>
+                </button>
+            </div>
+
+            <p class="loop-caption">A chatbot stops after one reply. An agent goes round again — acting, looking at what happened, adjusting — <strong>until the job is actually done</strong>. Memory sits in the middle so it never repeats a step that already failed.</p>
+        </div>
+
+<section class="section">
+  <div class="wrap wrap-narrow">
+    <div class="endcta glass reveal">
+      <h2 class="h2">Got a task worth handing over?</h2>
+      <p class="lede" style="margin-inline:auto;margin-bottom:1.7rem">Describe it to Tiny and submit it. Scoping is free, and it ends with a straight answer about whether the task is worth automating at all.</p>
+      <a href="index.html#tiny-chat" class="btn btn-primary btn-lg">Give Tiny a task</a>
+    </div>
+  </div>
+</section>
+<!-- ══ FOOTER ══ -->
+<footer class="footer">
+  <div class="wrap footer-grid">
+    <div class="footer-brand">
+      <img src="assets/jaxtech-mark.png" alt="Jaxtech" width="52" height="52">
+      <p class="footer-tag">AI-powered workflow.<br>South African ingenuity.</p>
+      <p class="footer-desc">Jaxtech builds custom AI agents that take a real task off your hands — business admin, reporting, research, and property automation.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Explore</h4>
+      <ul>
+        <li><a href="skills.html">What it does</a></li>
+        <li><a href="platform.html">How it works</a></li>
+        <li><a href="about.html">About Jakes</a></li>
+        <li><a href="about.html#faq">FAQ</a></li>
+        <li><a href="platform.html">The technology</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Get in touch</h4>
+      <ul>
+        <li><a href="#" class="js-tel">079 395 0395</a></li>
+        <li><a href="#" class="js-whatsapp">Talk to Tiny on WhatsApp</a></li>
+        <li><a href="#" class="js-telegram">Talk to Tiny on Telegram</a></li>
+        <li><a href="#" class="js-mail">nageljakes@gmail.com</a></li>
+        <li><a href="index.html#enquire">Enter the challenge</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Where I work</h4>
+      <ul class="plain">
+        <li>Agent projects — remote, South Africa-wide</li>
+        <li>On-site work — Pretoria &amp; Centurion</li>
+        <li>Johannesburg &amp; Midrand</li>
+        <li>Further afield by arrangement</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bar wrap">
+    <p>&copy; <span id="year">2026</span> Jaxtech. All rights reserved.</p>
+    <p>Built in South Africa.</p>
+  </div>
+</footer>
+<!-- ══ STICKY MOBILE ACTION BAR ══ -->
+<div class="mobile-bar" id="mobile-bar">
+  <a href="#" class="mb-btn js-whatsapp" data-track="mobile_whatsapp"><span>💬</span>WhatsApp</a>
+  <a href="#" class="mb-btn js-telegram" data-track="mobile_telegram"><span>✈️</span>Telegram</a>
+  <a href="#" class="mb-btn js-tel" data-track="mobile_call"><span>📞</span>Call</a>
+  <a href="index.html#enquire" class="mb-btn mb-primary" data-track="mobile_enquire"><span>✦</span>Enter task</a>
+</div>
+
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<script src="script.js?v=19"></script>
+<div class="modal-overlay" id="detail-modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <div class="modal-header">
+                <div class="modal-icon" id="modal-icon">🎛️</div>
+                <h3 class="modal-title" id="modal-title">Unified Control</h3>
+            </div>
+            <div class="modal-body" id="modal-body">
+            </div>
+        </div>
+    </div>
+
+    
+</body>
+</html>

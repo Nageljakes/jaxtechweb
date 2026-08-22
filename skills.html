@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en-ZA">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Skills — 198 Things Tiny Can Do | Jaxtech</title>
+<meta name="description" content="The full catalogue of what Tiny can put to work today: 198 skills across 20 domains, from research and finance to security, design and smart home. Search it.">
+<link rel="canonical" href="https://tiny.jaxtech.workers.dev/skills.html">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Jaxtech">
+<meta property="og:title" content="Skills — 198 Things Tiny Can Do | Jaxtech">
+<meta property="og:description" content="The full catalogue of what Tiny can put to work today: 198 skills across 20 domains, from research and finance to security, design and smart home. Search it.">
+<meta property="og:url" content="https://tiny.jaxtech.workers.dev/skills.html">
+<meta property="og:image" content="https://tiny.jaxtech.workers.dev/assets/og-image.jpg">
+<meta property="og:locale" content="en_ZA">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Skills — 198 Things Tiny Can Do | Jaxtech">
+<meta name="twitter:description" content="The full catalogue of what Tiny can put to work today: 198 skills across 20 domains, from research and finance to security, design and smart home. Search it.">
+<meta name="twitter:image" content="https://tiny.jaxtech.workers.dev/assets/og-image.jpg">
+<meta name="theme-color" content="#030507">
+
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=20">
+<script>document.documentElement.className += ' js';</script>
+</head>
+<body>
+
+<div class="bg-glow one" aria-hidden="true"></div>
+<div class="bg-glow two" aria-hidden="true"></div>
+<div class="bg-grid" aria-hidden="true"></div>
+<div class="bg-noise" aria-hidden="true"></div>
+
+<a class="skip-link" href="index.html#enquire">Skip to enquiry form</a>
+<!-- ══ NAV ══ -->
+<nav class="nav" id="nav">
+  <a class="nav-brand" href="index.html">
+    <img src="assets/jaxtech-mark.png" alt="" width="38" height="38">
+    <span class="nav-brand-text">Jaxtech<small>AI-powered workflow · SA</small></span>
+  </a>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="what-tiny-does.html">What Tiny does</a></li>
+    <li><a href="skills.html" aria-current="page">Skills</a></li>
+    <li><a href="platform.html">How it works</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+  <a href="index.html#tiny-chat" class="btn btn-primary btn-sm nav-cta" data-track="nav_cta">Give Tiny a task</a>
+  <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+</nav>
+
+<header class="page-head">
+  <div class="wrap">
+    <p class="kicker reveal">The catalogue</p>
+    <h1 class="reveal">Everything Tiny<br><span class="grad">can put to work.</span></h1>
+    <p class="lede reveal">Not a roadmap. These are live today, across twenty domains. Search by name, or roll the dice.</p>
+  </div>
+</header>
+<div id="hermes">
+    <main class="report-container">
+        <!-- REMOVED: exec -->
+
+        <!-- REMOVED: metrics -->
+
+        <!-- REMOVED: domains -->
+
+        <section class="report-section glass">
+            <h2>What Tiny can actually do</h2>
+            <p style="color: var(--text-muted); margin-bottom: 1rem;">Your home is one part of it. Below are all <strong style="color: var(--accent-secondary);" id="skills-total-inline">198</strong> skills Tiny can put to work for you today, from running a household to supporting a business. Search by name &mdash; or roll the dice.</p>
+
+            <div class="skills-toolbar" id="skills-toolbar" hidden>
+                <div class="skills-search-wrap">
+                    <span class="skills-search-icon" aria-hidden="true">🔍</span>
+                    <input type="search" id="skill-search" placeholder="Try &ldquo;solana&rdquo;, &ldquo;jetson&rdquo;, &ldquo;stripe&rdquo;&hellip;" autocomplete="off" spellcheck="false" aria-label="Search skills">
+                    <kbd class="skills-kbd" aria-hidden="true">/</kbd>
+                    <button type="button" class="skills-clear" id="skill-clear" aria-label="Clear search">&times;</button>
+                </div>
+                <button type="button" class="skills-dice" id="skill-dice">
+                    <span class="dice-face" aria-hidden="true">&#127922;</span> Surprise me
+                </button>
+            </div>
+
+            <div class="skills-meter" id="skills-meter" hidden>
+                <span class="meter-num" id="skill-count">0</span>
+                <span class="meter-label">skills live across</span>
+                <span class="meter-num" id="cat-count">0</span>
+                <span class="meter-label">categories</span>
+                <span class="meter-pulse" aria-hidden="true"></span>
+            </div>
+
+            <p class="skills-empty" id="skills-empty" hidden>
+                Nothing matches <strong id="skills-empty-term"></strong> &mdash; yet.
+                <button type="button" class="skills-reset" id="skills-reset">Show everything</button>
+            </p>
+
+            <div class="skills-grid" id="skills-grid">
+                <div class="skill-category" data-modal="skill_agents">
+                    <h4>Autonomous AI Agents</h4>
+                    <div class="skill-icon">🤖</div>
+                </div>
+                <div class="skill-category" data-modal="skill_blockchain">
+                    <h4>Blockchain & Web3</h4>
+                    <div class="skill-icon">🔗</div>
+                </div>
+                <div class="skill-category" data-modal="skill_comm">
+                    <h4>Communication & Protocol</h4>
+                    <div class="skill-icon">📡</div>
+                </div>
+                <div class="skill-category" data-modal="skill_design">
+                    <h4>Creative & Design</h4>
+                    <div class="skill-icon">🎨</div>
+                </div>
+                <div class="skill-category" data-modal="skill_data">
+                    <h4>Data Science & DevOps</h4>
+                    <div class="skill-icon">📈</div>
+                </div>
+                <div class="skill-category" data-modal="skill_email">
+                    <h4>Email & Communication</h4>
+                    <div class="skill-icon">✉️</div>
+                </div>
+                <div class="skill-category" data-modal="skill_finance">
+                    <h4>Finance & Valuation</h4>
+                    <div class="skill-icon">📊</div>
+                </div>
+                <div class="skill-category" data-modal="skill_gaming">
+                    <h4>Gaming & Emulation</h4>
+                    <div class="skill-icon">🎮</div>
+                </div>
+                <div class="skill-category" data-modal="skill_git">
+                    <h4>GitHub & Version Control</h4>
+                    <div class="skill-icon">🐙</div>
+                </div>
+                <div class="skill-category" data-modal="skill_health">
+                    <h4>Health & Life Sciences</h4>
+                    <div class="skill-icon">🧬</div>
+                </div>
+                <div class="skill-category" data-modal="skill_mcp">
+                    <h4>Model Context Protocol</h4>
+                    <div class="skill-icon">🔌</div>
+                </div>
+                <div class="skill-category" data-modal="skill_media">
+                    <h4>Media & Video</h4>
+                    <div class="skill-icon">🎬</div>
+                </div>
+                <div class="skill-category" data-modal="skill_mlops">
+                    <h4>MLOps & Fine-Tuning</h4>
+                    <div class="skill-icon">⚙️</div>
+                </div>
+                <div class="skill-category" data-modal="skill_pay">
+                    <h4>Payments & E-Commerce</h4>
+                    <div class="skill-icon">💳</div>
+                </div>
+                <div class="skill-category" data-modal="skill_prod">
+                    <h4>Productivity & Docs</h4>
+                    <div class="skill-icon">📁</div>
+                </div>
+                <div class="skill-category" data-modal="skill_research">
+                    <h4>Research & Web Mining</h4>
+                    <div class="skill-icon">🔍</div>
+                </div>
+                <div class="skill-category" data-modal="skill_sec">
+                    <h4>Security & OSINT</h4>
+                    <div class="skill-icon">🛡️</div>
+                </div>
+                <div class="skill-category" data-modal="skill_iot">
+                    <h4>Smart Home & IoT</h4>
+                    <div class="skill-icon">🏠</div>
+                </div>
+                <div class="skill-category" data-modal="skill_web">
+                    <h4>Web Development</h4>
+                    <div class="skill-icon">🌐</div>
+                </div>
+                <div class="skill-category" data-modal="skill_hw">
+                    <h4>Hardware Acceleration</h4>
+                    <div class="skill-icon">⚡</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- REMOVED: workflows -->
+    </main>
+
+</div>
+<p class="kicker reveal" style="text-align: center; margin-top: 2rem;">Go deeper</p>
+<div class="info-buttons" style="display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; margin: 2rem 0;">
+    <button class="btn btn-ghost btn-sm" data-modal="modal_exec">📋 The short version</button>
+    <button class="btn btn-ghost btn-sm" data-modal="modal_metrics">📊 Where the skills come from</button>
+    <button class="btn btn-ghost btn-sm" data-modal="modal_domains">🌐 What this looks like in practice</button>
+    <button class="btn btn-ghost btn-sm" data-modal="modal_workflows">🔄 A few examples end to end</button>
+</div>
+
+<section class="section">
+  <div class="wrap wrap-narrow">
+    <div class="endcta glass reveal">
+      <h2 class="h2">Which of these do you need?</h2>
+      <p class="lede" style="margin-inline:auto;margin-bottom:1.7rem">You do not have to know. Describe the task in plain language and Tiny will work out which skills it takes.</p>
+      <a href="index.html#tiny-chat" class="btn btn-primary btn-lg">Give Tiny a task</a>
+    </div>
+  </div>
+</section>
+<!-- ══ FOOTER ══ -->
+<footer class="footer">
+  <div class="wrap footer-grid">
+    <div class="footer-brand">
+      <img src="assets/jaxtech-mark.png" alt="Jaxtech" width="52" height="52">
+      <p class="footer-tag">AI-powered workflow.<br>South African ingenuity.</p>
+      <p class="footer-desc">Jaxtech builds custom AI agents that take a real task off your hands — business admin, reporting, research, and property automation.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Explore</h4>
+      <ul>
+        <li><a href="#hermes">What it does</a></li>
+        <li><a href="platform.html">How it works</a></li>
+        <li><a href="about.html">About Jakes</a></li>
+        <li><a href="about.html#faq">FAQ</a></li>
+        <li><a href="platform.html">The technology</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Get in touch</h4>
+      <ul>
+        <li><a href="#" class="js-tel">079 395 0395</a></li>
+        <li><a href="#" class="js-whatsapp">Talk to Tiny on WhatsApp</a></li>
+        <li><a href="#" class="js-telegram">Talk to Tiny on Telegram</a></li>
+        <li><a href="#" class="js-mail">nageljakes@gmail.com</a></li>
+        <li><a href="index.html#enquire">Enter the challenge</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Where I work</h4>
+      <ul class="plain">
+        <li>Agent projects — remote, South Africa-wide</li>
+        <li>On-site work — Pretoria &amp; Centurion</li>
+        <li>Johannesburg &amp; Midrand</li>
+        <li>Further afield by arrangement</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bar wrap">
+    <p>&copy; <span id="year">2026</span> Jaxtech. All rights reserved.</p>
+    <p>Built in South Africa.</p>
+  </div>
+</footer>
+<!-- ══ STICKY MOBILE ACTION BAR ══ -->
+<div class="mobile-bar" id="mobile-bar">
+  <a href="#" class="mb-btn js-whatsapp" data-track="mobile_whatsapp"><span>💬</span>WhatsApp</a>
+  <a href="#" class="mb-btn js-telegram" data-track="mobile_telegram"><span>✈️</span>Telegram</a>
+  <a href="#" class="mb-btn js-tel" data-track="mobile_call"><span>📞</span>Call</a>
+  <a href="index.html#enquire" class="mb-btn mb-primary" data-track="mobile_enquire"><span>✦</span>Enter task</a>
+</div>
+
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<script src="script.js?v=19"></script>
+<div class="modal-overlay" id="detail-modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <div class="modal-header">
+                <div class="modal-icon" id="modal-icon">🎛️</div>
+                <h3 class="modal-title" id="modal-title">Unified Control</h3>
+            </div>
+            <div class="modal-body" id="modal-body">
+            </div>
+        </div>
+    </div>
+
+    
+</body>
+</html>

@@ -1941,3 +1941,95 @@ h4 { font-size: 1rem; font-weight: 600; }
 .runshow { padding-bottom: 44px; }
 .challenge-section { padding-top: 132px; }
 .challenge-section::before { font-size: clamp(3.2rem, 7.5vw, 6rem); }
+
+/* ============================================================
+   MULTI-PAGE CHROME
+   The site is several pages now rather than one long scroll.
+   ============================================================ */
+
+/* Current page in the nav. Underline is always-on rather than
+   hover-only, so position is legible without interaction. */
+.nav-links a[aria-current="page"] { color: var(--text); }
+.nav-links a[aria-current="page"]::after { width: 100%; background: var(--teal); }
+
+/* Interior page intro. Clears the fixed nav without the hero's height. */
+.page-head { padding: 150px 0 clamp(2rem, 5vw, 3.4rem); position: relative; }
+.page-head h1 {
+  font-size: clamp(2.5rem, 6vw, 4.2rem);
+  margin-bottom: 1.1rem; max-width: 18ch;
+}
+.page-head .lede { font-size: clamp(1.02rem, 1.6vw, 1.18rem); max-width: 58ch; }
+
+/* endcta was only ever defined inline in platform.html; the new pages
+   use it too, so it belongs here. */
+.endcta {
+  border-radius: var(--r-xl); padding: clamp(2rem, 5vw, 3rem);
+  text-align: center; border-width: 2px; box-shadow: var(--hard);
+}
+.endcta h2 { max-width: none; margin-inline: auto; }
+
+/* ── Home signposts to the interior pages ──────────── */
+.signposts {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem; margin-top: 2.6rem;
+}
+.signpost {
+  position: relative; display: grid; gap: .35rem; align-content: start;
+  padding: 1.4rem 1.3rem 3rem;
+  border: 2px solid var(--line); border-radius: var(--r-lg);
+  background: var(--surface);
+  transition: border-color .22s var(--ease), transform .22s var(--ease),
+              box-shadow .22s var(--ease);
+}
+.signpost:hover, .signpost:focus-visible {
+  border-color: var(--teal); transform: translate(-4px, -4px);
+  box-shadow: var(--hard-teal); outline: none;
+}
+.signpost-tag {
+  font-size: .66rem; letter-spacing: .14em; text-transform: uppercase;
+  font-weight: 700; color: var(--coral);
+}
+.signpost b {
+  font-family: var(--font-display); text-transform: uppercase;
+  font-size: 1.22rem; letter-spacing: -.01em; line-height: 1.1;
+}
+.signpost-p { font-size: .88rem; color: var(--muted); line-height: 1.55; }
+.signpost-go {
+  position: absolute; left: 1.3rem; bottom: 1.2rem;
+  font-size: .75rem; font-weight: 700; letter-spacing: .07em;
+  text-transform: uppercase; color: var(--muted-dim);
+  display: inline-flex; align-items: center; gap: .35rem;
+  transition: color .22s var(--ease);
+}
+.signpost-go::after { content: '→'; transition: transform .22s var(--ease); }
+.signpost:hover .signpost-go { color: var(--teal); }
+.signpost:hover .signpost-go::after { transform: translateX(4px); }
+
+@media (max-width: 760px) {
+  .page-head { padding-top: 124px; }
+}
+
+/* Grid tracks default to minmax(auto, 1fr), and `auto` floors at the
+   content's min-content width — so a long word or a wide child pushes the
+   track past its container and scrolls the whole page sideways. Letting
+   these tracks shrink to 0 is what actually stops that. */
+.split { grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); }
+@media (max-width: 980px) {
+  .split { grid-template-columns: minmax(0, 1fr); }
+}
+.split-text, .split-visual { min-width: 0; }
+
+/* Same min-content trap as .split, this time inside the enquiry form: the
+   chip rows made the single grid track wider than the form itself. */
+.enquire-form { grid-template-columns: minmax(0, 1fr); }
+.enquire-form .field,
+.enquire-form .field-row,
+.enquire-form .chips { min-width: 0; }
+.field-row { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+
+/* .btn sets white-space: nowrap, so a long label cannot fit a narrow
+   phone and pushes the page sideways. Let long buttons wrap instead. */
+.btn { max-width: 100%; }
+@media (max-width: 560px) {
+  .btn { white-space: normal; text-align: center; }
+}
