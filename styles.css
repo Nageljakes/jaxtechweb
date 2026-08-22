@@ -2033,3 +2033,9 @@ h4 { font-size: 1rem; font-weight: 600; }
 @media (max-width: 560px) {
   .btn { white-space: normal; text-align: center; }
 }
+
+/* ::after paints after element content, so the dark disc behind the avatar
+   was covering the avatar itself — the console showed an empty ring. Put
+   the image above the disc explicitly. */
+.ac-avatar::after { z-index: 0; }
+.ac-avatar img { z-index: 1; }
