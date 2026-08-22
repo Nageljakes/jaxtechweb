@@ -1379,6 +1379,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ---- Live filtering --------------------------------------------------
     const escapeHtml = s => s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
     const MAX_CHIPS = 6;
+    const PREVIEW_CHIPS = 4;
 
     const applyFilter = () => {
         const q = input.value.trim().toLowerCase();
@@ -1394,6 +1395,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 e.card.classList.remove('filtered-out');
                 visibleCats++;
                 visibleSkills += e.skills.length;
+                // Idle state: surface real skill names rather than leaving the
+                // card as a title and an emoji. Seeing the actual names is what
+                // makes the total believable without anyone opening a modal.
+                e.skills.slice(0, PREVIEW_CHIPS).forEach(s => {
+                    const chip = document.createElement('span');
+                    chip.className = 'skill-hit preview';
+                    chip.textContent = s;
+                    e.hits.appendChild(chip);
+                });
+                const rest = e.skills.length - PREVIEW_CHIPS;
+                if (rest > 0) {
+                    const more = document.createElement('span');
+                    more.className = 'skill-hit more';
+                    more.textContent = '+' + rest;
+                    e.hits.appendChild(more);
+                }
                 return;
             }
 
