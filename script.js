@@ -1718,3 +1718,258 @@ if (chatInput) {
     });
 }
 
+
+/* ============================================================
+   AGENT RUN SHOWCASE
+   Plays back an agent run — task, plan, tool calls, result —
+   so visitors see what an agent does rather than reading about
+   it. Purely presentational; no network calls.
+   ============================================================ */
+(function () {
+  'use strict';
+
+  const RUNS = [
+    {
+      task: 'Every Monday, pull last week’s sales, compare each rep against target, and email the team a summary.',
+      steps: [
+        { text: 'Pull last week’s closed deals from the CRM',
+          tools: [{ name: 'crm.query', arg: 'deals[status=won]', ms: 380 }] },
+        { text: 'Group by rep and region, total the values',
+          tools: [{ name: 'table.aggregate', arg: 'by=rep,region', ms: 90 }] },
+        { text: 'Compare each rep against their monthly target',
+          tools: [{ name: 'sheets.read', arg: 'targets!A2:D40', ms: 240 },
+                  { name: 'table.join', arg: 'on=rep_id', ms: 60 }] },
+        { text: 'Write the summary and send it to the team',
+          tools: [{ name: 'doc.compose', arg: 'weekly_summary', ms: 720 },
+                  { name: 'mail.send', arg: 'to=sales@… (4)', ms: 310 }] }
+      ],
+      result: { title: 'Report sent — 4 recipients, 2.1s',
+                body: 'Ran at 07:00 without anyone opening a laptop. Two reps flagged as behind target, with the shortfall shown in rands.' }
+    },
+    {
+      task: 'Take the supplier invoices out of my inbox, check them against the purchase orders, and load them into the accounting system.',
+      steps: [
+        { text: 'Find unread invoice attachments in the inbox',
+          tools: [{ name: 'mail.search', arg: 'has:pdf is:unread', ms: 210 }] },
+        { text: 'Read each PDF — supplier, line items, VAT, total',
+          tools: [{ name: 'pdf.extract', arg: '× 20 documents', ms: 1450 }] },
+        { text: 'Match every invoice to its purchase order',
+          tools: [{ name: 'erp.lookup', arg: 'po_number', ms: 430 },
+                  { name: 'rules.verify', arg: 'total ± tolerance', ms: 70 }] },
+        { text: 'Load the matches, hold anything that disagrees',
+          tools: [{ name: 'erp.create', arg: 'bills × 18', ms: 640 },
+                  { name: 'queue.flag', arg: 'review × 2', ms: 50 }] }
+      ],
+      result: { title: '18 invoices captured, 2 held for you',
+                body: 'The two held back disagreed with their purchase order by more than the tolerance. Nothing was posted without a match — that is the point.' }
+    },
+    {
+      task: 'When the grid drops, protect the battery and tell me what it cost me — without waiting for me to do anything.',
+      steps: [
+        { text: 'Detect the transfer from grid to inverter',
+          tools: [{ name: 'inverter.state', arg: 'source=battery', ms: 40 }] },
+        { text: 'Shed the heavy loads before the battery drains',
+          tools: [{ name: 'relay.off', arg: 'geyser', ms: 60 },
+                  { name: 'relay.off', arg: 'pool_pump', ms: 55 }] },
+        { text: 'Keep watching cameras and gates locally',
+          tools: [{ name: 'vision.watch', arg: 'perimeter × 4', ms: 120 }] },
+        { text: 'When power returns, reschedule and report',
+          tools: [{ name: 'geyser.schedule', arg: 'cheapest_window', ms: 80 },
+                  { name: 'whatsapp.send', arg: 'outage_summary', ms: 290 }] }
+      ],
+      result: { title: 'Battery held at 61% — outage survived',
+                body: 'Geyser reheated after tariff dropped instead of on the battery. You got one WhatsApp when it was over, not five alerts during it.' }
+    }
+  ];
+
+  const panel = document.getElementById('run-panel');
+  if (!panel) return;
+
+  const $id = (s) => document.getElementById(s);
+  const elTask = $id('run-task'), elSteps = $id('run-steps'), elTools = $id('run-tools'),
+        elResult = $id('run-result'), elRTitle = $id('run-result-title'),
+        elRBody = $id('run-result-body'), elClock = $id('run-clock'),
+        elCount = $id('run-stepcount');
+  const tabs = Array.from(document.querySelectorAll('.run-tab'));
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  let token = 0;           // cancels an in-flight run when we switch
+  let current = 0;
+  let started = false;
+  let clockTimer = null;
+
+  const sleep = (ms, my) => new Promise(res => setTimeout(() => res(my === token), ms));
+
+  function selectTab(i) {
+    tabs.forEach((t, n) => t.setAttribute('aria-selected', String(n === i)));
+    if (tabs[i]) panel.setAttribute('aria-labelledby', tabs[i].id);
+  }
+
+  function progress(pct) {
+    const t = tabs[current];
+    if (t) t.style.setProperty('--run-progress', pct + '%');
+  }
+
+  function startClock(my) {
+    const t0 = performance.now();
+    clearInterval(clockTimer);
+    clockTimer = setInterval(() => {
+      if (my !== token) return clearInterval(clockTimer);
+      elClock.textContent = ((performance.now() - t0) / 1000).toFixed(1) + 's';
+    }, 100);
+  }
+
+  function reset() {
+    elSteps.innerHTML = ''; elTools.innerHTML = '';
+    elResult.classList.remove('in');
+    elTask.textContent = ''; elClock.textContent = '0.0s';
+    elCount.textContent = ''; progress(0);
+  }
+
+  function stepEl(text, n) {
+    const li = document.createElement('li');
+    li.className = 'run-step';
+    li.innerHTML = '<span class="run-step-mark">' + n + '</span><span></span>';
+    li.lastChild.textContent = text;
+    return li;
+  }
+
+  function toolEl(t) {
+    const row = document.createElement('div');
+    row.className = 'run-tool';
+    const name = document.createElement('span');
+    name.className = 'run-tool-name';
+    name.textContent = t.name;
+    const arg = document.createElement('em');
+    arg.textContent = '  ' + t.arg;
+    name.appendChild(arg);
+    const ms = document.createElement('span');
+    ms.className = 'run-tool-ms';
+    const st = document.createElement('span');
+    st.className = 'run-tool-state';
+    row.append(name, ms, st);
+    return { row, ms };
+  }
+
+  /* Render the finished state instantly — used for reduced motion. */
+  function renderStatic(run) {
+    reset();
+    elTask.textContent = run.task;
+    elCount.textContent = run.steps.length + ' steps';
+    run.steps.forEach((s, i) => {
+      const li = stepEl(s.text, i + 1);
+      li.classList.add('in', 'done');
+      li.querySelector('.run-step-mark').textContent = '✓';
+      elSteps.appendChild(li);
+      s.tools.forEach(t => {
+        const { row, ms } = toolEl(t);
+        row.classList.add('in', 'ok');
+        ms.textContent = t.ms + 'ms';
+        elTools.appendChild(row);
+      });
+    });
+    const total = run.steps.reduce((n, s) => n + s.tools.reduce((m, t) => m + t.ms, 0), 0);
+    elClock.textContent = (total / 1000).toFixed(1) + 's';
+    elRTitle.textContent = run.result.title;
+    elRBody.textContent = run.result.body;
+    elResult.classList.add('in');
+    progress(100);
+  }
+
+  async function play(i) {
+    const my = ++token;
+    current = i;
+    selectTab(i);
+    const run = RUNS[i];
+
+    if (reduce) { renderStatic(run); return; }
+
+    reset();
+    startClock(my);
+
+    // 1 — type the task in
+    const caret = document.createElement('span');
+    caret.className = 'run-caret';
+    elTask.appendChild(caret);
+    for (let c = 0; c < run.task.length; c++) {
+      if (!(await sleep(12, my))) return;
+      caret.insertAdjacentText('beforebegin', run.task[c]);
+    }
+    if (!(await sleep(280, my))) return;
+    caret.remove();
+
+    // 2 — reveal the plan
+    elCount.textContent = run.steps.length + ' steps';
+    const lis = run.steps.map((s, n) => {
+      const li = stepEl(s.text, n + 1);
+      elSteps.appendChild(li);
+      return li;
+    });
+    for (const li of lis) {
+      if (!(await sleep(110, my))) return;
+      li.classList.add('in');
+    }
+    if (!(await sleep(320, my))) return;
+
+    // 3 — work each step, firing its tool calls
+    const totalTools = run.steps.reduce((n, s) => n + s.tools.length, 0);
+    let doneTools = 0;
+
+    for (let n = 0; n < run.steps.length; n++) {
+      if (my !== token) return;
+      const li = lis[n], mark = li.querySelector('.run-step-mark');
+      li.classList.add('active'); mark.textContent = '';
+
+      for (const t of run.steps[n].tools) {
+        const { row, ms } = toolEl(t);
+        elTools.appendChild(row);
+        if (!(await sleep(60, my))) return;
+        row.classList.add('in', 'running');
+        // Compress real latency into something watchable
+        if (!(await sleep(Math.min(360, 140 + t.ms * 0.28), my))) return;
+        row.classList.remove('running'); row.classList.add('ok');
+        ms.textContent = t.ms + 'ms';
+        doneTools++;
+        progress(Math.round((doneTools / totalTools) * 92));
+      }
+
+      li.classList.remove('active'); li.classList.add('done');
+      mark.textContent = '✓';
+      if (!(await sleep(180, my))) return;
+    }
+
+    // 4 — land the result
+    if (!(await sleep(260, my))) return;
+    elRTitle.textContent = run.result.title;
+    elRBody.textContent = run.result.body;
+    elResult.classList.add('in');
+    progress(100);
+    clearInterval(clockTimer);
+
+    // 5 — hand over to the next scenario
+    if (!(await sleep(5200, my))) return;
+    play((i + 1) % RUNS.length);
+  }
+
+  tabs.forEach((tab, i) => {
+    tab.addEventListener('click', () => { started = true; play(i); });
+    tab.addEventListener('keydown', (e) => {
+      if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return;
+      e.preventDefault();
+      const next = (i + (e.key === 'ArrowDown' ? 1 : tabs.length - 1)) % tabs.length;
+      tabs[next].focus(); started = true; play(next);
+    });
+  });
+
+  // Only start once it's actually on screen; stop when it isn't.
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver((entries) => {
+      const vis = entries[0].isIntersecting;
+      if (vis && !started) { started = true; play(0); }
+      else if (!vis && started) { token++; clearInterval(clockTimer); }
+      else if (vis && started && !reduce) { play(current); }
+    }, { threshold: 0.25 }).observe(panel);
+  } else {
+    renderStatic(RUNS[0]);
+  }
+})();

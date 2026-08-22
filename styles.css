@@ -1472,3 +1472,198 @@ h4 { font-size: 1rem; font-weight: 600; }
     .meter-pulse { animation: none; }
     .skill-hit { animation: none; }
 }
+
+/* ============================================================
+   AGENT RUN SHOWCASE — the "show, don't tell" section.
+   A console-styled panel that plays back a real agent run:
+   task in, plan, tool calls, result. Animated on scroll.
+   ============================================================ */
+
+.runshow { padding: 100px 0 108px; position: relative; overflow: hidden; }
+.runshow-head { text-align: center; margin-bottom: 2.8rem; }
+.runshow-head .kicker { justify-content: center; }
+.runshow-head .h2 { margin-inline: auto; max-width: 22ch; }
+.runshow-head .lede { margin-inline: auto; text-align: center; }
+
+.runshow-grid {
+  display: grid; grid-template-columns: 1fr 1.35fr;
+  gap: clamp(1.5rem, 3.5vw, 3rem); align-items: start;
+}
+
+/* ── Scenario switcher ─────────────────────────────── */
+.run-tabs { display: grid; gap: .7rem; position: sticky; top: 108px; }
+.run-tab {
+  --tab-accent: var(--teal);
+  text-align: left; cursor: pointer; position: relative;
+  background: var(--surface); color: var(--text);
+  border: 2px solid var(--line); border-radius: var(--r);
+  padding: 1rem 1.15rem; font-family: inherit;
+  display: grid; gap: .3rem;
+  transition: border-color .25s var(--ease), transform .25s var(--ease),
+              box-shadow .25s var(--ease), background .25s var(--ease);
+}
+.run-tab:hover { border-color: var(--line-strong); transform: translate(-2px, -2px); }
+.run-tab b {
+  font-size: .95rem; font-weight: 600; letter-spacing: -.01em;
+  display: flex; align-items: center; gap: .5rem;
+}
+.run-tab b::before {
+  content: ''; width: 8px; height: 8px; flex: none;
+  background: var(--muted-dim); transform: rotate(45deg);
+  transition: background .25s var(--ease), box-shadow .25s var(--ease);
+}
+.run-tab span { font-size: .83rem; color: var(--muted); line-height: 1.5; }
+.run-tab[aria-selected="true"] {
+  border-color: var(--tab-accent); background: var(--surface-2);
+  transform: translate(-3px, -3px);
+  box-shadow: 6px 6px 0 color-mix(in srgb, var(--tab-accent) 55%, transparent);
+}
+.run-tab[aria-selected="true"] b::before {
+  background: var(--tab-accent);
+  box-shadow: 0 0 12px var(--tab-accent);
+}
+/* Progress hairline showing how far the current run has played */
+.run-tab-bar {
+  position: absolute; left: 0; bottom: 0; height: 2px; width: 0;
+  background: var(--tab-accent); border-radius: 0 2px 2px 0;
+}
+.run-tab[aria-selected="true"] .run-tab-bar { width: var(--run-progress, 0%); }
+
+/* ── The console panel ─────────────────────────────── */
+.run-panel {
+  border: 2px solid var(--line-strong); border-radius: var(--r-lg);
+  background: linear-gradient(180deg, rgba(10,16,24,.96), rgba(3,5,7,.98));
+  box-shadow: var(--hard); overflow: hidden;
+  display: flex; flex-direction: column; min-height: 520px;
+}
+.run-bar {
+  display: flex; align-items: center; gap: .7rem;
+  padding: .8rem 1.1rem; border-bottom: 2px solid var(--line);
+  background: rgba(0,0,0,.45);
+}
+.run-dots { display: flex; gap: 6px; }
+.run-dots i { width: 11px; height: 11px; border-radius: 50%; background: var(--line-strong); }
+.run-dots i:nth-child(1) { background: #ff5f57; }
+.run-dots i:nth-child(2) { background: #febc2e; }
+.run-dots i:nth-child(3) { background: #28c840; }
+.run-bar-title {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: .78rem; color: var(--muted); letter-spacing: .02em; margin-left: .3rem;
+}
+.run-clock {
+  margin-left: auto; font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: .78rem; color: var(--teal); font-variant-numeric: tabular-nums;
+}
+.run-body {
+  padding: 1.3rem 1.4rem 1.5rem; display: grid; gap: 1.35rem;
+  flex: 1; align-content: start;
+}
+
+/* Section blocks inside the console */
+.run-block { display: grid; gap: .6rem; }
+.run-label {
+  display: flex; align-items: center; gap: .55rem;
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: .7rem; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--muted-dim);
+}
+.run-label::before { content: '▸'; color: var(--coral); font-size: .8rem; }
+.run-label .run-count { margin-left: auto; color: var(--muted-dim); letter-spacing: .04em; }
+
+.run-task {
+  font-size: 1rem; line-height: 1.6; color: var(--text);
+  border-left: 3px solid var(--coral); padding: .2rem 0 .2rem .95rem;
+}
+.run-task .run-caret {
+  display: inline-block; width: 9px; height: 1.05em; vertical-align: -.18em;
+  background: var(--coral); margin-left: 3px; animation: run-blink 1s steps(2) infinite;
+}
+@keyframes run-blink { 0%,50% { opacity: 1; } 50.01%,100% { opacity: 0; } }
+
+/* Plan steps */
+.run-steps { display: grid; gap: .5rem; list-style: none; }
+.run-step {
+  display: grid; grid-template-columns: 22px 1fr; gap: .7rem; align-items: start;
+  font-size: .92rem; color: var(--muted); line-height: 1.5;
+  opacity: 0; transform: translateY(6px);
+  transition: opacity .35s var(--ease), transform .35s var(--ease), color .35s var(--ease);
+}
+.run-step.in { opacity: 1; transform: none; }
+.run-step.active { color: var(--text); }
+.run-step.done { color: var(--muted); }
+.run-step-mark {
+  width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center;
+  border: 2px solid var(--line-strong); font-size: .65rem; font-weight: 700;
+  color: var(--muted-dim); background: rgba(0,0,0,.3);
+  transition: all .3s var(--ease);
+}
+.run-step.active .run-step-mark {
+  border-color: var(--amber); color: var(--amber);
+  animation: run-spin 1s linear infinite;
+}
+.run-step.done .run-step-mark {
+  border-color: var(--teal); background: var(--teal); color: #04121a;
+  animation: none;
+}
+@keyframes run-spin { to { transform: rotate(360deg); } }
+
+/* Tool call rows */
+.run-tools { display: grid; gap: .4rem; }
+.run-tool {
+  display: grid; grid-template-columns: 1fr auto auto; gap: .8rem; align-items: center;
+  font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .82rem;
+  padding: .55rem .8rem; border-radius: var(--r-sm);
+  background: rgba(255,255,255,.028); border: 1px solid var(--line);
+  opacity: 0; transform: translateX(-8px);
+  transition: opacity .3s var(--ease), transform .3s var(--ease),
+              border-color .3s var(--ease), background .3s var(--ease);
+}
+.run-tool.in { opacity: 1; transform: none; }
+.run-tool-name { color: var(--teal); }
+.run-tool-name em { color: var(--muted-dim); font-style: normal; }
+.run-tool-ms { color: var(--muted-dim); font-variant-numeric: tabular-nums; font-size: .76rem; }
+.run-tool-state { width: 14px; height: 14px; display: grid; place-items: center; }
+.run-tool.running { border-color: rgba(245,166,35,.5); background: rgba(245,166,35,.07); }
+.run-tool.running .run-tool-state::before {
+  content: ''; width: 9px; height: 9px; border-radius: 50%;
+  border: 2px solid var(--amber); border-top-color: transparent;
+  animation: run-spin .7s linear infinite;
+}
+.run-tool.ok { border-color: rgba(53,198,216,.35); }
+.run-tool.ok .run-tool-state::before { content: '✓'; color: var(--teal); font-size: .82rem; font-weight: 700; }
+
+/* Result */
+.run-result {
+  border: 2px solid var(--teal); border-radius: var(--r);
+  background: linear-gradient(120deg, rgba(53,198,216,.12), rgba(53,198,216,.03));
+  padding: .95rem 1.1rem; display: grid; gap: .3rem;
+  opacity: 0; transform: translateY(8px) scale(.985);
+  transition: opacity .45s var(--ease), transform .45s var(--ease);
+}
+.run-result.in { opacity: 1; transform: none; }
+.run-result b { font-size: .95rem; color: var(--teal); display: flex; align-items: center; gap: .5rem; }
+.run-result b::before { content: '✓'; }
+.run-result span { font-size: .88rem; color: var(--muted); line-height: 1.55; }
+
+.run-foot {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem; flex-wrap: wrap; margin-top: 2.2rem;
+}
+.run-foot p { font-size: .88rem; color: var(--muted-dim); max-width: 54ch; }
+
+@media (max-width: 900px) {
+  .runshow-grid { grid-template-columns: 1fr; }
+  .run-tabs { position: static; grid-template-columns: 1fr; }
+  .run-panel { min-height: 0; }
+}
+@media (max-width: 560px) {
+  .run-tool { grid-template-columns: 1fr auto; }
+  .run-tool-ms { display: none; }
+  .run-body { padding: 1.1rem 1rem 1.2rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .run-step, .run-tool, .run-result { opacity: 1 !important; transform: none !important; }
+  .run-step-mark, .run-tool.running .run-tool-state::before { animation: none !important; }
+  .run-task .run-caret { animation: none; opacity: 0; }
+}

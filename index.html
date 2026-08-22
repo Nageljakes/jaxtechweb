@@ -30,7 +30,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=11">
+<link rel="stylesheet" href="styles.css?v=12">
 <script>document.documentElement.className += ' js';</script>
 </head>
 <body>
@@ -101,6 +101,68 @@
     <span>AI Agent Challenge</span><span>Entries close 31 August 2026</span><span>Give Tiny a task</span><span>Win a custom AI agent</span><span>Built in South Africa</span>
   </div>
 </div>
+
+<!-- ══ AGENT RUN SHOWCASE ══ -->
+<section class="runshow" id="watch">
+  <div class="wrap">
+    <div class="runshow-head">
+      <p class="kicker reveal">Show, don't tell</p>
+      <h2 class="h2 reveal">This is what an agent actually does.</h2>
+      <p class="lede reveal">Not a chatbot answering a question. A real run: the task comes in, Tiny plans it, calls the tools it needs, and finishes the job. Pick one and watch it work.</p>
+    </div>
+
+    <div class="runshow-grid">
+      <div class="run-tabs" role="tablist" aria-label="Example agent runs">
+        <button class="run-tab" role="tab" id="rt-0" aria-selected="true" aria-controls="run-panel" data-run="0" style="--tab-accent: var(--teal)">
+          <b>Monday sales report</b>
+          <span>A weekly report that takes someone two hours every Monday morning.</span>
+          <i class="run-tab-bar" aria-hidden="true"></i>
+        </button>
+        <button class="run-tab" role="tab" id="rt-1" aria-selected="false" aria-controls="run-panel" data-run="1" style="--tab-accent: var(--coral)">
+          <b>Supplier invoices</b>
+          <span>Twenty PDFs a week, re-typed by hand into the accounting system.</span>
+          <i class="run-tab-bar" aria-hidden="true"></i>
+        </button>
+        <button class="run-tab" role="tab" id="rt-2" aria-selected="false" aria-controls="run-panel" data-run="2" style="--tab-accent: var(--amber)">
+          <b>Load-shedding response</b>
+          <span>The grid drops. The property has to protect itself, without you.</span>
+          <i class="run-tab-bar" aria-hidden="true"></i>
+        </button>
+      </div>
+
+      <div class="run-panel" id="run-panel" role="tabpanel" aria-labelledby="rt-0" aria-live="polite">
+        <div class="run-bar">
+          <span class="run-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="run-bar-title">tiny — agent run</span>
+          <span class="run-clock" id="run-clock">0.0s</span>
+        </div>
+        <div class="run-body">
+          <div class="run-block">
+            <p class="run-label">Task</p>
+            <p class="run-task" id="run-task"></p>
+          </div>
+          <div class="run-block">
+            <p class="run-label">Plan <span class="run-count" id="run-stepcount"></span></p>
+            <ol class="run-steps" id="run-steps"></ol>
+          </div>
+          <div class="run-block">
+            <p class="run-label">Tool calls</p>
+            <div class="run-tools" id="run-tools"></div>
+          </div>
+          <div class="run-result" id="run-result">
+            <b id="run-result-title"></b>
+            <span id="run-result-body"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="run-foot">
+      <p>These are real workflow shapes, played back at speed. Timings are illustrative — an actual run takes as long as the systems it talks to.</p>
+      <a href="#tiny-chat" class="btn btn-primary" data-track="runshow_cta">Give Tiny your task</a>
+    </div>
+  </div>
+</section>
 
 <!-- ══ AI AGENT CHALLENGE ══ -->
 <section class="section challenge-section" id="challenge">
@@ -597,7 +659,7 @@
 </script>
 
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-<script src="script.js?v=14"></script>
+<script src="script.js?v=15"></script>
 <div class="modal-overlay" id="detail-modal">
         <div class="modal-content">
             <button class="modal-close" onclick="closeModal()">&times;</button>
