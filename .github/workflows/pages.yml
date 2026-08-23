@@ -1,0 +1,53 @@
+name: Deploy site to GitHub Pages
+
+# The site is plain static files at the repo root, so there is nothing to build —
+# this only packages them and hands them to Pages. Declaring the deployment here
+# (instead of relying on the implicit "deploy from a branch" builder) keeps the
+# published site tied to a commit we can see, and re-enables Pages if the repo's
+# Pages source is ever switched off or pointed somewhere that does not exist.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Let a queued deploy finish rather than cancelling it mid-publish.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+        with:
+          # Turns Pages on (and points it at this workflow) when it is not
+          # already serving from here.
+          enablement: true
+
+      - name: Assemble site
+        run: |
+          mkdir -p _site
+          git archive HEAD | tar -x -C _site
+          rm -rf _site/.github
+          test -f _site/index.html
+          test -f _site/.nojekyll
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - id: deployment
+        uses: actions/deploy-pages@v4
