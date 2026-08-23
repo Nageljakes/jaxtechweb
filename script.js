@@ -920,6 +920,30 @@ function appendMessage(text, sender) {
     }
 }
 
+// Some South African mobile carriers' default DNS blocks the shared
+// *.workers.dev domain the chat API lives on, so a fetch to it never even
+// reaches the server — it just throws. Rather than leave that visitor
+// staring at "Network error", hand them straight to WhatsApp or Telegram.
+// Reads hrefs already wired by wireContactLinks() elsewhere on the page,
+// so this stays correct if a number/handle ever changes there.
+function appendUnreachableMessage() {
+    const msg = document.createElement('div');
+    msg.className = 'hv-msg them unreachable';
+    const wa = document.querySelector('.js-whatsapp');
+    const tg = document.querySelector('.js-telegram');
+    const link = (el, label) => el && el.href
+        ? `<a href="${el.href}" target="${el.target || '_self'}" rel="noopener">${label}</a>`
+        : null;
+    const options = [link(wa, 'WhatsApp'), link(tg, 'Telegram')].filter(Boolean);
+    msg.innerHTML = options.length
+        ? `Can't reach Tiny from this network right now — some SA mobile networks block this connection. Message us directly on ${options.join(' or ')} instead, or scroll down to submit the form.`
+        : `Can't reach Tiny from this network right now. Scroll down to submit the form below instead — it will still reach us.`;
+    if (chatHistory) {
+        chatHistory.appendChild(msg);
+        chatHistory.scrollTop = chatHistory.scrollHeight;
+    }
+}
+
 // Rotating status lines shown while Tiny is working on a reply — same idea
 // as the CLI-style "thinking" spinners in tools like Claude Code, tuned to
 // Tiny's own voice.
@@ -1082,11 +1106,11 @@ async function sendChatMessage() {
             }
         } else {
             thinking.remove();
-            appendMessage("Sorry, I'm having trouble connecting right now.", 'them');
+            appendUnreachableMessage();
         }
     } catch (e) {
         thinking.remove();
-        appendMessage("Network error. Please try again later.", 'them');
+        appendUnreachableMessage();
     } finally {
         if (!window.hasSubmittedForm && window.chatMessagesSent >= 5) {
             depleteChat();
