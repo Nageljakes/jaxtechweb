@@ -2172,3 +2172,17 @@ summary:focus-visible,
   color: var(--muted); text-transform: none; letter-spacing: 0;
   font-weight: 400; font-size: .86rem;
 }
+
+/* Chat fallback when the API is unreachable — e.g. a mobile carrier's
+   DNS blocking *.workers.dev. Distinct from a normal agent reply so it
+   reads as a system notice, and its links need to be visibly clickable
+   since appendMessage's plain-text styling gives links no affordance. */
+.hv-msg.unreachable {
+  color: var(--amber);
+}
+.hv-msg.unreachable::before { color: var(--amber); }
+.hv-msg.unreachable a {
+  color: var(--teal); font-weight: 600; text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.hv-msg.unreachable a:hover { color: var(--coral); }
