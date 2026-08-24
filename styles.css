@@ -2186,3 +2186,161 @@ summary:focus-visible,
   text-underline-offset: 2px;
 }
 .hv-msg.unreachable a:hover { color: var(--coral); }
+
+/* ============================================================
+   DEALERSHIP OPERATING SYSTEM
+   Flagship build — a homepage band that hands off to
+   dealership.html, plus the components that page is built from.
+   ============================================================ */
+
+/* ── Homepage flagship band ─────────────────────────── */
+.flagship-section { padding-top: 0; }
+.flagship {
+  display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr);
+  gap: clamp(1.6rem, 4vw, 2.6rem);
+  border-radius: var(--r-xl); border-width: 2px;
+  padding: clamp(1.7rem, 4vw, 2.9rem);
+  box-shadow: var(--hard);
+}
+.flagship-copy { min-width: 0; align-self: center; }
+.flagship-copy .h2 { margin-bottom: .9rem; }
+.flagship-copy .lede { margin-bottom: 1.5rem; }
+.flagship-actions { display: flex; flex-wrap: wrap; gap: .7rem; }
+.flagship-list { display: grid; gap: .55rem; min-width: 0; align-content: center; }
+.flagship-item {
+  display: grid; grid-template-columns: auto minmax(0, 1fr); gap: .2rem .85rem;
+  align-items: baseline;
+  padding: .8rem .95rem;
+  border: 1px solid var(--line); border-radius: var(--r);
+  background: rgba(255,255,255,.03);
+  transition: border-color .22s var(--ease), background .22s var(--ease);
+}
+.flagship-item:hover { border-color: var(--line-strong); background: rgba(255,255,255,.05); }
+.flagship-item i {
+  grid-row: span 2; font-style: normal;
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: .7rem; font-weight: 700; color: var(--teal);
+  border: 1px solid rgba(53,198,216,.4); border-radius: 4px;
+  padding: .1rem .4rem; align-self: start; margin-top: .18rem;
+}
+.flagship-item b { font-size: .93rem; font-weight: 600; line-height: 1.35; }
+.flagship-item span { font-size: .84rem; color: var(--muted); line-height: 1.55; }
+
+@media (max-width: 980px) {
+  .flagship { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ── Pillar cards (dealership.html) ─────────────────── */
+/* minmax(300px) rather than a smaller floor so the five pillars land as
+   3 + 2 on a desktop container instead of 4 + 1 orphan. */
+.dos-pillars {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem; margin-top: 2.4rem;
+}
+.dos-pillar {
+  position: relative; display: grid; gap: .5rem; align-content: start;
+  min-width: 0; padding: 1.5rem 1.4rem;
+  border: 2px solid var(--line); border-radius: var(--r-lg);
+  background: var(--surface);
+  transition: border-color .22s var(--ease), transform .22s var(--ease),
+              box-shadow .22s var(--ease);
+}
+.dos-pillar:hover {
+  border-color: var(--card-accent, var(--teal)); transform: translate(-4px, -4px);
+  box-shadow: 6px 6px 0 var(--card-accent, var(--teal));
+}
+.dos-pillar-n {
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: .68rem; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--card-accent, var(--teal));
+}
+.dos-pillar h3 {
+  font-family: var(--font-display); text-transform: uppercase;
+  font-size: 1.16rem; letter-spacing: -.01em; line-height: 1.12; font-weight: 400;
+}
+.dos-pillar p { font-size: .89rem; color: var(--muted); line-height: 1.6; }
+.dos-pillar-meta {
+  margin-top: .35rem; padding-top: .7rem; border-top: 1px solid var(--line);
+  font-size: .76rem; letter-spacing: .06em; text-transform: uppercase;
+  font-weight: 700; color: var(--muted-dim);
+}
+
+/* ── Metric strip ───────────────────────────────────── */
+.dos-metrics {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: .9rem; margin-top: 2.2rem;
+}
+.dos-metric {
+  border: 2px solid var(--line); border-radius: var(--r-lg);
+  padding: 1.2rem 1.25rem; background: var(--surface); min-width: 0;
+}
+.dos-metric b {
+  display: block; font-family: var(--font-display); font-weight: 400;
+  font-size: clamp(1.5rem, 3.4vw, 2rem); line-height: 1.05;
+  letter-spacing: -.02em; color: var(--teal);
+}
+.dos-metric span {
+  display: block; margin-top: .35rem; font-size: .82rem; color: var(--muted);
+  line-height: 1.5;
+}
+
+/* ── Lifecycle timeline ─────────────────────────────── */
+.dos-timeline {
+  border-radius: var(--r-lg); border-width: 2px;
+  padding: clamp(1.3rem, 3vw, 1.9rem); margin-top: 2.2rem;
+}
+.dos-step {
+  display: grid; grid-template-columns: 108px minmax(0, 1fr); gap: 1.1rem;
+  padding: 1rem 0; border-bottom: 1px solid var(--line);
+}
+.dos-step:first-child { padding-top: 0; }
+.dos-step:last-child { border-bottom: 0; padding-bottom: 0; }
+.dos-step b {
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: .74rem; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--teal); padding-top: 4px;
+}
+.dos-step p { font-size: .92rem; color: var(--muted); line-height: 1.65; }
+.dos-step p strong { color: var(--text); }
+.dos-actor {
+  display: inline-block; margin-left: .4rem;
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: .74em; color: var(--coral);
+  border: 1px solid rgba(244,98,58,.35); border-radius: 4px;
+  padding: .05em .35em; white-space: nowrap;
+}
+@media (max-width: 620px) {
+  .dos-step { grid-template-columns: minmax(0, 1fr); gap: .3rem; }
+  .dos-step b { padding-top: 0; }
+}
+
+/* ── Bot roster ─────────────────────────────────────── */
+.dos-bots {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(232px, 1fr));
+  gap: 1rem; margin-top: 2rem;
+}
+.dos-bot {
+  border-radius: var(--r); padding: 1.3rem 1.35rem; min-width: 0;
+  display: grid; gap: .4rem; align-content: start;
+}
+.dos-bot h3 {
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: .84rem; font-weight: 700; color: var(--teal); letter-spacing: .02em;
+}
+.dos-bot p { font-size: .87rem; color: var(--muted); line-height: 1.6; }
+
+/* ── Straight-talk note ─────────────────────────────── */
+.dos-note {
+  margin-top: 2rem; border-left: 3px solid var(--amber);
+  padding: .9rem 0 .9rem 1.1rem; max-width: 74ch;
+}
+.dos-note p { font-size: .92rem; color: var(--muted); line-height: 1.65; }
+.dos-note strong { color: var(--text); }
+
+/* Five nav links no longer fit comfortably between the brand and the CTA
+   on narrow laptops, so tighten the run before the hamburger takes over. */
+@media (max-width: 1080px) and (min-width: 761px) {
+  .nav { gap: 1.1rem; }
+  .nav-links { gap: 1.15rem; }
+  .nav-links a { font-size: .76rem; letter-spacing: .02em; }
+}
