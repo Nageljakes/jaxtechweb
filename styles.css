@@ -1308,46 +1308,15 @@ h4 { font-size: 1rem; font-weight: 600; }
     100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(53, 198, 216, 0); }
 }
 
-/* ── AI Agent Challenge ───────────────────────────── */
-.challenge-section { padding-top: 36px; }
-.challenge-shell {
-  border-radius: var(--r-xl); padding: clamp(1.5rem, 4vw, 3.2rem);
-  border-width: 2px; box-shadow: var(--hard-coral);
-  display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(2rem, 5vw, 4rem);
-  position: relative; overflow: hidden;
-}
-.challenge-shell::before {
-  content: ''; position: absolute; width: 340px; height: 340px; border-radius: 50%;
-  right: -140px; top: -180px; background: rgba(244,98,58,.13); filter: blur(55px); pointer-events: none;
-}
-.challenge-copy, .challenge-steps, .challenge-prize { position: relative; z-index: 1; }
-.challenge-dates { display: flex; flex-wrap: wrap; gap: .7rem; margin-top: 1.5rem; }
-.challenge-dates span {
-  border: 1px solid var(--line-strong); background: rgba(7,13,21,.55);
-  border-radius: 999px; padding: .55rem .9rem; color: var(--muted); font-size: .88rem;
-}
-.challenge-dates strong { margin-right: .35rem; }
-.challenge-steps { list-style: none; display: grid; gap: 1rem; align-content: center; }
-.challenge-steps li { display: grid; grid-template-columns: 42px 1fr; gap: .9rem; align-items: start; }
-.challenge-steps li > span {
+/* ── Numbered Steps ───────────────────────────────── */
+.build-steps, .challenge-steps { list-style: none; display: grid; gap: 1rem; align-content: center; }
+.build-steps li, .challenge-steps li { display: grid; grid-template-columns: 42px 1fr; gap: .9rem; align-items: start; }
+.build-steps li > span, .challenge-steps li > span {
   display: grid; place-items: center; width: 42px; height: 42px; border-radius: 50%;
   background: rgba(53,198,216,.12); border: 1px solid rgba(53,198,216,.38); color: var(--teal); font-weight: 700;
 }
-.challenge-steps p { color: var(--muted); font-size: .94rem; margin-top: .15rem; }
-.challenge-prize {
-  grid-column: 1 / -1; border-top: 1px solid var(--line); padding-top: 1.4rem;
-  display: grid; grid-template-columns: 1fr auto; gap: 1rem 2rem; align-items: center;
-}
-.challenge-prize > p:first-child { color: var(--muted); }
-.challenge-small { grid-column: 1 / -1; color: var(--muted-dim); font-size: .78rem; line-height: 1.5; }
+.build-steps p, .challenge-steps p { color: var(--muted); font-size: .94rem; margin-top: .15rem; }
 .field-help { margin-top: .45rem; color: var(--teal); font-size: .82rem; }
-
-@media (max-width: 760px) {
-  .challenge-shell { grid-template-columns: 1fr; }
-  .challenge-prize { grid-template-columns: 1fr; }
-  .challenge-prize .btn { width: 100%; }
-  .challenge-small { grid-column: 1; }
-}
 
 @media (prefers-reduced-motion: reduce) {
     .skills-grid.enhanced .skill-category { opacity: 1; transform: none; }
@@ -1933,14 +1902,7 @@ h4 { font-size: 1rem; font-weight: 600; }
 .loop-node, .loop-core { color: var(--text); font-family: inherit; }
 .loop-node h3, .loop-core h3, .loop-node h4, .loop-core h4 { color: var(--text); }
 
-/* The challenge card fills the wrap edge to edge and carries a
-   backdrop-filter, so the section numeral was straddling its right edge —
-   half of it smeared behind the glass, half crisp outside. Give the
-   numeral clear air above the card instead, and trim the preceding
-   section's bottom padding so the page rhythm does not change. */
 .runshow { padding-bottom: 44px; }
-.challenge-section { padding-top: 132px; }
-.challenge-section::before { font-size: clamp(3.2rem, 7.5vw, 6rem); }
 
 /* ============================================================
    MULTI-PAGE CHROME
@@ -2152,25 +2114,6 @@ summary:focus-visible,
 .skills-grid .skill-category:focus-visible {
   outline: 3px solid var(--teal);
   outline-offset: -3px;
-}
-
-/* Challenge status — set from the closing date, hidden until it is known. */
-.challenge-status {
-  display: inline-flex; align-items: center; gap: .5rem;
-  margin-top: 1.2rem; padding: .45rem .85rem;
-  border: 2px solid var(--teal); border-radius: var(--r-sm);
-  background: rgba(53,198,216,.1);
-  font-size: .82rem; font-weight: 700; letter-spacing: .04em;
-  text-transform: uppercase; color: var(--teal);
-}
-.challenge-status::before {
-  content: ''; width: 7px; height: 7px; border-radius: 50%;
-  background: currentColor; flex: none;
-}
-.challenge-status.is-closed {
-  border-color: var(--line-strong); background: rgba(255,255,255,.04);
-  color: var(--muted); text-transform: none; letter-spacing: 0;
-  font-weight: 400; font-size: .86rem;
 }
 
 /* Chat fallback when the API is unreachable — e.g. a mobile carrier's

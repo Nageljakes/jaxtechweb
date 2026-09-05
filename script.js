@@ -456,7 +456,7 @@ const API_ORIGIN = /\.workers\.dev$/.test(location.hostname) ? '' : 'https://tin
 
       btn.disabled = false;
       btn.classList.remove('loading');
-      $('.btn-label', btn).textContent = 'Submit my challenge entry';
+      $('.btn-label', btn).textContent = 'Send my enquiry';
 
       // Turnstile tokens are single-use and expire after a few minutes —
       // reset so a resubmission (after fixing a validation error, or
@@ -1033,7 +1033,7 @@ async function sendChatMessage() {
     // Keep the first delegated task in the browser until the visitor chooses
     // to submit it. This avoids sending form details without consent.
     if (isOpener) {
-        window.tinyChallengeTask = text;
+        window.tinyDelegatedTask = text;
         const messageField = document.getElementById('f-message');
         const captured = document.getElementById('task-captured');
         if (messageField && !messageField.value.trim()) {
@@ -1562,47 +1562,4 @@ if (chatInput) {
   }
 })();
 
-/* ============================================================
-   CHALLENGE LIFECYCLE
-   The challenge has a closing date, and the page around it was
-   written as though it never would. Rather than leave a dead
-   competition advertised on the homepage, the copy that depends
-   on the date is set here from the date itself.
 
-   Everything defaults to the neutral, always-true wording in the
-   HTML. If this never runs, the page understates the campaign —
-   it never advertises something that has already ended.
-   ============================================================ */
-(function () {
-  'use strict';
-
-  // 31 August 2026, end of day, South African Standard Time (UTC+2).
-  const CLOSES = new Date('2026-08-31T23:59:59+02:00');
-  const open = Date.now() <= CLOSES.getTime();
-
-  const set = (id, text) => {
-    const el = document.getElementById(id);
-    if (el && text) el.textContent = text;
-  };
-
-  const status = document.getElementById('challenge-status');
-  if (status) {
-    const days = Math.ceil((CLOSES.getTime() - Date.now()) / 86400000);
-    status.textContent = open
-      ? (days <= 14
-          ? `Open now — ${days} day${days === 1 ? '' : 's'} left to enter`
-          : 'Open for entries now')
-      : 'Entries for this round have closed. Tasks are still welcome — they are quoted as normal work.';
-    status.classList.toggle('is-closed', !open);
-    status.hidden = false;
-  }
-
-  // Once it has closed, the enquiry form should stop calling itself an entry.
-  if (!open) {
-    set('enquire-kicker', 'Tell us about the task');
-    set('enquire-title', 'What would you hand over?');
-    set('enquire-lede', 'Your conversation with Tiny is attached automatically. Add your details and what solving this would change for you.');
-    const label = document.querySelector('#submit-btn .btn-label');
-    if (label) label.textContent = 'Send my enquiry';
-  }
-})();
