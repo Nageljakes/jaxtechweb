@@ -235,19 +235,7 @@
     btns.forEach(function (b) {
       b.addEventListener('click', function () { play(b.dataset.sc); });
     });
-    // Play the first scenario when it scrolls into view — once.
-    // Older browsers without IntersectionObserver still get the buttons.
-    try {
-      if ('IntersectionObserver' in window && chat) {
-        var once = false;
-        var io = new IntersectionObserver(function (entries) {
-          if (!once && entries.some(function (e) { return e.isIntersecting; })) {
-            once = true; play('visit'); io.disconnect();
-          }
-        }, { threshold: 0.3 });
-        io.observe(chat);
-      }
-    } catch (err) { /* buttons still work */ }
+    // No autoplay: a scenario plays only when its button is tapped.
   })();
 
 

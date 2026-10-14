@@ -69,7 +69,7 @@
   .wa-meta { font-size:.75rem; color:var(--muted); text-align:center; margin:.6rem 0; opacity:0; transition:opacity .35s ease; }
   .wa-meta.show { opacity:1; }
   .wa-scrow { display:flex; gap:.6rem; flex-wrap:wrap; margin-bottom:1.1rem; }
-  .wa-sc.active { border-color:var(--teal); color:var(--teal); }
+  .wa-sc.active { border-color:var(--teal); color:var(--teal); background:rgba(0,200,170,.12); }
   .wa-act { display:flex; gap:.6rem; align-items:flex-start; background:rgba(0,200,170,.07); border:1px solid rgba(0,200,170,.25); border-radius:12px; padding:.55rem .8rem; font-size:.85rem; margin:.4rem 0; opacity:0; transform:translateY(6px); transition:opacity .35s ease, transform .35s ease; }
   .wa-act.show { opacity:1; transform:none; }
   .wa-tick { color:var(--teal); font-weight:800; }
@@ -203,7 +203,7 @@
         <div><p class="demo-tag">Demo 3 · talk to your co-pilot</p><h3>One instruction. The CRM work happens.</h3></div>
       </div>
       <div class="wa-scrow">
-        <button class="btn btn-primary btn-sm wa-sc" id="wa-sc-visit" data-sc="visit" data-track="aa_demo_wa_visit">Saturday visit</button>
+        <button class="btn btn-ghost btn-sm wa-sc active" id="wa-sc-visit" data-sc="visit" data-track="aa_demo_wa_visit">Saturday visit</button>
         <button class="btn btn-ghost btn-sm wa-sc" id="wa-sc-leave" data-sc="leave" data-track="aa_demo_wa_leave">Monday leave</button>
         <button class="btn btn-ghost btn-sm wa-sc" id="wa-sc-sweep" data-sc="sweep" data-track="aa_demo_wa_sweep">Overdue sweep</button>
       </div>
@@ -397,7 +397,7 @@
 </script>
 
 <script src="script.js?v=22"></script>
-<script src="autoagent.js?v=6"></script>
+<script src="autoagent.js?v=7"></script>
 <div class="modal-overlay" id="detail-modal">
         <div class="modal-content">
             <button class="modal-close" onclick="closeModal()">&times;</button>
