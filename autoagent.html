@@ -83,6 +83,17 @@
   .roi-result span { font-size:.82rem; color:var(--muted); }
   .steps3 { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:1.1rem; margin-top:1.8rem; counter-reset:step; }
   .step-card { border-radius:var(--r); padding:1.4rem 1.5rem; position:relative; }
+  .cap-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(232px,1fr)); gap:1.1rem; margin-top:1.9rem; }
+  .cap { border-radius:var(--r); padding:1.4rem 1.5rem; }
+  .cap h3, .cap h4 { color:var(--teal); margin-bottom:.45rem; font-size:.98rem; }
+  .cap p { font-size:.88rem; color:var(--muted); }
+  .flow { border-radius:var(--r-lg); padding:1.6rem 1.7rem; margin-top:1.9rem; }
+  .flow-step { display:flex; gap:1.1rem; padding:.9rem 0; border-bottom:1px solid var(--line); }
+  .flow-step:last-child { border-bottom:0; padding-bottom:0; }
+  .flow-step b { color:var(--teal); font-size:.78rem; letter-spacing:.12em; text-transform:uppercase; flex:0 0 82px; padding-top:3px; }
+  .flow-step p { font-size:.93rem; color:var(--muted); }
+  .endcta { border-radius:var(--r-xl); padding:clamp(2rem,5vw,3rem); text-align:center; margin-top:1rem; }
+  .endcta h2 { max-width:none; margin-inline:auto; }
   .step-card::before { counter-increment:step; content:"0" counter(step); display:block; font-size:.75rem; letter-spacing:.16em; color:var(--teal); margin-bottom:.5rem; }
   .step-card h3 { font-size:1rem; margin-bottom:.4rem; }
   .step-card p { font-size:.88rem; color:var(--muted); }
@@ -117,7 +128,7 @@
   <div class="wrap">
     <p class="kicker reveal">AutoAgent · built for dealerships</p>
     <h1 class="reveal">Your prospect diaries,<br><span class="grad">worked every day.</span></h1>
-    <p class="lede reveal">An AI sales co-pilot that triages the diary, moves follow-ups, logs every touchpoint twice and drafts WhatsApp replies from live stock — while your salespeople sell.</p>
+    <p class="lede reveal">An AI sales co-pilot that does the CRM admin salespeople hate — diaries triaged and moved, every touchpoint logged to standard — so they stay on the phone and out of the system. Internal only: it never talks to customers.</p>
     <div class="hero-actions reveal" style="margin-top:1.6rem">
       <a href="#demos" class="btn btn-primary btn-lg" data-track="aa_see_it_work">See it work</a>
       <a href="#roi" class="btn btn-ghost btn-lg" data-track="aa_roi">Run your numbers</a>
@@ -138,7 +149,7 @@
     <div class="cap-grid">
       <div class="cap glass reveal"><h3>Wednesday carries 35. Monday carries 4.</h3><p>Workload piles onto random days while hot prospects sit. Nobody plans it that way — it just drifts.</p></div>
       <div class="cap glass reveal"><h3>Overdue grows faster than it clears.</h3><p>Each missed follow-up is a prospect learning to buy somewhere else. The list never forgives.</p></div>
-      <div class="cap glass reveal"><h3>Admin eats selling hours.</h3><p>Re-typing notes, hunting stock, re-scheduling diaries — hours a week per salesperson, gone.</p></div>
+      <div class="cap glass reveal"><h3>Admin pulls them off the phone.</h3><p>Re-typing notes, hunting stock, re-scheduling diaries — hours a week per salesperson spent inside the CRM instead of talking to buyers. And half of it never gets logged at all.</p></div>
     </div>
   </div>
 </section>
@@ -184,14 +195,14 @@
     <!-- Demo 3: whatsapp -->
     <div class="demo glass reveal" id="demo-whatsapp">
       <div class="demo-head">
-        <div><p class="demo-tag">Demo 3 · the companion phone</p><h3>The customer never meets a bot</h3></div>
-        <button class="btn btn-primary btn-sm" id="wa-play" data-track="aa_demo_whatsapp">Play the exchange</button>
+        <div><p class="demo-tag">Demo 3 · the 30-second update</p><h3>Ten minutes of CRM admin, in one message</h3></div>
+        <button class="btn btn-primary btn-sm" id="wa-play" data-track="aa_demo_whatsapp">Play the update</button>
       </div>
       <div class="wa-phone glass">
         <div id="wa-chat" aria-live="polite"></div>
-        <p class="wa-meta" id="wa-meta">Draft prepared from live stock · waiting for your tap</p>
+        <p class="wa-meta" id="wa-meta">Internal only · nothing sent · waiting for your tap</p>
       </div>
-      <p class="sample-note">Every customer conversation stays on the salesperson&rsquo;s own phone. The co-pilot drafts — a human presses send. Zero automated replies, ever.</p>
+      <p class="sample-note">This whole exchange is internal — salesperson to co-pilot. One message after the call replaces ten minutes inside the CRM: logged twice, diary moved, reply drafted. The customer sees nothing until a human presses send. Zero automated replies, ever.</p>
     </div>
 
     <!-- Demo 4: stock speed -->
@@ -253,6 +264,17 @@
       <div class="step-card glass reveal"><h3>The diary works itself</h3><p>Today, overdue and completed lists triaged daily. Single moves carry a note; bulk shifts preview first, verify every entry, and keep a one-command undo.</p></div>
       <div class="step-card glass reveal"><h3>Everything gets logged twice</h3><p>Each touchpoint lands in the diary and the permanent customer record. Entries move dates — they are never deleted, and booked appointments are never auto-touched.</p></div>
     </div>
+    <div class="demo glass reveal" style="margin-top:1.6rem">
+      <div class="demo-head">
+        <div><p class="demo-tag">The rails</p><h3>What it never does</h3></div>
+      </div>
+      <div class="cap-grid" style="margin-top:0">
+        <div class="cap glass"><h3>Never messages a customer</h3><p>No auto-replies, no follow-up texts, no check-in bots. Every word a customer receives was written — or tapped send — by a human.</p></div>
+        <div class="cap glass"><h3>Never deletes a diary entry</h3><p>Entries move dates with a full audit trail. The tools have no delete path at all, so lost follow-ups stop existing.</p></div>
+        <div class="cap glass"><h3>Never moves a booking</h3><p>Appointments, test drives and deliveries are guarded — listed for human review, never auto-shifted by a rebalance.</p></div>
+        <div class="cap glass"><h3>Never leaks customer data</h3><p>Names and numbers are masked in every report, and triage can run on local hardware so prospect data never leaves the building.</p></div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -261,7 +283,7 @@
   <div class="wrap wrap-narrow">
     <p class="kicker reveal">The offer</p>
     <h2 class="h2 reveal">Start with one diary. Two weeks.</h2>
-    <p class="lede reveal">A fixed-scope pilot on a single salesperson&rsquo;s diary: triage running daily, one rebalance of the week, WhatsApp drafting switched on. You keep every note, every record, every number — including the before-and-after counts. If the diary isn&rsquo;t visibly better behaved, we switch it off and you keep the data.</p>
+    <p class="lede reveal">A fixed-scope pilot on a single salesperson&rsquo;s diary: triage running daily, one rebalance of the week, internal drafting switched on. Your salesperson stays on the phone throughout — the co-pilot does the typing. You keep every note, every record, every number — including the before-and-after counts. If the diary isn&rsquo;t visibly better behaved, we switch it off and you keep the data.</p>
     <div class="flow glass reveal">
       <div class="flow-step"><b>Week 1</b><p>Connect read-only first. You see the triage and a rebalance plan before anything moves. Nothing shifts without your explicit go-ahead.</p></div>
       <div class="flow-step"><b>Week 2</b><p>Daily triage live, one full rebalance executed, drafts flowing. You get the counts: cleared, moved, verified.</p></div>
@@ -278,7 +300,11 @@
     <div class="faq">
       <details class="faq-item reveal">
         <summary>Does it message our customers?</summary>
-        <div class="faq-body"><p>No — never on its own. Drafts are prepared and a salesperson presses send from their own number. There are zero automated replies to customers, by design, not by setting.</p></div>
+        <div class="faq-body"><p>No — never on its own, and there is no setting that changes that. Drafts are prepared internally and a salesperson presses send from their own number. If the co-pilot is off, nothing goes anywhere: silence is the default.</p></div>
+      </details>
+      <details class="faq-item reveal">
+        <summary>Will my team actually keep the CRM updated?</summary>
+        <div class="faq-body"><p>That's the point. Nobody learns a new system — after a call the salesperson sends one message to the co-pilot and the logging happens: diary moved, both records written, to standard, in the moment. Data quality rises because capturing takes 30 seconds, not ten minutes at end of day. Management finally sees complete reports instead of gaps.</p></div>
       </details>
       <details class="faq-item reveal">
         <summary>Does it replace our CRM?</summary>
@@ -377,7 +403,7 @@
 </script>
 
 <script src="script.js?v=22"></script>
-<script src="autoagent.js?v=3"></script>
+<script src="autoagent.js?v=4"></script>
 <div class="modal-overlay" id="detail-modal">
         <div class="modal-content">
             <button class="modal-close" onclick="closeModal()">&times;</button>

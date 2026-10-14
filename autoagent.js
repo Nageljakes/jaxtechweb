@@ -155,16 +155,18 @@
     });
   })();
 
-  /* ── Demo 3: WhatsApp exchange ────────────────────────── */
+  /* ── Demo 3: internal 30-second update ────────────────── */
   (function whatsapp() {
     var play = document.getElementById('wa-play');
     var chat = document.getElementById('wa-chat');
     var meta = document.getElementById('wa-meta');
     if (!play || !chat) return;
+    // Internal-only flow: the salesperson updates the co-pilot after a
+    // call. Nothing here is customer-facing — the draft waits for a tap.
     var script = [
-      { cls: 'wa-them', html: 'Hi, do you have a white Hilux under R500k?' },
-      { cls: 'wa-draft', html: '<small>Draft for you — from live stock</small>Hi! Yes — white Hilux 2.8 GD-6 Raider, R489,900, 42,000&nbsp;km. Photos ready. When can you come see it?' },
-      { cls: 'wa-me', html: 'Hi! Yes — white Hilux 2.8 GD-6 Raider, R489,900, 42,000 km. Photos ready. When can you come see it?' }
+      { cls: 'wa-me', html: 'Just called T*** — no answer. Send him the white Hilux photos and move him to Thursday.' },
+      { cls: 'wa-them', html: '<small>Co-pilot · internal</small>Done: call logged twice, diary moved to Thu 10:00. Photos + reply drafted below — nothing sent.' },
+      { cls: 'wa-draft', html: '<small>Draft for you — tap send</small>Hi! As discussed — white Hilux 2.8 GD-6 Raider, R489,900, 42,000&nbsp;km. Photos attached. Is Thursday good for a viewing?' }
     ];
     var running = false;
     function bubble(s) {
