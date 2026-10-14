@@ -221,13 +221,30 @@
     function search(q) {
       q = (q || '').toLowerCase().trim();
       if (!q) return STOCK.slice(0, 4);
-      var maxP = null, dm = q.match(/(\d+)\s*k?/);
-      if (dm && (q.indexOf('under') > -1 || q.indexOf('<') > -1 || dm[0].length >= 2)) {
-        var n = parseInt(dm[1], 10);
-        if (n < 2000) maxP = n * 1000;
+      var maxP = null;
+      // Price cap: an explicit "500k" suffix wins; otherwise a bare number
+      // only counts as a cap next to under / < / max / budget, so engine
+      // sizes ("2.8") never become prices. The matched price text is cut
+      // out before word matching, so model codes ("NP200") still match
+      // literally while cap numbers ("500k") can't poison the words.
+      var q2 = q;
+      var km = q2.match(/(\d[\d ]*)\s*k\b/);
+      if (km) {
+        maxP = parseInt(km[1].replace(/\s+/g, ''), 10) * 1000;
+        q2 = q2.replace(km[0], ' ');
+      } else if (q2.indexOf('under') > -1 || q2.indexOf('<') > -1 ||
+                 q2.indexOf('max') > -1 || q2.indexOf('budget') > -1) {
+        var nm = q2.match(/(\d[\d ]*)/);
+        if (nm) {
+          var n = parseInt(nm[1].replace(/\s+/g, ''), 10);
+          maxP = n < 2000 ? n * 1000 : n;
+          q2 = q2.replace(nm[0], ' ');
+        }
       }
-      var words = q.replace(/[^a-z0-9 ]/g, ' ').split(/\s+/)
-        .filter(function (w) { return w && w !== 'under' && !/^\d+$/.test(w); });
+      var words = q2.replace(/[^a-z0-9 ]/g, ' ').split(/\s+/)
+        .filter(function (w) {
+          return w && w !== 'under' && w !== 'max' && w !== 'budget' && w.length > 1;
+        });
       return STOCK.filter(function (s) {
         var hay = (s.m + ' ' + s.c).toLowerCase();
         var okW = words.length === 0 || words.every(function (w) { return hay.indexOf(w) > -1; });
