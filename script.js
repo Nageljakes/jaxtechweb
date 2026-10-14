@@ -25,9 +25,6 @@ const API_ORIGIN = /\.workers\.dev$/.test(location.hostname) ? '' : 'https://tin
     // South Africa: drop the leading 0, prefix 27.  082 123 4567 → '27821234567'
     whatsapp: '27793950395',
 
-    // Telegram bot username, no @.
-    telegram: 'jaxchatbot',
-
     // Number for the "Call" button, as you want it dialled.
     phone: '+27 79 395 0395',
 
@@ -105,11 +102,7 @@ const API_ORIGIN = /\.workers\.dev$/.test(location.hostname) ? '' : 'https://tin
       }
     });
 
-    $$('.js-telegram').forEach(a => {
-      a.href = 'https://t.me/' + CONFIG.telegram;
-      a.target = '_blank';
-      a.rel = 'noopener';
-    });
+    /* Public Telegram bot link removed — no public bot chat. */
 
     $$('.js-tel').forEach(a => { a.href = 'tel:' + CONFIG.phone.replace(/[^\d+]/g, ''); });
 
@@ -923,18 +916,17 @@ function appendMessage(text, sender) {
 // Some South African mobile carriers' default DNS blocks the shared
 // *.workers.dev domain the chat API lives on, so a fetch to it never even
 // reaches the server — it just throws. Rather than leave that visitor
-// staring at "Network error", hand them straight to WhatsApp or Telegram.
+// staring at "Network error", hand them straight to WhatsApp.
 // Reads hrefs already wired by wireContactLinks() elsewhere on the page,
 // so this stays correct if a number/handle ever changes there.
 function appendUnreachableMessage() {
     const msg = document.createElement('div');
     msg.className = 'hv-msg them unreachable';
     const wa = document.querySelector('.js-whatsapp');
-    const tg = document.querySelector('.js-telegram');
     const link = (el, label) => el && el.href
         ? `<a href="${el.href}" target="${el.target || '_self'}" rel="noopener">${label}</a>`
         : null;
-    const options = [link(wa, 'WhatsApp'), link(tg, 'Telegram')].filter(Boolean);
+    const options = [link(wa, 'WhatsApp')].filter(Boolean);
     msg.innerHTML = options.length
         ? `Can't reach Tiny from this network right now — some SA mobile networks block this connection. Message us directly on ${options.join(' or ')} instead, or scroll down to submit the form.`
         : `Can't reach Tiny from this network right now. Scroll down to submit the form below instead — it will still reach us.`;
