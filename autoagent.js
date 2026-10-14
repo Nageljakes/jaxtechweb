@@ -155,47 +155,101 @@
     });
   })();
 
-  /* ── Demo 3: internal 30-second update ────────────────── */
-  (function whatsapp() {
-    var play = document.getElementById('wa-play');
+  /* ── Demo 3: talk to your co-pilot (internal commands) ────
+     The salesperson instructs; the agent shows its CRM work with
+     visible verification. Nothing here is customer-facing. */
+  (function copilot() {
     var chat = document.getElementById('wa-chat');
     var meta = document.getElementById('wa-meta');
-    if (!play || !chat) return;
-    // Internal-only flow: the salesperson updates the co-pilot after a
-    // call. Nothing here is customer-facing — the draft waits for a tap.
-    var script = [
-      { cls: 'wa-me', html: 'Just called T*** — no answer. Send him the white Hilux photos and move him to Thursday.' },
-      { cls: 'wa-them', html: '<small>Co-pilot · internal</small>Done: call logged twice, diary moved to Thu 10:00. Photos + reply drafted below — nothing sent.' },
-      { cls: 'wa-draft', html: '<small>Draft for you — tap send</small>Hi! As discussed — white Hilux 2.8 GD-6 Raider, R489,900, 42,000&nbsp;km. Photos attached. Is Thursday good for a viewing?' }
-    ];
-    var running = false;
-    function bubble(s) {
+    var btns = ['visit', 'leave', 'sweep'].map(function (k) {
+      return document.getElementById('wa-sc-' + k);
+    });
+    if (!chat || btns.some(function (b) { return !b; })) return;
+    var SC = {
+      visit: {
+        meta: 'Internal only · nothing sent · diary verified moved',
+        steps: [
+          { t: 'me', h: 'On Jakes Nagel: note that he will visit the dealership on Saturday.' },
+          { t: 'act', h: 'Note saved — diary entry + permanent record.' },
+          { t: 'act', h: 'Diary moved to Friday 10:00 — check in a day before.' },
+          { t: 'draft', h: '<small>Draft for you — tap send</small>Hi Jakes, thanks for your time today! Excited to show you the car on Saturday. See you then.' }
+        ]
+      },
+      leave: {
+        meta: 'Approved by you · moved 14/14 · one-command undo kept',
+        steps: [
+          { t: 'me', h: 'I am on leave Monday — clear my diary.' },
+          { t: 'act', h: 'Monday scanned: 14 follow-ups found.' },
+          { t: 'act', h: 'Preview: 9 shift to Tue, 5 to Wed — hottest first. Nothing booked is touched.' },
+          { t: 'act', h: 'Moved + verified 14/14.' }
+        ]
+      },
+      sweep: {
+        meta: 'Logged twice each · verified · fluff parked Friday',
+        steps: [
+          { t: 'me', h: 'Triage my overdue before 8.' },
+          { t: 'act', h: 'Overdue scanned: 23 entries.' },
+          { t: 'act', h: 'HOT x3 first · WARM x9 scheduled · rest to Friday catch-up.' },
+          { t: 'act', h: 'All logged twice. Nothing deleted, bookings guarded.' }
+        ]
+      }
+    };
+    var token = 0;
+    function el(cls, html) {
       var d = document.createElement('div');
-      d.className = 'wa-bubble ' + s.cls;
-      d.innerHTML = s.html;
+      d.className = cls;
+      d.innerHTML = html;
       chat.appendChild(d);
       requestAnimationFrame(function () { d.classList.add('show'); });
+      return d;
     }
-    play.addEventListener('click', function () {
-      if (running) return;
-      running = true;
-      play.disabled = true;
+    function markActive(key) {
+      btns.forEach(function (b) {
+        if (b.dataset.sc === key) b.classList.add('active');
+        else b.classList.remove('active');
+      });
+    }
+    function play(key) {
+      var sc = SC[key];
+      if (!sc) return;
+      var my = ++token;
+      markActive(key);
       chat.innerHTML = '';
       if (meta) meta.classList.remove('show');
+      btns.forEach(function (b) { b.disabled = true; });
       var i = 0;
       (function step() {
-        if (i >= script.length) {
-          if (meta) meta.classList.add('show');
-          play.textContent = 'Play it again';
-          play.disabled = false;
-          running = false;
+        if (my !== token) return;
+        if (i >= sc.steps.length) {
+          if (meta) { meta.textContent = sc.meta; meta.classList.add('show'); }
+          btns.forEach(function (b) { b.disabled = false; });
           return;
         }
-        bubble(script[i++]);
-        setTimeout(step, reduceMotion ? 0 : 1100);
+        var s = sc.steps[i++];
+        if (s.t === 'me') el('wa-bubble wa-me', s.h);
+        else if (s.t === 'draft') el('wa-bubble wa-draft', s.h);
+        else el('wa-act', '<span class="wa-tick">\u2713</span><span>' + s.h + '</span>');
+        setTimeout(step, reduceMotion ? 0 : 900);
       })();
+    }
+    btns.forEach(function (b) {
+      b.addEventListener('click', function () { play(b.dataset.sc); });
     });
+    // Play the first scenario when it scrolls into view — once.
+    // Older browsers without IntersectionObserver still get the buttons.
+    try {
+      if ('IntersectionObserver' in window && chat) {
+        var once = false;
+        var io = new IntersectionObserver(function (entries) {
+          if (!once && entries.some(function (e) { return e.isIntersecting; })) {
+            once = true; play('visit'); io.disconnect();
+          }
+        }, { threshold: 0.3 });
+        io.observe(chat);
+      }
+    } catch (err) { /* buttons still work */ }
   })();
+
 
   /* ── Demo 4: stock lookup ─────────────────────────────── */
   (function stock() {

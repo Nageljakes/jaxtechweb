@@ -68,6 +68,11 @@
   .wa-draft small { display:block; font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; color:var(--teal); margin-bottom:.25rem; }
   .wa-meta { font-size:.75rem; color:var(--muted); text-align:center; margin:.6rem 0; opacity:0; transition:opacity .35s ease; }
   .wa-meta.show { opacity:1; }
+  .wa-scrow { display:flex; gap:.6rem; flex-wrap:wrap; margin-bottom:1.1rem; }
+  .wa-sc.active { border-color:var(--teal); color:var(--teal); }
+  .wa-act { display:flex; gap:.6rem; align-items:flex-start; background:rgba(0,200,170,.07); border:1px solid rgba(0,200,170,.25); border-radius:12px; padding:.55rem .8rem; font-size:.85rem; margin:.4rem 0; opacity:0; transform:translateY(6px); transition:opacity .35s ease, transform .35s ease; }
+  .wa-act.show { opacity:1; transform:none; }
+  .wa-tick { color:var(--teal); font-weight:800; }
   .st-row { display:flex; gap:.6rem; flex-wrap:wrap; }
   .st-row input { flex:1 1 220px; }
   .st-out { margin-top:1rem; font-size:.9rem; }
@@ -195,14 +200,18 @@
     <!-- Demo 3: whatsapp -->
     <div class="demo glass reveal" id="demo-whatsapp">
       <div class="demo-head">
-        <div><p class="demo-tag">Demo 3 · the 30-second update</p><h3>Ten minutes of CRM admin, in one message</h3></div>
-        <button class="btn btn-primary btn-sm" id="wa-play" data-track="aa_demo_whatsapp">Play the update</button>
+        <div><p class="demo-tag">Demo 3 · talk to your co-pilot</p><h3>One instruction. The CRM work happens.</h3></div>
+      </div>
+      <div class="wa-scrow">
+        <button class="btn btn-primary btn-sm wa-sc" id="wa-sc-visit" data-sc="visit" data-track="aa_demo_wa_visit">Saturday visit</button>
+        <button class="btn btn-ghost btn-sm wa-sc" id="wa-sc-leave" data-sc="leave" data-track="aa_demo_wa_leave">Monday leave</button>
+        <button class="btn btn-ghost btn-sm wa-sc" id="wa-sc-sweep" data-sc="sweep" data-track="aa_demo_wa_sweep">Overdue sweep</button>
       </div>
       <div class="wa-phone glass">
         <div id="wa-chat" aria-live="polite"></div>
-        <p class="wa-meta" id="wa-meta">Internal only · nothing sent · waiting for your tap</p>
+        <p class="wa-meta" id="wa-meta">Internal only · nothing sent · every move verified</p>
       </div>
-      <p class="sample-note">This whole exchange is internal — salesperson to co-pilot. One message after the call replaces ten minutes inside the CRM: logged twice, diary moved, reply drafted. The customer sees nothing until a human presses send. Zero automated replies, ever.</p>
+      <p class="sample-note">Three real instructions a salesperson gives the co-pilot. The customer never appears in this chat — only in the diary entries and the draft a human approves. Zero automated replies, ever.</p>
     </div>
 
     <!-- Demo 4: stock speed -->
@@ -388,7 +397,7 @@
 </script>
 
 <script src="script.js?v=22"></script>
-<script src="autoagent.js?v=5"></script>
+<script src="autoagent.js?v=6"></script>
 <div class="modal-overlay" id="detail-modal">
         <div class="modal-content">
             <button class="modal-close" onclick="closeModal()">&times;</button>
