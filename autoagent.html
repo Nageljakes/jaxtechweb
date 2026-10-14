@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en-ZA">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AutoAgent — Prospect Diaries Handled | Jaxtech</title>
+<meta name="description" content="AutoAgent keeps a dealership's prospect diaries worked: today, overdue and completed triaged daily, bulk shifts previewed before they move, every touchpoint logged twice. See it work.">
+<link rel="canonical" href="https://nageljakes.github.io/jaxtechweb/autoagent.html">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Jaxtech">
+<meta property="og:title" content="AutoAgent — your prospect diaries, worked every day.">
+<meta property="og:description" content="Overdue diaries triaged, bulk moves previewed before they shift, every touchpoint logged twice. Try the live demos.">
+<meta property="og:url" content="https://nageljakes.github.io/jaxtechweb/autoagent.html">
+<meta property="og:image" content="https://nageljakes.github.io/jaxtechweb/assets/og-image.jpg">
+<meta property="og:locale" content="en_ZA">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AutoAgent — your prospect diaries, worked every day.">
+<meta name="twitter:description" content="Watch a week of overloaded diaries rebalance itself. Then run your numbers through the ROI calculator.">
+<meta name="twitter:image" content="https://nageljakes.github.io/jaxtechweb/assets/og-image.jpg">
+<meta name="theme-color" content="#030507">
+
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=29">
+<script>document.documentElement.className += ' js';</script>
+<style>
+  .aa-stats { display:flex; gap:2.2rem; flex-wrap:wrap; margin-top:2rem; }
+  .aa-stat b { display:block; font-size:clamp(1.6rem,3.4vw,2.3rem); color:var(--teal); font-weight:800; letter-spacing:-.01em; }
+  .aa-stat span { font-size:.86rem; color:var(--muted); }
+  .demo { border-radius:var(--r-lg); padding:clamp(1.4rem,3vw,2.2rem); margin-top:1.6rem; }
+  .demo-head { display:flex; align-items:baseline; justify-content:space-between; gap:1rem; flex-wrap:wrap; margin-bottom:1.2rem; }
+  .demo-head h3 { font-size:1.15rem; }
+  .demo-tag { font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; color:var(--teal); }
+  .sample-note { font-size:.78rem; color:var(--muted); margin-top:1rem; }
+  .rb-day { display:grid; grid-template-columns:64px 1fr 52px; gap:.8rem; align-items:center; padding:.5rem 0; }
+  .rb-day b { font-size:.85rem; }
+  .rb-day output { font-size:.9rem; text-align:right; font-variant-numeric:tabular-nums; }
+  .rb-track { height:10px; border-radius:99px; background:rgba(255,255,255,.07); overflow:hidden; }
+  .rb-track i { display:block; height:100%; width:0; border-radius:99px; background:var(--teal); transition:width .45s ease; }
+  .rb-day.over .rb-track i { background:var(--coral); }
+  .rb-log { font-size:.82rem; color:var(--muted); max-height:150px; overflow:auto; margin-top:1rem; border-top:1px solid var(--line); padding-top:.8rem; min-height:2.6em; }
+  .rb-log div { padding:.12rem 0; }
+  .rb-summary { display:flex; gap:1.6rem; flex-wrap:wrap; margin-top:1rem; font-size:.9rem; }
+  .rb-summary b { color:var(--teal); font-variant-numeric:tabular-nums; }
+  .tg-row { display:flex; gap:.9rem; align-items:flex-start; padding:.85rem 0; border-bottom:1px solid var(--line); }
+  .tg-row:last-child { border-bottom:0; }
+  .tg-avatar { flex:0 0 40px; width:40px; height:40px; border-radius:50%; background:rgba(255,255,255,.08); display:flex; align-items:center; justify-content:center; font-weight:700; color:var(--teal); }
+  .tg-who { font-weight:600; font-size:.92rem; }
+  .tg-ctx { font-size:.84rem; color:var(--muted); }
+  .tg-badge { margin-left:auto; flex:0 0 auto; font-size:.72rem; font-weight:700; letter-spacing:.08em; padding:.3rem .7rem; border-radius:99px; opacity:0; transform:translateY(4px); transition:opacity .4s ease, transform .4s ease; }
+  .tg-badge.show { opacity:1; transform:none; }
+  .tier-hot { background:rgba(255,110,110,.15); color:#ff9a9a; border:1px solid rgba(255,110,110,.4); }
+  .tier-warm { background:rgba(255,190,90,.13); color:#ffcf8a; border:1px solid rgba(255,190,90,.4); }
+  .tier-mild { background:rgba(90,200,255,.12); color:#9adcff; border:1px solid rgba(90,200,255,.35); }
+  .tier-guard { background:rgba(255,255,255,.06); color:var(--muted); border:1px solid var(--line); }
+  .wa-phone { max-width:420px; margin-inline:auto; border-radius:var(--r-lg); padding:1.2rem; }
+  .wa-bubble { max-width:82%; padding:.6rem .9rem; border-radius:14px; font-size:.88rem; margin:.4rem 0; opacity:0; transform:translateY(6px); transition:opacity .35s ease, transform .35s ease; }
+  .wa-bubble.show { opacity:1; transform:none; }
+  .wa-them { background:rgba(255,255,255,.09); border-bottom-left-radius:4px; }
+  .wa-me { background:rgba(0,200,170,.18); border:1px solid rgba(0,200,170,.35); margin-left:auto; border-bottom-right-radius:4px; }
+  .wa-draft { border:1px dashed rgba(0,200,170,.55); margin-left:auto; border-bottom-right-radius:4px; background:transparent; }
+  .wa-draft small { display:block; font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; color:var(--teal); margin-bottom:.25rem; }
+  .wa-meta { font-size:.75rem; color:var(--muted); text-align:center; margin:.6rem 0; opacity:0; transition:opacity .35s ease; }
+  .wa-meta.show { opacity:1; }
+  .st-row { display:flex; gap:.6rem; flex-wrap:wrap; }
+  .st-row input { flex:1 1 220px; }
+  .st-out { margin-top:1rem; font-size:.9rem; }
+  .st-car { display:flex; justify-content:space-between; gap:1rem; padding:.55rem 0; border-bottom:1px solid var(--line); font-size:.88rem; }
+  .st-car:last-child { border-bottom:0; }
+  .st-ms { color:var(--teal); font-weight:700; font-variant-numeric:tabular-nums; }
+  .roi-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1.1rem; margin-top:1.2rem; }
+  .roi-field label { display:block; font-size:.82rem; color:var(--muted); margin-bottom:.4rem; }
+  .roi-field output { color:var(--teal); font-weight:700; }
+  .roi-field input[type="range"] { width:100%; accent-color:var(--teal); }
+  .roi-result { display:flex; gap:2.2rem; flex-wrap:wrap; margin-top:1.4rem; padding-top:1.2rem; border-top:1px solid var(--line); }
+  .roi-result b { display:block; font-size:clamp(1.4rem,3vw,2rem); color:var(--teal); font-variant-numeric:tabular-nums; }
+  .roi-result span { font-size:.82rem; color:var(--muted); }
+  .steps3 { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:1.1rem; margin-top:1.8rem; counter-reset:step; }
+  .step-card { border-radius:var(--r); padding:1.4rem 1.5rem; position:relative; }
+  .step-card::before { counter-increment:step; content:"0" counter(step); display:block; font-size:.75rem; letter-spacing:.16em; color:var(--teal); margin-bottom:.5rem; }
+  .step-card h3 { font-size:1rem; margin-bottom:.4rem; }
+  .step-card p { font-size:.88rem; color:var(--muted); }
+</style>
+</head>
+<body>
+
+<div class="bg-glow one" aria-hidden="true"></div>
+<div class="bg-glow two" aria-hidden="true"></div>
+<div class="bg-grid" aria-hidden="true"></div>
+<div class="bg-noise" aria-hidden="true"></div>
+
+<a class="skip-link" href="index.html#enquire">Skip to enquiry form</a>
+<!-- ══ NAV ══ -->
+<nav class="nav" id="nav">
+  <a class="nav-brand" href="index.html">
+    <img src="assets/jaxtech-mark.png" alt="" width="38" height="38">
+    <span class="nav-brand-text">Jaxtech<small>AI-powered workflow · SA</small></span>
+  </a>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="what-tiny-does.html">What Tiny does</a></li>
+    <li><a href="skills.html">Skills</a></li>
+    <li><a href="platform.html">How it works</a></li>
+    <li><a href="autoagent.html" aria-current="page">AutoAgent</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+  <a href="index.html#enquire" class="btn btn-primary btn-sm nav-cta" data-track="nav_cta">Start a pilot</a>
+  <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+</nav>
+
+<header class="page-head">
+  <div class="wrap">
+    <p class="kicker reveal">AutoAgent · built for dealerships</p>
+    <h1 class="reveal">Your prospect diaries,<br><span class="grad">worked every day.</span></h1>
+    <p class="lede reveal">An AI sales co-pilot that triages the diary, moves follow-ups, logs every touchpoint twice and drafts WhatsApp replies from live stock — while your salespeople sell.</p>
+    <div class="hero-actions reveal" style="margin-top:1.6rem">
+      <a href="#demos" class="btn btn-primary btn-lg" data-track="aa_see_it_work">See it work</a>
+      <a href="#roi" class="btn btn-ghost btn-lg" data-track="aa_roi">Run your numbers</a>
+    </div>
+    <div class="aa-stats reveal">
+      <div class="aa-stat"><b>101</b><span>diary entries rebalanced across one week, live, in a day</span></div>
+      <div class="aa-stat"><b>&lt;10&nbsp;ms</b><span>local stock lookup — answers drafted in seconds</span></div>
+      <div class="aa-stat"><b>2×</b><span>every touchpoint logged: diary + permanent record</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- ══ THE PROBLEM ══ -->
+<section class="section" id="problem">
+  <div class="wrap">
+    <p class="kicker reveal">The problem it solves</p>
+    <h2 class="h2 reveal">Follow-ups don&rsquo;t fail loudly.<br>They just quietly cool.</h2>
+    <div class="cap-grid">
+      <div class="cap glass reveal"><h3>Wednesday carries 35. Monday carries 4.</h3><p>Workload piles onto random days while hot prospects sit. Nobody plans it that way — it just drifts.</p></div>
+      <div class="cap glass reveal"><h3>Overdue grows faster than it clears.</h3><p>Each missed follow-up is a prospect learning to buy somewhere else. The list never forgives.</p></div>
+      <div class="cap glass reveal"><h3>Admin eats selling hours.</h3><p>Re-typing notes, hunting stock, re-scheduling diaries — hours a week per salesperson, gone.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ DEMOS ══ -->
+<section class="section" id="demos">
+  <div class="wrap">
+    <p class="kicker reveal">Don&rsquo;t take my word for it</p>
+    <h2 class="h2 reveal">Press the buttons.</h2>
+    <p class="lede reveal">Everything below runs in your browser right now — the same logic, on sample data. The live system does this against the real diary.</p>
+
+    <!-- Demo 1: rebalance -->
+    <div class="demo glass reveal" id="demo-rebalance">
+      <div class="demo-head">
+        <div><p class="demo-tag">Demo 1 · week equalization</p><h3>A week of overloaded diaries, rebalanced</h3></div>
+        <button class="btn btn-primary btn-sm" id="rb-play" data-track="aa_demo_rebalance">Rebalance the week</button>
+      </div>
+      <div id="rb-days" aria-live="polite"></div>
+      <div class="rb-summary" id="rb-summary" hidden>
+        <span><b id="rb-moves">0</b> moves</span>
+        <span><b id="rb-verified">0</b> verified</span>
+        <span><b id="rb-failed">0</b> failed</span>
+      </div>
+      <div class="rb-log" id="rb-log" aria-live="polite"><div>Opening counts, one ordinary week. Press rebalance.</div></div>
+      <p class="sample-note">Opening counts are real — a live rebalance on 11 Oct 2026. Animation compressed; the real run paces moves ~4s apart with per-entry verification.</p>
+    </div>
+
+    <!-- Demo 2: triage -->
+    <div class="demo glass reveal" id="demo-triage">
+      <div class="demo-head">
+        <div><p class="demo-tag">Demo 2 · morning triage</p><h3>Overdue, sorted before coffee</h3></div>
+        <button class="btn btn-primary btn-sm" id="tg-play" data-track="aa_demo_triage">Triage overdue</button>
+      </div>
+      <div id="tg-list">
+        <div class="tg-row"><span class="tg-avatar">T</span><div><p class="tg-who">T*** M***</p><p class="tg-ctx">Payslip in, finance submitted, 6th follow-up</p></div><span class="tg-badge tier-hot">HOT · call first</span></div>
+        <div class="tg-row"><span class="tg-avatar">A</span><div><p class="tg-who">A*** v*** B***</p><p class="tg-ctx">Asked about a white Hilux, no answer twice</p></div><span class="tg-badge tier-warm">WARM · WhatsApp + move 2 days</span></div>
+        <div class="tg-row"><span class="tg-avatar">S</span><div><p class="tg-who">S*** N***</p><p class="tg-ctx">Just browsing, 2nd follow-up, no deal signals</p></div><span class="tg-badge tier-mild">MILD · Friday catch-up</span></div>
+        <div class="tg-row"><span class="tg-avatar">J</span><div><p class="tg-who">J*** P***</p><p class="tg-ctx">Test drive booked Thursday 10:00</p></div><span class="tg-badge tier-guard">Guarded · human only</span></div>
+      </div>
+      <p class="sample-note">Sample prospects. The live triage scores HOT / WARM / MILD / COLD from diary signals — deal keywords, contact fatigue, freshness — and never auto-moves booked appointments.</p>
+    </div>
+
+    <!-- Demo 3: whatsapp -->
+    <div class="demo glass reveal" id="demo-whatsapp">
+      <div class="demo-head">
+        <div><p class="demo-tag">Demo 3 · the companion phone</p><h3>The customer never meets a bot</h3></div>
+        <button class="btn btn-primary btn-sm" id="wa-play" data-track="aa_demo_whatsapp">Play the exchange</button>
+      </div>
+      <div class="wa-phone glass">
+        <div id="wa-chat" aria-live="polite"></div>
+        <p class="wa-meta" id="wa-meta">Draft prepared from live stock · waiting for your tap</p>
+      </div>
+      <p class="sample-note">Every customer conversation stays on the salesperson&rsquo;s own phone. The co-pilot drafts — a human presses send. Zero automated replies, ever.</p>
+    </div>
+
+    <!-- Demo 4: stock speed -->
+    <div class="demo glass reveal" id="demo-stock">
+      <div class="demo-head">
+        <div><p class="demo-tag">Demo 4 · stock lookup</p><h3>Ask like a customer would</h3></div>
+      </div>
+      <div class="st-row">
+        <input type="text" id="st-input" placeholder="Try &ldquo;hilux&rdquo;, &ldquo;white&rdquo;, &ldquo;under 500&rdquo;&hellip;" autocomplete="off" aria-label="Search sample stock">
+        <button class="btn btn-primary btn-sm" id="st-go" data-track="aa_demo_stock">Search stock</button>
+      </div>
+      <div class="st-out" id="st-out" aria-live="polite"><p style="color:var(--muted);font-size:.86rem">Sample forecourt of 12 vehicles. The live system searches the full inventory the same way.</p></div>
+    </div>
+
+    <!-- Demo 5: ROI -->
+    <div class="demo glass reveal" id="roi">
+      <div class="demo-head">
+        <div><p class="demo-tag">Demo 5 · the CEO demo</p><h3>What is a slipped diary costing you?</h3></div>
+      </div>
+      <div class="roi-grid">
+        <div class="roi-field"><label>Salespeople <output id="roi-team-v">8</output></label><input type="range" id="roi-team" min="2" max="30" value="8"></div>
+        <div class="roi-field"><label>Overdue follow-ups / person / week <output id="roi-overdue-v">15</output></label><input type="range" id="roi-overdue" min="2" max="60" value="15"></div>
+        <div class="roi-field"><label>Share recoverable with discipline <output id="roi-recover-v">20%</output></label><input type="range" id="roi-recover" min="5" max="60" value="20"></div>
+        <div class="roi-field"><label>Recovered that close <output id="roi-close-v">12%</output></label><input type="range" id="roi-close" min="2" max="30" value="12"></div>
+        <div class="roi-field"><label>Avg gross per deal (R) <output id="roi-gross-v">18,000</output></label><input type="range" id="roi-gross" min="5000" max="60000" step="1000" value="18000"></div>
+      </div>
+      <div class="roi-result">
+        <div><b id="roi-followups">0</b><span>follow-ups recovered / month</span></div>
+        <div><b id="roi-deals">0</b><span>extra deals / month</span></div>
+        <div><b id="roi-rands">R0</b><span>extra gross / month</span></div>
+      </div>
+      <p class="sample-note">Estimate: team × overdue × 4.33 weeks × recovery × close rate × gross. Your numbers will differ — bring the real ones to the pilot call.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ HOW IT WORKS ══ -->
+<section class="section" id="how">
+  <div class="wrap">
+    <p class="kicker reveal">How it works</p>
+    <h2 class="h2 reveal">Three parts. Nothing to rip out.</h2>
+    <div class="steps3">
+      <div class="step-card glass reveal"><h3>Your phone stays yours</h3><p>Customer chats live on the salesperson&rsquo;s companion number. The system reads along passively and drafts replies from live stock — in Afrikaans or English.</p></div>
+      <div class="step-card glass reveal"><h3>The diary works itself</h3><p>Today, overdue and completed lists triaged daily. Single moves carry a note; bulk shifts preview first, verify every entry, and keep a one-command undo.</p></div>
+      <div class="step-card glass reveal"><h3>Everything gets logged twice</h3><p>Each touchpoint lands in the diary and the permanent customer record. Entries move dates — they are never deleted, and booked appointments are never auto-touched.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PILOT ══ -->
+<section class="section" id="pilot">
+  <div class="wrap wrap-narrow">
+    <p class="kicker reveal">The offer</p>
+    <h2 class="h2 reveal">Start with one diary. Two weeks.</h2>
+    <p class="lede reveal">A fixed-scope pilot on a single salesperson&rsquo;s diary: triage running daily, one rebalance of the week, WhatsApp drafting switched on. You keep every note, every record, every number — including the before-and-after counts. If the diary isn&rsquo;t visibly better behaved, we switch it off and you keep the data.</p>
+    <div class="flow glass reveal">
+      <div class="flow-step"><b>Week 1</b><p>Connect read-only first. You see the triage and a rebalance plan before anything moves. Nothing shifts without your explicit go-ahead.</p></div>
+      <div class="flow-step"><b>Week 2</b><p>Daily triage live, one full rebalance executed, drafts flowing. You get the counts: cleared, moved, verified.</p></div>
+      <div class="flow-step"><b>After</b><p>Fixed quote to roll out per salesperson, or a straight answer that it isn&rsquo;t worth it. Your data stays yours either way.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FAQ ══ -->
+<section class="section" id="faq">
+  <div class="wrap wrap-narrow">
+    <p class="kicker reveal">Questions a CEO asks</p>
+    <h2 class="h2 reveal">Straight answers.</h2>
+    <div class="faq">
+      <details class="faq-item reveal">
+        <summary>Does it message our customers?</summary>
+        <div class="faq-body"><p>No — never on its own. Drafts are prepared and a salesperson presses send from their own number. There are zero automated replies to customers, by design, not by setting.</p></div>
+      </details>
+      <details class="faq-item reveal">
+        <summary>Does it replace our CRM?</summary>
+        <div class="faq-body"><p>No. It works your existing dealer CRM diary lists — today, overdue, completed — through the same action screens your staff use. No migration, no new system to learn, no rip-and-replace.</p></div>
+      </details>
+      <details class="faq-item reveal">
+        <summary>What stops it moving the wrong thing?</summary>
+        <div class="faq-body"><p>Three rails: bulk moves preview first and only execute on explicit approval; every move is verified entry-by-entry with a one-command undo; booked appointments, test drives and deliveries are guarded and listed for human review instead.</p></div>
+      </details>
+      <details class="faq-item reveal">
+        <summary>Who sees our customer data?</summary>
+        <div class="faq-body"><p>Triage and drafting can run on local models on your own hardware, so prospect data never leaves the building. Names and numbers are masked in every report. What I see during a pilot is what you show me — nothing more.</p></div>
+      </details>
+      <details class="faq-item reveal">
+        <summary>What does it cost?</summary>
+        <div class="faq-body"><p>Scoped fixed, quoted before any work starts — the pilot first, then per-salesperson rollout. Running costs (model usage, hosting) stay yours and are estimated honestly upfront. No hourly creep.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap wrap-narrow">
+    <div class="endcta glass reveal">
+      <h2 class="h2">Bring me your messiest diary.</h2>
+      <p class="lede" style="margin-inline:auto;margin-bottom:1.7rem">A 20-minute call. I&rsquo;ll tell you what the cleanup looks like — including &ldquo;don&rsquo;t bother&rdquo; if that&rsquo;s the honest answer.</p>
+      <a href="index.html#enquire" class="btn btn-primary btn-lg" data-track="aa_enquire">Start a pilot</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer class="footer">
+  <div class="wrap footer-grid">
+    <div class="footer-brand">
+      <img src="assets/jaxtech-mark.png" alt="Jaxtech" width="52" height="52">
+      <p class="footer-tag">AI-powered workflow.<br>South African ingenuity.</p>
+      <p class="footer-desc">Jaxtech builds custom AI agents that take a real task off your hands — business admin, reporting, research, and property automation.</p>
+    </div>
+    <div class="footer-col">
+      <h3>Explore</h3>
+      <ul>
+        <li><a href="skills.html">What it does</a></li>
+        <li><a href="autoagent.html">AutoAgent for dealerships</a></li>
+        <li><a href="platform.html">How it works</a></li>
+        <li><a href="about.html">About Jakes</a></li>
+        <li><a href="about.html#faq">FAQ</a></li>
+        <li><a href="platform.html">The technology</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h3>Get in touch</h3>
+      <ul>
+        <li><a href="#" class="js-tel">079 395 0395</a></li>
+        <li><a href="#" class="js-whatsapp">Talk to Tiny on WhatsApp</a></li>
+        <li><a href="#" class="js-telegram">Talk to Tiny on Telegram</a></li>
+        <li><a href="#" class="js-mail">nageljakes@gmail.com</a></li>
+        <li><a href="index.html#enquire">Work with Jakes</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h3>Where I work</h3>
+      <ul class="plain">
+        <li>Agent projects — remote, South Africa-wide</li>
+        <li>On-site work — Pretoria &amp; Centurion</li>
+        <li>Johannesburg &amp; Midrand</li>
+        <li>Further afield by arrangement</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bar wrap">
+    <p>&copy; <span id="year">2026</span> Jaxtech. All rights reserved.</p>
+    <p>Built in South Africa.</p>
+  </div>
+</footer>
+<!-- ══ STICKY MOBILE ACTION BAR ══ -->
+<div class="mobile-bar" id="mobile-bar">
+  <a href="#" class="mb-btn js-whatsapp" data-track="mobile_whatsapp"><span>💬</span>WhatsApp</a>
+  <a href="#" class="mb-btn js-telegram" data-track="mobile_telegram"><span>✈️</span>Telegram</a>
+  <a href="#" class="mb-btn js-tel" data-track="mobile_call"><span>📞</span>Call</a>
+  <a href="index.html#enquire" class="mb-btn mb-primary" data-track="mobile_enquire"><span>✦</span>Enquire</a>
+</div>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "AutoAgent — Dealership OS",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Web",
+  "url": "https://nageljakes.github.io/jaxtechweb/autoagent.html",
+  "description": "AI sales co-pilot for dealerships: prospect diary triage and rebalancing, dual-logged touchpoints, WhatsApp drafting from live stock.",
+  "offers": { "@type": "Offer", "description": "Fixed-scope two-week pilot on a single diary." },
+  "author": { "@type": "Person", "name": "Jakes Nagel", "email": "nageljakes@gmail.com" }
+}
+</script>
+
+<script src="script.js?v=22"></script>
+<script src="autoagent.js?v=1"></script>
+<div class="modal-overlay" id="detail-modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <div class="modal-header">
+                <div class="modal-icon" id="modal-icon">🎛️</div>
+                <h3 class="modal-title" id="modal-title">Unified Control</h3>
+            </div>
+            <div class="modal-body" id="modal-body">
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
