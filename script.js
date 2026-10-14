@@ -1173,19 +1173,19 @@ if (chatInput) {
                 body: 'Person-with-no-face is the common case — back of head, far, dark — so it stays in the log. Unknown faces get the full alarm, even in quiet hours.' }
     },
     {
-      task: 'The overdue diary is piling up. Triage it, log it, and move each follow-up.',
+      task: 'My prospect diary is overloaded — triage it and move every follow-up where it belongs.',
       steps: [
-        { text: 'List today + overdue diary',
+        { text: 'List the today + overdue diary',
           tools: [{ name: 'diary.py', arg: 'list · overdue', ms: 280 }] },
         { text: 'Score HOT vs FLUFF with the local CRM model',
           tools: [{ name: 'collective/crm', arg: 'triage · qwen3.5-4b', ms: 340 }] },
-        { text: 'Dual-log: diary entry + permanent record',
-          tools: [{ name: 'diary_action', arg: 'followup3.cfm + ERA', ms: 420 }] },
-        { text: 'Reschedule each follow-up to its next slot',
-          tools: [{ name: 'diary_action', arg: 'move-day', ms: 180 }] }
+        { text: 'Preview bulk moves, then shift with per-entry verification',
+          tools: [{ name: 'diary_action', arg: 'preview + verify · undo ready', ms: 420 }] },
+        { text: 'Dual-log every touchpoint: diary + permanent record',
+          tools: [{ name: 'diary_action', arg: 'followup3.cfm + ERA', ms: 180 }] }
       ],
-      result: { title: 'Diary triaged, logged twice, rescheduled',
-                body: 'Every touchpoint lands in the daily diary and the permanent record. Hot leads move first — fluff waits its turn.' }
+      result: { title: 'Diary triaged, moved, verified',
+                body: 'Single moves carry a short note; bulk shifts preview first with one-command undo. 100+ entries rebalanced across a week in one paced run. Entries move dates — never deleted.' }
     },
     {
       task: 'Customer asks on WhatsApp if we have a white Hilux under R500k. Answer from live stock.',
