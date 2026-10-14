@@ -75,48 +75,48 @@
 
     <section class="doc-block reveal">
       <h2 class="h2">The controller</h2>
-      <p>Every Jaxtech installation is built around a dedicated piece of hardware that lives on your property — not an app talking to someone else's data centre. It's the difference between a home that <em>depends</em> on the internet and one that merely <em>uses</em> it.</p>
-      <p>The controller draws very little power, sits behind your inverter or a small UPS, and holds the entire state of your home: every device, every rule, every event. When connectivity returns after an outage, it syncs. It never waits for permission to do its job.</p>
+      <p>Every Jaxtech home installation is built around a small computer that lives on your property — currently an Ubuntu box called tiny — talking to Home Assistant, not an app talking to someone else's data centre. It's the difference between a home that <em>depends</em> on the internet and one that merely <em>uses</em> it.</p>
+      <p>The controller sips power behind your inverter or a small UPS and holds the automations: bedroom occupancy + light levels, camera face-gating, voice via Assist. When connectivity returns after an outage, queued notifications sync. It never waits for permission to do its job.</p>
 
       <div class="cap-grid">
-        <div class="cap glass"><h3>Perception</h3><p>Sensors, cameras, meters and device states continuously read and interpreted.</p></div>
-        <div class="cap glass"><h3>Reasoning</h3><p>A local AI engine decides what a situation means and what should happen next.</p></div>
-        <div class="cap glass"><h3>Action</h3><p>Lights, geysers, pumps, blinds, gates and notifications driven through one control layer.</p></div>
-        <div class="cap glass"><h3>Memory</h3><p>History, routines and preferences stored privately on-site — the house learns your household.</p></div>
+        <div class="cap glass"><h3>Perception</h3><p>mmWave occupancy, lux, cameras, and device states read continuously — locally.</p></div>
+        <div class="cap glass"><h3>Reasoning</h3><p>Rules plus local models decide what a situation means and what happens next.</p></div>
+        <div class="cap glass"><h3>Action</h3><p>Lights, scenes, notifications and camera alerts driven through Home Assistant.</p></div>
+        <div class="cap glass"><h3>Memory</h3><p>History and preferences stay on-site — manual overrides always win for 2 hours.</p></div>
       </div>
     </section>
 
     <section class="doc-block reveal">
       <h2 class="h2">Why local AI matters</h2>
-      <p>Cloud smart-home platforms send your camera footage and household telemetry to a third party for processing. That's convenient for them and expensive for you — in privacy, in bandwidth, and in reliability the moment either end of the connection fails.</p>
-      <p>On an on-premises install, Jaxtech runs the models that matter on the box in your house. Person and vehicle recognition, presence detection and consumption analysis all execute locally — nothing about your family's movements needs to leave the property for the system to be intelligent.</p>
-      <p>Being straight about the exception: large language models are heavy. Where a project needs the reasoning of a big model, that part usually runs on <strong>hosted cloud inference</strong> — including the Tiny chat on the home page of this site. Running a big model on-premises is possible and sometimes the right call for sensitive work, but it costs more and runs slower, so it's a decision we make deliberately rather than a promise made by default.</p>
-      <p>Where cloud services genuinely add value — weather forecasts, remote access when you're away, message delivery — they're used as inputs, never as a single point of failure.</p>
+      <p>Cloud platforms send camera footage and household telemetry elsewhere for processing. That's convenient for them and expensive for you — in privacy, bandwidth, and reliability when either end fails.</p>
+      <p>On my own network today: Frigate does person/face/plate detection on the AI server GPU, the bedroom service fuses occupancy + lux on tiny, and the model fleet (LM Studio on an RTX 3060, role-routed) answers code, diary and chat jobs over the LAN. Nothing about family movements needs to leave the property to be intelligent.</p>
+      <p>Being straight about the exception: big reasoning models are heavy. The Tiny chat on this site runs on <strong>hosted cloud inference</strong> — your message goes to an AI provider for a reply, and I read it if you enquire. A custom agent for you can run on cloud, on your own hardware, or both. We decide that first, based on sensitivity.</p>
+      <p>Where cloud genuinely adds value — forecasts, remote access, message delivery — it's an input, never a single point of failure.</p>
     </section>
 
     <section class="doc-block reveal">
       <h2 class="h2">A worked example</h2>
-      <p>What "one coordinated system" actually looks like on an ordinary Tuesday evening:</p>
+      <p>What "one coordinated system" actually looks like — taken from services running today:</p>
       <div class="flow glass">
-        <div class="flow-step"><b>17:42</b><p>Grid drops. The controller detects the transfer to inverter and immediately holds the geyser and pool pump — protecting your battery reserve without you touching anything.</p></div>
-        <div class="flow-step"><b>17:43</b><p>Fibre router loses power. Cameras keep recording and analysing locally; the outside lights still respond to presence because none of that logic lives in the cloud.</p></div>
-        <div class="flow-step"><b>18:10</b><p>A vehicle stops at the gate. On-site recognition identifies it as unknown, so you get one clear message with a snapshot — not a generic motion alert.</p></div>
-        <div class="flow-step"><b>21:30</b><p>Power returns. Queued notifications sync, the geyser reschedules to heat in the cheapest window before your morning shower, and irrigation checks tomorrow's forecast before committing.</p></div>
-        <div class="flow-step"><b>06:00</b><p>Your morning briefing arrives on WhatsApp: what happened overnight, what the outage cost you, and what the house is planning today.</p></div>
+        <div class="flow-step"><b>22:00</b><p>Lights-out. The bedroom service force-offs the light on schedule — unless you overrode it manually in the last 2 hours, in which case it leaves you alone.</p></div>
+        <div class="flow-step"><b>Night</b><p>mmWave occupancy + lux gate the light: dark + breathing present → on at 2000K/10%. No motion dancing. Auto-off 60s after the room clears.</p></div>
+        <div class="flow-step"><b>Anytime</b><p>A person crosses the yard. Frigate waits 20s for recognition to settle — known face stays quiet, unknown face sends one Telegram photo with snapshot. No motion-spam.</p></div>
+        <div class="flow-step"><b>04:00</b><p>Weekday wake fade: 20 steps from 2000K/5% to 4300K/100% over 25 minutes, only when you're home. Weekends shift to 06:00.</p></div>
+        <div class="flow-step"><b>Day</b><p>Ask "hey Jarvis, turn off bedroom auto" and Assist obeys. Dashboard + voice + Telegram stay in sync because one service owns the state.</p></div>
       </div>
     </section>
 
     <section class="doc-block reveal">
       <h2 class="h2">The engineering behind it</h2>
-      <p>Jaxtech isn't a reseller putting someone else's box on your wall. The automation software, the tuning of the models that run on the edge hardware, and the integrations that make devices from a dozen incompatible brands behave like one product are all built here — by one person, which is why the scope of a project is always agreed honestly upfront.</p>
+      <p>Jaxtech isn't a reseller putting someone else's box on your wall. The bedroom service, the face-gate, the model router and the dealership tooling are built here — by one person, which is why scope is always agreed honestly upfront.</p>
 
       <div class="cap-grid">
-        <div class="cap glass"><h3>Machine learning &amp; edge AI</h3><p>Model fine-tuning, quantisation and deployment onto local hardware — including NVIDIA edge accelerators — so inference is fast and private.</p></div>
-        <div class="cap glass"><h3>Systems &amp; software engineering</h3><p>Full-stack development, automated testing and version-controlled deployment behind every install, so updates don't break your home.</p></div>
-        <div class="cap glass"><h3>Device &amp; protocol integration</h3><p>Deep integration work across cameras, inverters, meters, gate motors, sensors and lighting — regardless of manufacturer.</p></div>
-        <div class="cap glass"><h3>Security engineering</h3><p>Threat modelling, network segmentation and auditing applied to your home network, because a connected house is an attack surface.</p></div>
-        <div class="cap glass"><h3>Data &amp; reporting</h3><p>Consumption analysis and reporting that turns raw meter data into decisions you can act on.</p></div>
-        <div class="cap glass"><h3>Automation &amp; workflow design</h3><p>The discipline of turning "the geyser annoys me" into a reliable rule that works every day without supervision.</p></div>
+        <div class="cap glass"><h3>Local model fleet</h3><p>LM Studio on an RTX 3060, role-routed (<code>code</code>, <code>crm</code>, chat), single-GPU-resident with 5-min eviction. Smoke-tested, metered, LAN + Tailscale.</p></div>
+        <div class="cap glass"><h3>Systems &amp; software</h3><p>Python services under systemd, unit-tested (49 + 33 tests), version-controlled, with live logs — updates don't break your home.</p></div>
+        <div class="cap glass"><h3>Device &amp; protocol</h3><p>Tuya Local, MQTT, ONVIF/RTSP, Frigate + Home Assistant — cameras, lights, presence and voice behaving as one product.</p></div>
+        <div class="cap glass"><h3>Vision on the edge</h3><p>Frigate + TensorRT YOLO, face recognition + plates, person/dog tracking. Detection stays on your network.</p></div>
+        <div class="cap glass"><h3>Dealership ops</h3><p>WhatsApp companion indexing, CRM diary dual-logging, sub-10 ms stock search. Built from real dealership shifts.</p></div>
+        <div class="cap glass"><h3>Automation design</h3><p>Turning "the light annoys me" into a rule that works every day — manual always wins, quiet by default.</p></div>
       </div>
     </section>
 

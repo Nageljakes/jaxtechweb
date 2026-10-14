@@ -1143,166 +1143,95 @@ if (chatInput) {
 
   const RUNS = [
     {
-      task: 'Every Monday, pull last week’s sales, compare each rep against target, and email the team a summary.',
+      task: 'Walk into the bedroom after dark and the light is already right — no switches, no apps.',
       steps: [
-        { text: 'Pull last week’s closed deals from the CRM',
-          tools: [{ name: 'crm.query', arg: 'deals[status=won]', ms: 380 }] },
-        { text: 'Group by rep and region, total the values',
-          tools: [{ name: 'table.aggregate', arg: 'by=rep,region', ms: 90 }] },
-        { text: 'Compare each rep against their monthly target',
-          tools: [{ name: 'sheets.read', arg: 'targets!A2:D40', ms: 240 },
-                  { name: 'table.join', arg: 'on=rep_id', ms: 60 }] },
-        { text: 'Write the summary and send it to the team',
-          tools: [{ name: 'doc.compose', arg: 'weekly_summary', ms: 720 },
-                  { name: 'mail.send', arg: 'to=sales@… (4)', ms: 310 }] }
+        { text: 'Check occupancy + light level',
+          tools: [{ name: 'home-assistant-api', arg: 'states/occupancy + lux', ms: 60 }] },
+        { text: 'Pick the scene for the hour (night 2000K, morning 5000K)',
+          tools: [{ name: 'home-assistant-api', arg: 'light.turn_on · scene', ms: 120 }] },
+        { text: 'Respect a manual override — your switch always wins for 2h',
+          tools: [{ name: 'home-assistant-api', arg: 'states/manual_hold', ms: 40 }] },
+        { text: 'Auto-off 60s after the room clears',
+          tools: [{ name: 'home-assistant-api', arg: 'light.turn_off', ms: 55 }] }
       ],
-      result: { title: 'Report sent — 4 recipients, 2.1s',
-                body: 'Ran at 07:00 without anyone opening a laptop. Two reps flagged as behind target, with the shortfall shown in rands.' }
+      result: { title: 'Light on in the dark, off when empty',
+                body: 'Breathing-aware occupancy means it stays on while you read. One service owns the state — dashboard, voice and Telegram stay in sync.' }
     },
     {
-      task: 'Take the supplier invoices out of my inbox, check them against the purchase orders, and load them into the accounting system.',
+      task: 'Someone crosses the yard at night. Tell me only if I don’t know them — with a photo.',
       steps: [
-        { text: 'Find unread invoice attachments in the inbox',
-          tools: [{ name: 'mail.search', arg: 'has:pdf is:unread', ms: 210 }] },
-        { text: 'Read each PDF — supplier, line items, VAT, total',
-          tools: [{ name: 'pdf.extract', arg: '× 20 documents', ms: 1450 }] },
-        { text: 'Match every invoice to its purchase order',
-          tools: [{ name: 'erp.lookup', arg: 'po_number', ms: 430 },
-                  { name: 'rules.verify', arg: 'total ± tolerance', ms: 70 }] },
-        { text: 'Load the matches, hold anything that disagrees',
-          tools: [{ name: 'erp.create', arg: 'bills × 18', ms: 640 },
-                  { name: 'queue.flag', arg: 'review × 2', ms: 50 }] }
+        { text: 'Wait 20s for face recognition to settle',
+          tools: [{ name: 'frigate/events', arg: 'wait · settle 20s', ms: 210 }] },
+        { text: 'Fetch event + face crops for that visit',
+          tools: [{ name: 'frigate/api', arg: 'event · sub_label + crops', ms: 320 }] },
+        { text: 'Known face? Stay quiet. Unknown? Snap it',
+          tools: [{ name: 'telegram', arg: 'sendPhoto · snapshot', ms: 410 }] },
+        { text: 'One visit = one message (cooldown per camera)',
+          tools: [{ name: 'frigate-watch', arg: 'cooldown · 120s', ms: 40 }] }
       ],
-      result: { title: '18 invoices captured, 2 held for you',
-                body: 'The two held back disagreed with their purchase order by more than the tolerance. Nothing was posted without a match — that is the point.' }
+      result: { title: 'One photo for strangers, silence for family',
+                body: 'Person-with-no-face is the common case — back of head, far, dark — so it stays in the log. Unknown faces get the full alarm, even in quiet hours.' }
     },
     {
-      task: 'When the grid drops, protect the battery and tell me what it cost me — without waiting for me to do anything.',
+      task: 'The overdue diary is piling up. Triage it, log it, and move each follow-up.',
       steps: [
-        { text: 'Detect the transfer from grid to inverter',
-          tools: [{ name: 'home-assistant-api', arg: 'states/binary_sensor.grid', ms: 40 }] },
-        { text: 'Shed the heavy loads before the battery drains',
-          tools: [{ name: 'home-assistant-api', arg: 'switch.turn_off · geyser', ms: 60 },
-                  { name: 'home-assistant-api', arg: 'switch.turn_off · pool_pump', ms: 55 }] },
-        { text: 'Keep watching cameras and gates locally',
-          tools: [{ name: 'home-assistant-api', arg: 'states/binary_sensor.perimeter × 4', ms: 120 }] },
-        { text: 'When power returns, reschedule and report',
-          tools: [{ name: 'home-assistant-api', arg: 'automation.trigger · geyser_cheap', ms: 80 },
-                  { name: 'home-assistant-api', arg: 'notify.whatsapp', ms: 290 }] },
-        { text: 'Answer out loud when you ask what happened',
-          tools: [{ name: 'home-assistant-voice-pipelines', arg: 'intent · outage_report', ms: 210 }] }
+        { text: 'List today + overdue diary',
+          tools: [{ name: 'diary.py', arg: 'list · overdue', ms: 280 }] },
+        { text: 'Score HOT vs FLUFF with the local CRM model',
+          tools: [{ name: 'collective/crm', arg: 'triage · qwen3.5-4b', ms: 340 }] },
+        { text: 'Dual-log: diary entry + permanent record',
+          tools: [{ name: 'diary_action', arg: 'followup3.cfm + ERA', ms: 420 }] },
+        { text: 'Reschedule each follow-up to its next slot',
+          tools: [{ name: 'diary_action', arg: 'move-day', ms: 180 }] }
       ],
-      result: { title: 'Battery held at 61% — outage survived',
-                body: 'Geyser reheated after tariff dropped instead of on the battery. You got one WhatsApp when it was over, not five alerts during it.' }
+      result: { title: 'Diary triaged, logged twice, rescheduled',
+                body: 'Every touchpoint lands in the daily diary and the permanent record. Hot leads move first — fluff waits its turn.' }
     },
     {
-      task: 'I’m meeting a prospective client on Thursday. Tell me what I should already know before I walk in.',
+      task: 'Customer asks on WhatsApp if we have a white Hilux under R500k. Answer from live stock.',
       steps: [
-        { text: 'Map the company — registration, footprint, who owns it',
-          tools: [{ name: 'domain-intel', arg: 'company.co.za', ms: 420 },
-                  { name: 'duckduckgo-search', arg: 'company + directors', ms: 280 }] },
-        { text: 'Pull recent news and anything public that changed',
-          tools: [{ name: 'blogwatcher', arg: 'mentions, 90 days', ms: 350 },
-                  { name: 'parallel-cli', arg: 'fan-out × 12 sources', ms: 610 }] },
-        { text: 'Check the people who’ll be in the room',
-          tools: [{ name: 'osint-investigation', arg: 'attendees × 3', ms: 540 }] },
-        { text: 'Write it into something readable on the drive there',
-          tools: [{ name: 'docx', arg: 'brief_thursday', ms: 300 }] }
+        { text: 'Find the chat on the companion phone index',
+          tools: [{ name: 'jax-whatsapp-monitor', arg: ':9095 · passive index', ms: 180 }] },
+        { text: 'Search local stock in milliseconds',
+          tools: [{ name: 'inventory.search', arg: 'hilux + white + <R500k', ms: 12 }] },
+        { text: 'Draft the reply in the customer’s language',
+          tools: [{ name: 'collective/crm', arg: 'draft · af/en', ms: 320 }] },
+        { text: 'Salesperson approves — sent as them, never as a bot',
+          tools: [{ name: 'monitor/send', arg: 'companion number', ms: 240 }] }
       ],
-      result: { title: 'Two-page brief, 14 sources cited',
-                body: 'Includes the three things that changed at the company this quarter, and which person to ask about each one. Every claim links back to where it came from.' }
-    },
-    {
-      task: 'Take this product idea and put a real landing page live today so I can start sending people to it.',
-      steps: [
-        { text: 'Turn the brief into a layout and a visual direction',
-          tools: [{ name: 'frontend-design', arg: 'brief → layout', ms: 880 }] },
-        { text: 'Build the page properly, not a template',
-          tools: [{ name: 'web-artifacts-builder', arg: 'landing/index', ms: 1240 }] },
-        { text: 'Check it on the widths people actually use',
-          tools: [{ name: 'webapp-testing', arg: '390px, 1440px', ms: 760 }] },
-        { text: 'Put it on a URL you can share',
-          tools: [{ name: 'cloudflare-temporary-deploy', arg: 'preview', ms: 410 }] }
-      ],
-      result: { title: 'Live on a URL — 3.4s of agent time',
-                body: 'Checked at phone and desktop widths before it went up. Change a line of copy and it redeploys itself; you never open a dashboard.' }
-    },
-    {
-      task: 'We go live next month. Find what an attacker would find first, and tell me what to fix in what order.',
-      steps: [
-        { text: 'Model what someone would actually try against us',
-          tools: [{ name: 'security-threat-model', arg: 'surface map', ms: 520 }] },
-        { text: 'Probe the public surface the way they would',
-          tools: [{ name: 'web-pentest', arg: 'authenticated + anon', ms: 1680 }] },
-        { text: 'Check the dependencies for known trouble',
-          tools: [{ name: 'oss-forensics', arg: 'lockfile × 214 pkgs', ms: 740 }] },
-        { text: 'Rank it by what gets reached first',
-          tools: [{ name: 'security-best-practices', arg: 'report', ms: 390 }] }
-      ],
-      result: { title: '2 findings worth acting on today',
-                body: 'Ranked by what an attacker reaches first, not by scanner severity — which is why the list is short. Written in plain language, not a raw scan log.' }
-    },
-    {
-      task: 'Build me a valuation pack for this acquisition — comparables, a DCF, and something I can actually present.',
-      steps: [
-        { text: 'Pull comparable companies and their trading multiples',
-          tools: [{ name: 'comps-analysis', arg: 'peer set × 9', ms: 640 }] },
-        { text: 'Build the three statements from the financials',
-          tools: [{ name: '3-statement-model', arg: 'FY22–FY26', ms: 920 },
-                  { name: 'excel-author', arg: 'model.xlsx', ms: 380 }] },
-        { text: 'Run the DCF and stress the assumptions',
-          tools: [{ name: 'dcf-model', arg: 'wacc ± 150bps', ms: 780 }] },
-        { text: 'Assemble it into a deck for the meeting',
-          tools: [{ name: 'pptx-author', arg: 'valuation_pack', ms: 450 }] }
-      ],
-      result: { title: 'Valuation range, assumptions visible',
-                body: 'Every number traces back to a source you can open. The sensitivity table shows exactly where the range stops holding — which is the part people argue about.' }
-    },
-    {
-      task: 'I want it answering from our own documents and procedures, not from whatever it read on the internet.',
-      steps: [
-        { text: 'Index your documents so they can be retrieved properly',
-          tools: [{ name: 'chroma', arg: 'embed × 4,180 chunks', ms: 1120 }] },
-        { text: 'Fine-tune on the examples that represent the job',
-          tools: [{ name: 'fine-tuning-with-trl', arg: 'lora, 3 epochs', ms: 2400 }] },
-        { text: 'Score it against questions it has not seen',
-          tools: [{ name: 'evaluating-llms-harness', arg: 'held-out × 120', ms: 890 }] },
-        { text: 'Deploy it where you want it to run',
-          tools: [{ name: 'huggingface-accelerate', arg: 'quantise + serve', ms: 530 }] }
-      ],
-      result: { title: 'Grounded in your material, and measured',
-                body: 'Scored before and after, so the improvement is a number rather than a feeling. Can run on hardware you own if the documents are sensitive.' }
-    },
-    {
-      task: 'We’re launching this product. I need the visuals, the explainer and something for the video — in one style.',
-      steps: [
-        { text: 'Settle the campaign line and the key messages',
-          tools: [{ name: 'claude-design', arg: 'direction × 3', ms: 480 }] },
-        { text: 'Generate the product imagery in that direction',
-          tools: [{ name: 'comfyui', arg: 'hero + 6 variants', ms: 1850 }] },
-        { text: 'Build the graphic that explains how it works',
-          tools: [{ name: 'baoyu-infographic', arg: 'how_it_works', ms: 720 }] },
-        { text: 'Cut an audio bed for the launch video',
-          tools: [{ name: 'audiocraft-audio-generation', arg: '30s bed', ms: 960 }] }
-      ],
-      result: { title: 'Full asset set in one visual language',
-                body: 'Imagery, an explainer graphic and audio that look and sound like they belong together — ready to hand to whoever runs your channels.' }
+      result: { title: 'Correct stock + photos drafted in seconds',
+                body: 'Zero automated replies to customers. The co-pilot drafts, the salesperson sends — in Afrikaans or English.' }
     },
     {
       task: 'Review this repository like a senior engineer would, and get the build passing again.',
       steps: [
-        { text: 'Read the repository and map how it fits together',
-          tools: [{ name: 'codebase-inspection', arg: '412 files', ms: 1340 }] },
+        { text: 'Read the repo with the local code model',
+          tools: [{ name: 'collective/code', arg: 'qwen2.5-coder-14b', ms: 1340 }] },
         { text: 'Review the open pull request properly',
           tools: [{ name: 'github-code-review', arg: 'PR #128', ms: 880 }] },
-        { text: 'Work out why the build is actually failing',
+        { text: 'Reproduce the CI failure locally',
           tools: [{ name: 'gh-fix-ci', arg: 'reproduce locally', ms: 620 }] },
-        { text: 'Push the fix and answer the review threads',
+        { text: 'Push the fix and answer each thread',
           tools: [{ name: 'github-pr-workflow', arg: 'push + reply × 6', ms: 410 }] }
       ],
       result: { title: 'CI green, 6 comments addressed',
-                body: 'Each comment answered on its own thread with the reasoning, so the author can disagree with something specific instead of a wall of changes.' }
-    }
+                body: 'Runs on the LAN fleet where possible, cloud where reasoning needs it. Each comment answered with reasoning, not a wall of changes.' }
+    },
+    {
+      task: 'A code job arrives. Give it the right model without hogging the GPU all day.',
+      steps: [
+        { text: 'Route by role, not by guessing',
+          tools: [{ name: 'routerd', arg: 'collective/code · :18790', ms: 40 }] },
+        { text: 'JIT-load the specialist (evict the last one if VRAM is full)',
+          tools: [{ name: 'lms', arg: 'load qwen2.5-coder-14b -c 16384', ms: 2100 }] },
+        { text: 'Run the job, then let it evaporate after 5 min idle',
+          tools: [{ name: 'routerd', arg: 'TTL · 5m', ms: 30 }] },
+        { text: 'CPU guards stay resident the whole time',
+          tools: [{ name: 'granite-guardian', arg: 'persistent · CPU', ms: 20 }] }
+      ],
+      result: { title: 'Right model, just in time',
+                body: 'One GPU resident at a time on the 12GB 3060. Smoke-tested Oct 2026 — code, CRM and chat roles each know their model.' }
+    },
   ];
 
   const panel = document.getElementById('run-panel');

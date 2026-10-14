@@ -111,8 +111,8 @@
 <!-- ══ TICKER ══ -->
 <div class="marquee" aria-hidden="true">
   <div class="marquee-track">
-    <span>Give Tiny a task</span><span>198 skills, 20 domains</span><span>Plans · calls tools · finishes</span><span>Built in South Africa</span>
-    <span>Give Tiny a task</span><span>198 skills, 20 domains</span><span>Plans · calls tools · finishes</span><span>Built in South Africa</span>
+    <span>Local AI fleet · live on your network</span><span>Home automation that runs itself</span><span>Dealership OS · diary handled</span><span>Built in South Africa</span>
+    <span>Local AI fleet · live on your network</span><span>Home automation that runs itself</span><span>Dealership OS · diary handled</span><span>Built in South Africa</span>
   </div>
 </div>
 
@@ -124,13 +124,13 @@
       <a class="signpost" href="what-tiny-does.html">
         <span class="signpost-tag">Watch it work</span>
         <b>What Tiny does</b>
-        <span class="signpost-p">Ten real runs, start to finish — plan, tool calls, result.</span>
+        <span class="signpost-p">Real runs from this homelab — bedroom light, face-gate cameras, diary moves.</span>
         <span class="signpost-go">See the runs</span>
       </a>
       <a class="signpost" href="skills.html">
         <span class="signpost-tag">The catalogue</span>
         <b>198 skills</b>
-        <span class="signpost-p">Everything Tiny can put to work today, across twenty domains.</span>
+        <span class="signpost-p">The full tool catalogue Tiny can put to work, across twenty domains.</span>
         <span class="signpost-go">Browse the skills</span>
       </a>
       <a class="signpost" href="about.html">
@@ -147,43 +147,33 @@
   <div class="wrap">
     <p class="kicker reveal">Receipts</p>
     <h2 class="h2 reveal">Don&rsquo;t take my word for it.</h2>
-    <p class="lede reveal">Most of this industry asks you to trust a wall of logos. Here is what is actually running behind this page, and how you can check it.</p>
+    <p class="lede reveal">This is what is actually running behind this page — on my own network, today — and how you can check it.</p>
 
     <div class="receipts">
       <div class="receipt reveal">
+        <span class="receipt-tag">Local AI fleet</span>
+        <b>Models running on hardware I own</b>
+        <p>An RTX 3060 box serves the fleet through LM Studio, fronted by a role router on tiny (<code>collective/code</code>, <code>collective/crm</code>). One GPU model resident at a time, 5-minute idle eviction, smoke-tested Oct 2026. No data leaves the building unless we choose cloud for a job.</p>
+      </div>
+      <div class="receipt reveal">
+        <span class="receipt-tag">Home automation</span>
+        <b>Bedroom light + face-gate cameras, live</b>
+        <p>mmWave occupancy + lux drives the bedroom light with sunrise fade and manual override. Two ONVIF cameras run Frigate with face recognition + plates; known faces stay quiet, unknown ones send one Telegram photo. 49 + 33 unit tests, systemd services, logs to prove it.</p>
+      </div>
+      <div class="receipt reveal">
+        <span class="receipt-tag">Dealership OS</span>
+        <b>Diary follow-ups that don&rsquo;t slip</b>
+        <p>AutoAgent watches the salesperson&rsquo;s WhatsApp companion phone, dual-logs touchpoints into the dealer CRM diary + permanent record, and reschedules follow-ups itself. Stock lookup under 10 ms, Afrikaans and English.</p>
+      </div>
+      <div class="receipt reveal">
         <span class="receipt-tag">In production</span>
         <b>The chat you just used is live infrastructure</b>
-        <p>It runs on Cloudflare Workers AI with a vector index for retrieval, <code>D1</code> and <code>KV</code> behind the enquiry form, Turnstile on submissions and per-IP rate limiting. Not a prototype behind a demo button.</p>
-      </div>
-      <div class="receipt reveal">
-        <span class="receipt-tag">Shipped through a gate</span>
-        <b>Nothing reaches production unreviewed</b>
-        <p>Every change deploys to a separate <code>tiny-test</code> worker first. Only a reviewed merge to <code>main</code> goes live. This page went out that way, and so would your agent.</p>
-      </div>
-      <div class="receipt reveal">
-        <span class="receipt-tag">Cost is bounded</span>
-        <b>A bad day has a ceiling</b>
-        <p>Inference spend is metered against a daily budget in the worker itself. When it is reached, Tiny falls back gracefully instead of quietly running up a bill.</p>
-      </div>
-      <div class="receipt reveal">
-        <span class="receipt-tag">Counted, not claimed</span>
-        <b>198 skills across 20 domains</b>
-        <p>That figure is read from the live catalogue on this site every time the page loads &mdash; it cannot drift from what is actually there. <a href="skills.html">Search it yourself</a>.</p>
-      </div>
-      <div class="receipt reveal">
-        <span class="receipt-tag">Two stacks, deliberately</span>
-        <b>Not locked to one vendor</b>
-        <p>This site runs on Cloudflare. A separate build on Google&rsquo;s Agent Development Kit with Gemini on Cloud Run handles agent work, and that code is <a href="https://github.com/Nageljakes/jaxtech-tiny-agent" rel="noopener">public on GitHub</a>.</p>
-      </div>
-      <div class="receipt reveal">
-        <span class="receipt-tag">Runs on itself</span>
-        <b>It reports in every morning</b>
-        <p>A scheduled job summarises the day&rsquo;s enquiries and chats at 06:00 and sends the digest out. The automation Jaxtech sells is the automation Jaxtech uses.</p>
+        <p>It runs on Cloudflare Workers with retrieval, <code>D1</code> and <code>KV</code> behind the enquiry form, Turnstile on submissions and per-IP rate limiting. Changes deploy to a <code>tiny-test</code> worker first — only a reviewed merge to <code>main</code> goes live.</p>
       </div>
     </div>
 
     <div class="receipt-note reveal">
-      <p><strong>What is not here:</strong> client logos. The systems above are my own, and I would rather show you something you can inspect than a badge you cannot.</p>
+      <p><strong>What is not here:</strong> client logos. The systems above are my own, and I would rather show you something you can inspect than a badge you cannot. Full catalogue: <a href="skills.html">198 skills across 20 domains</a>.</p>
     </div>
   </div>
 </section>
@@ -202,15 +192,13 @@
       <div class="hp" aria-hidden="true"><label>Leave this empty<input type="text" name="company_website" tabindex="-1" autocomplete="off"></label></div>
 
       <div class="field">
-        <label id="domains-label">Which domains do you want Tiny working in? <small>Pick any</small></label>
+        <label id="domains-label">What do you want Tiny working on? <small>Pick any</small></label>
         <div class="chips" role="group" aria-labelledby="domains-label" id="domains-group">
-          <label class="chip"><input type="checkbox" name="interests" value="Smart home &amp; property" id="domain-home"><span>🏠 Smart home &amp; property</span></label>
-          <label class="chip"><input type="checkbox" name="interests" value="Business &amp; operations"><span>💼 Business &amp; operations</span></label>
-          <label class="chip"><input type="checkbox" name="interests" value="Software &amp; automation"><span>🛠️ Software &amp; automation</span></label>
-          <label class="chip"><input type="checkbox" name="interests" value="Research &amp; analysis"><span>🔍 Research &amp; analysis</span></label>
-          <label class="chip"><input type="checkbox" name="interests" value="Finance &amp; reporting"><span>📊 Finance &amp; reporting</span></label>
-          <label class="chip"><input type="checkbox" name="interests" value="Creative &amp; content"><span>🎨 Creative &amp; content</span></label>
-          <label class="chip"><input type="checkbox" name="interests" value="Personal admin"><span>📅 Personal admin</span></label>
+          <label class="chip"><input type="checkbox" name="interests" value="Home automation" id="domain-home"><span>🏠 Home automation</span></label>
+          <label class="chip"><input type="checkbox" name="interests" value="Dealership / business ops"><span>💼 Dealership / ops</span></label>
+          <label class="chip"><input type="checkbox" name="interests" value="Software & agents"><span>🛠️ Software & agents</span></label>
+          <label class="chip"><input type="checkbox" name="interests" value="Local AI setup"><span>🖥️ Local AI setup</span></label>
+          <label class="chip"><input type="checkbox" name="interests" value="Reports & research"><span>📊 Reports & research</span></label>
           <label class="chip"><input type="checkbox" name="interests" value="Not sure yet"><span>🤔 Not sure yet</span></label>
         </div>
       </div>
@@ -240,30 +228,6 @@
           <p class="err" data-err-for="f-area"></p>
         </div>
       </div>
-
-      <fieldset id="fields-property" hidden disabled style="border: 0; margin: 0; padding: 0;">
-        <div class="field">
-          <label for="f-property">Property type</label>
-          <div class="seg" role="radiogroup" aria-label="Property type">
-            <label class="seg-opt"><input type="radio" name="property" value="House" checked><span>House</span></label>
-            <label class="seg-opt"><input type="radio" name="property" value="Estate home"><span>Estate home</span></label>
-            <label class="seg-opt"><input type="radio" name="property" value="Smallholding / farm"><span>Smallholding</span></label>
-            <label class="seg-opt"><input type="radio" name="property" value="Business premises"><span>Business</span></label>
-          </div>
-        </div>
-
-        <div class="field">
-          <label id="int-label">What matters most in your home? <small>Pick any</small></label>
-          <div class="chips" role="group" aria-labelledby="int-label">
-            <label class="chip"><input type="checkbox" name="interests" value="Energy &amp; load-shedding"><span>⚡ Energy &amp; load-shedding</span></label>
-            <label class="chip"><input type="checkbox" name="interests" value="Security &amp; cameras"><span>🛡️ Security &amp; cameras</span></label>
-            <label class="chip"><input type="checkbox" name="interests" value="Water &amp; irrigation"><span>💧 Water &amp; irrigation</span></label>
-            <label class="chip"><input type="checkbox" name="interests" value="Geyser &amp; heating"><span>♨️ Geyser &amp; heating</span></label>
-            <label class="chip"><input type="checkbox" name="interests" value="Lighting &amp; comfort"><span>💡 Lighting &amp; comfort</span></label>
-            <label class="chip"><input type="checkbox" name="interests" value="One app for everything"><span>📱 One app for everything</span></label>
-          </div>
-        </div>
-      </fieldset>
 
       <div class="field">
         <label for="f-message">Anything else you'd like to add?</label>
