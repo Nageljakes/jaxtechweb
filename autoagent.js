@@ -310,4 +310,91 @@
     ids.forEach(function (id) { els[id].addEventListener('input', calc); });
     calc();
   })();
+
+  /* ── Demo 6: Ask Tiny (live inference, same provider as homepage chat) ──
+     Open questions go to /api/chat; measured data stays with the demos
+     above. Replies render as text (never HTML) and the free preview ends
+     after 5 questions with a handoff to the enquiry form. */
+  (function ask() {
+    var feed = document.getElementById('aq-chat');
+    var input = document.getElementById('aq-input');
+    var send = document.getElementById('aq-send');
+    if (!feed || !input || !send) return;
+    var ORIGIN = 'https://tiny.jaxtech.workers.dev';
+    try {
+      if (typeof API_ORIGIN !== 'undefined' && API_ORIGIN) ORIGIN = API_ORIGIN;
+    } catch (e) { /* shared script not loaded — fallback stands */ }
+    var convo = [], sent = 0, busy = false;
+
+    function bubble(me, text) {
+      var d = document.createElement('div');
+      d.className = 'wa-bubble show ' + (me ? 'wa-me' : 'wa-them');
+      d.style.whiteSpace = 'pre-wrap';
+      d.textContent = text;
+      feed.appendChild(d);
+      return d;
+    }
+    function fallback() {
+      var d = document.createElement('div');
+      d.className = 'wa-bubble show wa-them';
+      d.textContent = "Can't reach Tiny from this network right now — some SA mobile networks block this connection. ";
+      var a = document.createElement('a');
+      a.href = 'index.html#enquire';
+      a.textContent = 'Send an enquiry instead';
+      d.appendChild(a);
+      d.appendChild(document.createTextNode(' — it will still reach Jakes.'));
+      feed.appendChild(d);
+    }
+    function done(th, text, reply) {
+      th.remove();
+      bubble(false, reply);
+      convo.push({ role: 'user', content: text }, { role: 'assistant', content: reply });
+      busy = false;
+    }
+    function poll(id, th, text) {
+      var n = 0;
+      var iv = setInterval(async function () {
+        if (++n > 20) {
+          clearInterval(iv); th.remove(); fallback(); busy = false; return;
+        }
+        try {
+          var r = await fetch(ORIGIN + '/api/chat-poll?id=' + encodeURIComponent(id));
+          if (r.ok) {
+            var d = await r.json();
+            if (d.reply) { clearInterval(iv); done(th, text, d.reply); }
+          }
+        } catch (e) { /* keep polling */ }
+      }, 2000);
+    }
+    async function run() {
+      var text = (input.value || '').trim();
+      if (!text || busy) return;
+      if (sent >= 5) {
+        bubble(false, "That's the free preview — pop your details in the enquiry form and Jakes picks up exactly where we left off.");
+        return;
+      }
+      busy = true; sent++;
+      bubble(true, text);
+      input.value = '';
+      var th = bubble(false, 'Thinking…');
+      try {
+        var ctrl = new AbortController();
+        var timer = setTimeout(function () { ctrl.abort(); }, 15000);
+        var res = await fetch(ORIGIN + '/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: text, opener: false, history: convo.slice(-8) }),
+          signal: ctrl.signal
+        });
+        clearTimeout(timer);
+        if (!res.ok) throw new Error('http ' + res.status);
+        var data = await res.json();
+        if (data.reply) done(th, text, data.reply);
+        else if (data.pending_id) poll(data.pending_id, th, text);
+        else throw new Error('empty');
+      } catch (e) { th.remove(); fallback(); busy = false; }
+    }
+    send.addEventListener('click', run);
+    input.addEventListener('keydown', function (e) { if (e.key === 'Enter') run(); });
+  })();
 })();
